@@ -7,6 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+/**
+ * 
+ * @author DUBUIS Michael
+ *
+ */
 public class JpaDao implements IDao {
 	private EntityManagerFactory emf;
 	private EntityManager em;
