@@ -8,7 +8,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
+<<<<<<< HEAD
  * Implementation of <code>IDao</code>
+=======
+ * 
+>>>>>>> branch 'master' of https://github.com/Shadow3333/projet_EDT
  * @author DUBUIS Michael
  *
  */
