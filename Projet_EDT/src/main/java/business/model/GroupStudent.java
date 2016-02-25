@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import business.model.EU.LessonType;
 import business.model.users.AbstractUser;
@@ -16,6 +18,11 @@ import business.model.users.AbstractUser;
  *
  */
 @Entity
+@NamedQueries({
+	@NamedQuery(
+			name="findAll",
+			query="SELECT g FROM GroupStudent g")
+})
 public class GroupStudent {
 	@Id
 	@GeneratedValue

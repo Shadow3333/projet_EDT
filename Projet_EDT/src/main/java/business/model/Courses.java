@@ -8,6 +8,8 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * Courses presents every possible courses.
@@ -16,6 +18,11 @@ import javax.persistence.JoinColumn;
  *
  */
 @Entity
+@NamedQueries({
+	@NamedQuery(
+			name="findAll",
+			query="SELECT c FROM Courses c")
+})
 public class Courses {
 	@Id
 	private String id;

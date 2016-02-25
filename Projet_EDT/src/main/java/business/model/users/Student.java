@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import business.model.GroupEU;
 
@@ -16,6 +18,11 @@ import business.model.GroupEU;
  *
  */
 @Entity
+@NamedQueries({
+	@NamedQuery(
+			name="findAll",
+			query="SELECT s FROM Student s")
+})
 public class Student extends AbstractUser {
 	@Column
 	private String idCourses;

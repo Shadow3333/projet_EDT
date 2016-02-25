@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * EU describes a teaching unit
@@ -18,6 +20,11 @@ import javax.persistence.MapKeyEnumerated;
  *
  */
 @Entity
+@NamedQueries({
+	@NamedQuery(
+			name="findAll",
+			query="SELECT e FROM EU e")
+})
 public class EU {
 	public static enum LessonType {
 		TD,

@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -29,6 +31,11 @@ import javax.persistence.Table;
 		name = "UserType",
 		discriminatorType = DiscriminatorType.STRING)
 @Table(name="Users")
+@NamedQueries({
+	@NamedQuery(
+			name="findAll",
+			query="SELECT u FROM AbstractUser u")
+})
 public abstract class AbstractUser {
 	public static enum PhoneType {
 		mobile,

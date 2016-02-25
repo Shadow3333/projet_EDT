@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * GroupEU represent a set of one or several EUs
@@ -18,6 +20,11 @@ import javax.persistence.MapKeyColumn;
  *
  */
 @Entity
+@NamedQueries({
+	@NamedQuery(
+			name="findAll",
+			query="SELECT g FROM GroupEU g")
+})
 public class GroupEU {
 	@Id
 	private Long id;

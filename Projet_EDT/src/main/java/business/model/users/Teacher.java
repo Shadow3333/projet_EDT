@@ -6,6 +6,8 @@ import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import business.model.EU;
 
@@ -15,6 +17,11 @@ import business.model.EU;
  *
  */
 @Entity
+@NamedQueries({
+	@NamedQuery(
+			name="findAll",
+			query="SELECT t FROM Teacher t")
+})
 public class Teacher extends AbstractUser {
 	@ElementCollection
 	@CollectionTable(
