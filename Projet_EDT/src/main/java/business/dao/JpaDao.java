@@ -8,7 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- * 
+ * Implementation of <code>IDao</code>
  * @author DUBUIS Michael
  *
  */
