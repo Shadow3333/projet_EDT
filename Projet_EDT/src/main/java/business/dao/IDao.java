@@ -3,6 +3,9 @@ package business.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import business.dao.jpa.JpaDaoException;
+import business.dao.jpa.SearchSettings;
+
 /**
  * 
  * @author DUBUIS Michael
@@ -95,7 +98,24 @@ public interface IDao {
 	public <T> boolean[] removeByIds(Class<T> type, Serializable... ids);
 	
 	// Search
-	// Not yet
+	/**
+	 * Looking for entities depending on the keyword relative to the field
+	 * @param type
+	 * @param field
+	 * @param key
+	 * @return
+	 */
+	public <T> List<T> search(Class<T> type, String field, String key)
+			throws DaoException;
+	
+	/**
+	 * Looking for entities depending to the fields parameter
+	 * @param type
+	 * @param setting
+	 * @return
+	 */
+	public <T> List<T> search(Class<T> type, SearchSettings setting)
+			throws DaoException;
 	
 	// Other
 	/**

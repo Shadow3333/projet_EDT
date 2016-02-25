@@ -10,11 +10,6 @@ import javax.persistence.NamedQuery;
  *
  */
 @Entity
-@NamedQueries({
-	@NamedQuery(
-			name="findAll",
-			query="SELECT a FROM Admin a")
-})
 public class Admin extends Teacher {
 	
 	/**
