@@ -3,6 +3,11 @@ package business.dao;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * 
+ * @author DUBUIS Michael
+ *
+ */
 public interface IDao {
 	// Create
 	/**
