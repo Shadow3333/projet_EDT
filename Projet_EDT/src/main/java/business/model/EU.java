@@ -20,11 +20,6 @@ import javax.persistence.NamedQuery;
  *
  */
 @Entity
-@NamedQueries({
-	@NamedQuery(
-			name="findAll",
-			query="SELECT e FROM EU e")
-})
 public class EU {
 	public static enum LessonType {
 		TD,

@@ -18,11 +18,6 @@ import business.model.users.AbstractUser;
  *
  */
 @Entity
-@NamedQueries({
-	@NamedQuery(
-			name="findAll",
-			query="SELECT g FROM GroupStudent g")
-})
 public class GroupStudent {
 	@Id
 	@GeneratedValue

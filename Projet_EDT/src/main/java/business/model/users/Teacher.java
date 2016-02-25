@@ -6,6 +6,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
@@ -17,23 +18,18 @@ import business.model.EU;
  *
  */
 @Entity
-@NamedQueries({
-	@NamedQuery(
-			name="findAll",
-			query="SELECT t FROM Teacher t")
-})
 public class Teacher extends AbstractUser {
-	@ElementCollection
+	@ManyToMany
 	@CollectionTable(
 			name = "TeacherTDs",
 			joinColumns = @JoinColumn(name = "UserEmail"))
 	private List<EU> td;
-	@ElementCollection
+	@ManyToMany
 	@CollectionTable(
 			name = "TeacherTPs",
 			joinColumns = @JoinColumn(name = "UserEmail"))
 	private List<EU> tp;
-	@ElementCollection
+	@ManyToMany
 	@CollectionTable(
 			name = "TeacherCMs",
 			joinColumns = @JoinColumn(name = "UserEmail"))

@@ -31,11 +31,6 @@ import javax.persistence.Table;
 		name = "UserType",
 		discriminatorType = DiscriminatorType.STRING)
 @Table(name="Users")
-@NamedQueries({
-	@NamedQuery(
-			name="findAll",
-			query="SELECT u FROM AbstractUser u")
-})
 public abstract class AbstractUser {
 	public static enum PhoneType {
 		mobile,

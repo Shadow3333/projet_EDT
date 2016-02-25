@@ -9,6 +9,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,28 +21,23 @@ import javax.persistence.NamedQuery;
  *
  */
 @Entity
-@NamedQueries({
-	@NamedQuery(
-			name="findAll",
-			query="SELECT g FROM GroupEU g")
-})
 public class GroupEU {
 	@Id
 	private Long id;
 	@Column
 	private Boolean optionnal;
-	@ElementCollection
+	@ManyToMany
 	@CollectionTable(
 			name = "GroupEUListEU",
 			joinColumns = @JoinColumn(name = "GroupEUId"))
 	private List<EU> eus;
-	@ElementCollection
+	@ManyToMany
 	@CollectionTable(
 			joinColumns = @JoinColumn(name="GroupEUId"))
 	@MapKeyColumn(name = "GroupNumber")
 	@Column(name = "GroupTD")
 	private Map<Integer, GroupStudent> td;
-	@ElementCollection
+	@ManyToMany
 	@CollectionTable(
 			joinColumns = @JoinColumn(name="GroupEUId"))
 	@MapKeyColumn(name = "GroupNumber")

@@ -5,7 +5,7 @@
 	<artifactId>Projet_EDT</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
-	
+
 	<developers>
 		<developer>
 			<email>dalalzouai.DZ@gmail.com</email>
@@ -49,9 +49,9 @@
 				<role>Tester</role>
 			</roles>
 		</developer>
-		
+
 	</developers>
-	
+
 	<build>
 		<resources>
 			<resource>
@@ -72,12 +72,18 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<dependencies>
-		<dependency>
+		<dependency> <!-- FOR JPA -->
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.1-api</artifactId>
 			<version>1.0.0.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
+
 	</dependencies>
 </project>
