@@ -16,6 +16,7 @@ public class IllegalAccessException extends Exception {
 	 * 
 	 */
 	public IllegalAccessException() {
+		super();
 	}
 
 	/**

@@ -17,6 +17,7 @@ import javax.persistence.metamodel.Metamodel;
 
 import business.dao.DaoException;
 import business.dao.IDao;
+import business.dao.ISearchSettings;
 
 /**
  * Implementation of <code>IDao</code>
@@ -111,12 +112,12 @@ public class JpaDao implements IDao {
 
 	public <T> List<T> search(Class<T> type, String field, String key)
 			throws DaoException {
-		SearchSettings setting = new SearchSettings();
+		JpaSearchSettings setting = new JpaSearchSettings();
 		setting.withKeyToField(field, key);
 		return search(type, setting);
 	}
 
-	public <T> List<T> search(Class<T> type, SearchSettings setting)
+	public <T> List<T> search(Class<T> type, ISearchSettings setting)
 			throws DaoException {
 		/*
 		 * READ BEFORE MODIFICATIONS :

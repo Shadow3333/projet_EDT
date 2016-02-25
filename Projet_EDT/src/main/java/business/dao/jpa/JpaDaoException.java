@@ -18,6 +18,7 @@ public class JpaDaoException extends DaoException {
 	 * 
 	 */
 	public JpaDaoException() {
+		super();
 	}
 
 	/**

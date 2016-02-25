@@ -5,25 +5,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import business.dao.ISearchSettings;
+
 /**
+ * This class is used to search function
+ * It contains two Map one for restriction with, second for restriction without
  * @author DUBUIS Michael
- *
+ * 
  */
-public class SearchSettings {
+public class JpaSearchSettings implements ISearchSettings {
 	private Map<String, List<Object>> with;
 	private Map<String, List<Object>> without;
 	
 	/**
 	 * Empty constructor
 	 */
-	public SearchSettings() {}
+	public JpaSearchSettings() {}
 	
-	/**
-	 * Add all key to found in a field
-	 * @param field
-	 * @param keys
-	 * @throws IllogicArgumentException
-	 */
 	public void withKeyToField(String field, Object... keys) throws IllogicArgumentException {
 		if(with == null) {
 			with = new HashMap<String, List<Object>>();
@@ -41,12 +39,6 @@ public class SearchSettings {
 		}
 	}
 	
-	/**
-	 * Add all key to exclude in a field
-	 * @param field
-	 * @param keys
-	 * @throws IllogicArgumentException
-	 */
 	public void withoutKeyToField(String field, Object... keys) throws IllogicArgumentException {
 		if(without == null) {
 			without = new HashMap<String, List<Object>>();
@@ -64,17 +56,19 @@ public class SearchSettings {
 		}
 	}
 
-	/**
-	 * @return the with
-	 */
 	public Map<String, List<Object>> getWith() {
 		return with;
 	}
 
-	/**
-	 * @return the without
-	 */
 	public Map<String, List<Object>> getWithout() {
 		return without;
+	}
+
+	public void resetWith() {
+		with = null;
+	}
+
+	public void resetWithout() {
+		without = null;
 	}
 }

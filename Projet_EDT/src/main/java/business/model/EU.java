@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 
 /**
  * EU describes a teaching unit

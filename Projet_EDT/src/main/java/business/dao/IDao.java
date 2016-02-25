@@ -3,9 +3,6 @@ package business.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import business.dao.jpa.JpaDaoException;
-import business.dao.jpa.SearchSettings;
-
 /**
  * 
  * @author DUBUIS Michael
@@ -114,7 +111,7 @@ public interface IDao {
 	 * @param setting
 	 * @return
 	 */
-	public <T> List<T> search(Class<T> type, SearchSettings setting)
+	public <T> List<T> search(Class<T> type, ISearchSettings setting)
 			throws DaoException;
 	
 	// Other
