@@ -18,6 +18,8 @@ import javax.persistence.MapKeyEnumerated;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 
+import util.Hasher;
+
 /**
  * This class describes an user.
  * @author DUBUIS Michael
@@ -159,5 +161,13 @@ public abstract class AbstractUser {
 	 */
 	public void setPhones(Map<PhoneType, String> phones) {
 		this.phones = phones;
+	}
+	
+	/**
+	 * set hashPwd with hash of password
+	 * @param password
+	 */
+	public void setPassword(String password) {
+		hashPwd = Hasher.SHA256(password);
 	}
 }
