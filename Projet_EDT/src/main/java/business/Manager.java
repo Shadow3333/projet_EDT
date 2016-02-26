@@ -1,6 +1,8 @@
 package business;
 
-import java.util.List;
+import java.util.Map;
+
+import javax.management.RuntimeErrorException;
 
 import business.dao.IDao;
 import business.model.users.AbstractUser;
@@ -14,7 +16,7 @@ public class Manager {
 
 	private IDao dao;
 	private static Manager currentInstance = null;
-	private List<AbstractUser> userList;
+	private Map<String, AbstractUser> userMap;
 	
 	private Manager(){}
 	
@@ -22,6 +24,9 @@ public class Manager {
 	 * @return
 	 */
 	public static Manager newInstance() {
+		if(currentInstance != null) 
+			throw new RuntimeErrorException(null, "This class is already instantiated");
+		
 		currentInstance = new Manager();
 		return currentInstance;
 	}
@@ -31,6 +36,9 @@ public class Manager {
 	 * @return
 	 */
 	public static Manager newInstance(IDao dao) {
+		if(currentInstance != null) 
+			throw new RuntimeErrorException(null, "This class is already instantiated");		
+		
 		currentInstance = new Manager();
 		currentInstance.dao = dao;
 		return currentInstance;
@@ -41,12 +49,13 @@ public class Manager {
 	 * @param hashPwd
 	 */
 	public synchronized boolean login(String email, String hashPwd) {
-		AbstractUser user = currentInstance.dao.find(AbstractUser.class, email);
-		if(userList.contains(user))
+		if(userMap.containsKey(email))
 			return false;
-		if(user.getHashPwd().equals(hashPwd))
+		
+		AbstractUser user = currentInstance.dao.find(AbstractUser.class, email);
+		if(user.getHashPwd().equals(hashPwd) && user != null)
 		{
-			userList.add(user);
+			userMap.put(email, user);
 			return true;
 		}
 		return false;
