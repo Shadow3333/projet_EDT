@@ -128,7 +128,8 @@ public class SessionFactoryTest {
 		assertNotNull(session);
 	}
 	
-	@Test
+	@SuppressWarnings("unused")
+	@Test(expected = IllegalArgumentException.class)
 	public void notStaticUnexistentEU() throws Exception {
 		factory.setCourses(courses);
 		factory.setDate(date);
@@ -138,9 +139,6 @@ public class SessionFactoryTest {
 		factory.setRoom("A001");
 		
 		Session session = factory.createSession();
-		
-		assertTrue(session instanceof Session);
-		assertNotNull(session);
 	}
 	
 	@Test
@@ -159,6 +157,7 @@ public class SessionFactoryTest {
 		assertNotNull(session);
 	}
 	
+	@SuppressWarnings("unused")
 	@Test(expected = MalformedParametersException.class)
 	public void notStaticTDWithoutNumGroup() throws Exception {
 		factory.setCourses(courses);
@@ -187,6 +186,7 @@ public class SessionFactoryTest {
 		assertNotNull(session);
 	}
 	
+	@SuppressWarnings("unused")
 	@Test(expected = MalformedParametersException.class)
 	public void notStaticEmpty() throws Exception {
 		Session session = factory.createSession();
@@ -206,6 +206,7 @@ public class SessionFactoryTest {
 		Session session = factory.createSession();
 	}
 	
+	@SuppressWarnings("unused")
 	@Test(expected = MalformedParametersException.class)
 	public void NotStaticTDWithoutNumGroup() throws Exception {
 		factory.setCourses(courses);
@@ -283,7 +284,6 @@ public class SessionFactoryTest {
 		}
 	}
 
-	@SuppressWarnings("unused")
 	@Test
 	public void staticTeacherTD() throws Exception {
 		Session session = SessionFactory.createSession(
@@ -323,7 +323,6 @@ public class SessionFactoryTest {
 		}
 	}
 
-	@SuppressWarnings("unused")
 	@Test
 	public void staticTeacherTP() throws Exception {
 		Session session = SessionFactory.createSession(

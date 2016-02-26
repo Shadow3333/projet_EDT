@@ -43,9 +43,6 @@ public class ManagerTest {
 	
 	@BeforeClass
 	public static void init() {
-		// Manager to test with mocked doa injection
-		manager = new Manager(dao);
-		
 		//
 		dao = Mockito.mock(IDao.class);
 		// Mock comportement
@@ -101,10 +98,13 @@ public class ManagerTest {
 		List<Admin> listAdmin = new ArrayList<Admin>();
 		listAdmin.add((Admin) a);
 		Mockito.when(dao.findAll(Admin.class)).thenReturn(listAdmin);
+
+		// Manager to test with mocked doa injection
+		manager = new Manager(dao);
 	}
 	
 	@Test
-	public void LoginWithExistante() {
+	public void LoginWithExistant() throws IllegalAccessException {
 		assertTrue(manager.login(s.getEmail(), "student"));
 		manager.logout();
 		assertTrue(manager.login(t.getEmail(), "teacher"));
@@ -119,7 +119,7 @@ public class ManagerTest {
 	}
 	
 	@Test(expected = IllegalAccessException.class)
-	public void LogoutWithoutLoggedUser() {
+	public void LogoutWithoutLoggedUser() throws IllegalAccessException {
 		manager.logout();
 	}
 }

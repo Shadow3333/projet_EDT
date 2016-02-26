@@ -1,5 +1,6 @@
 package business;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import business.dao.IDao;
@@ -9,46 +10,57 @@ import business.model.GroupEU;
 import business.model.GroupStudent;
 import business.model.Session;
 import business.model.users.AbstractUser;
+import util.Hasher;
 
 /**
  * @author LELIEVRE Romain
- * @contributor DUBUIS Michaël
+ * @contributor DUBUIS Michaï¿½l
  *
  */
 public class Manager {
 
 	private IDao dao;
-	private AbstractUser currentUser;
+	private AbstractUser currentUser = null;
 	private static Map<String, AbstractUser> userMap;
 
 	public Manager() {}
 
 	public Manager(IDao dao){
 		this.dao = dao;
+		userMap = new HashMap<String, AbstractUser>();
 	}
 
 	/**
 	 * @param email
 	 * @param hashPwd
 	 */
-	public synchronized boolean login(String email, String hashPwd) {
-		if(userMap.containsKey(email))
+	public synchronized boolean login(String email, String password) {
+		String hashPwd = Hasher.SHA256(password);
+		
+		if(userMap.containsKey(email)) {
 			return false;
+		}
 
-		currentUser = dao.find(AbstractUser.class, email);
-		if(currentUser.getHashPwd().equals(hashPwd) && currentUser != null)
+		AbstractUser u = dao.find(AbstractUser.class, email);
+		if(u != null && u.getHashPwd().equals(hashPwd))
 		{
-			userMap.put(email, currentUser);
+			currentUser = u;
+			userMap.put(email, u);
 			return true;
 		}
 		return false;
 	}
 
 	/**
+	 * @throws IllegalAccessException 
 	 * 
 	 */
-	public synchronized void logout() {
+	public synchronized void logout() throws IllegalAccessException {
+		if(currentUser == null) {
+			throw new IllegalAccessException("No user connected !");
+		}
 		userMap.remove(currentUser.getEmail());
+		currentUser = null;
 	}
 
 	/**

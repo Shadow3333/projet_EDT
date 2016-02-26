@@ -1,6 +1,7 @@
 package business.exceptions;
 
 /**
+ * This Exception is thrown if parameters aren't well formed
  * @author DUBUIS Michael
  *
  */
