@@ -1,20 +1,29 @@
 package business;
 
+import java.util.List;
+
 import business.dao.IDao;
+import business.model.users.AbstractUser;
 
 /**
  * @author LELIEVRE Romain
- * @contributor DUBUIS MichaÃ«l
+ * @contributor DUBUIS Michaël
  *
  */
 public class Manager {
 
+	private IDao dao;
+	private static Manager currentInstance = null;
+	private List<AbstractUser> userList;
+	
+	private Manager(){}
+	
 	/**
 	 * @return
 	 */
 	public static Manager newInstance() {
-		// TODO Auto-generated method stub
-		return null;
+		currentInstance = new Manager();
+		return currentInstance;
 	}
 
 	/**
@@ -22,24 +31,32 @@ public class Manager {
 	 * @return
 	 */
 	public static Manager newInstance(IDao dao) {
-		// TODO Auto-generated method stub
-		return null;
+		currentInstance = new Manager();
+		currentInstance.dao = dao;
+		return currentInstance;
 	}
 
 	/**
 	 * @param email
 	 * @param hashPwd
 	 */
-	public boolean login(String email, String hashPwd) {
-		// TODO Auto-generated method stub
+	public synchronized boolean login(String email, String hashPwd) {
+		AbstractUser user = currentInstance.dao.find(AbstractUser.class, email);
+		if(userList.contains(user))
+			return false;
+		if(user.getHashPwd().equals(hashPwd))
+		{
+			userList.add(user);
+			return true;
+		}
 		return false;
 	}
 
 	/**
 	 * 
 	 */
-	public void logout() {
-		// TODO Auto-generated method stub
+	public synchronized void logout() {
+		
 		
 	}
 
@@ -47,8 +64,9 @@ public class Manager {
 	 * @return
 	 */
 	public static Manager getInstance() {
-		// TODO Auto-generated method stub
-		return null;
+		if(currentInstance != null)
+			return currentInstance;
+		return newInstance();
 	}
 
 }

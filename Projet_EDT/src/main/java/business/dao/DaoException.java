@@ -5,7 +5,7 @@ package business.dao;
  *
  */
 public class DaoException extends Exception {
-
+	
 	/**
 	 * 
 	 */
