@@ -150,5 +150,14 @@ public class GroupEU {
 		this.cm = cm;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof GroupEU)) {
+			return false;
+		}
+		GroupEU g = (GroupEU) obj;
+		return g.getId().equals(this.getId());
+	}
+	
 	// TODO UTILS TOOLS FOR GROUPEU (ADDERS & REMOVERS)
 }

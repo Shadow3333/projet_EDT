@@ -41,7 +41,7 @@ public class Session {
 	/**
 	 * Empty constructor
 	 */
-	private Session() {}
+	Session() {}
 
 	/**
 	 * @return the id

@@ -120,5 +120,13 @@ public class EU {
 		this.nbHours = nbHours;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof EU)) {
+			return false;
+		}
+		EU e = (EU) obj;
+		return e.getId().equals(this.getId());
+	}
 	// TODO UTILS TOOLS FOR EU (ADDERS & REMOVERS)
 }

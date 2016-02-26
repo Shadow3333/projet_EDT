@@ -1,5 +1,6 @@
 package business.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
@@ -109,5 +110,55 @@ public class Courses {
 	 */
 	public void setOptions(List<GroupEU> options) {
 		this.options = options;
+	}
+	
+	// TOOLS
+	/**
+	 * Return all EU for this courses
+	 * @return
+	 */
+	public List<EU> getEUs() {
+		List<EU> eus = new ArrayList<EU>();
+		eus.addAll(getEUs(true));
+		eus.addAll(getEUs(false));
+		return eus;
+	}
+	
+	/**
+	 * Return all EU optional or obligatory depend of parameter 
+	 * @param option
+	 * @return
+	 */
+	public List<EU> getEUs(boolean optional) {
+		List<EU> eus = new ArrayList<EU>();
+		if(optional) {
+			if(this.getOptions() != null){
+				for(GroupEU g : this.getOptions()) {
+					eus.addAll(g.getEus());
+				}
+			}
+		} else {
+			if(this.getObligatories() != null) {
+				eus.addAll(this.getObligatories().getEus());
+			}
+		}
+		return eus;
+	}
+
+	/**
+	 * Return the GroupEU which contains EU
+	 * @param eu
+	 * @return
+	 */
+	public GroupEU getGroupEUWhoContains(EU eu) {
+		if(this.getObligatories().getEus().contains(eu)) {
+			return this.getObligatories();
+		}
+		for(GroupEU g : getOptions()) {
+			if(g.getEus().contains(eu)) {
+				return g;
+			}
+		}
+		return null;
 	}
 }
