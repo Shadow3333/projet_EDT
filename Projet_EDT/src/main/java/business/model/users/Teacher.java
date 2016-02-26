@@ -6,6 +6,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.validation.Valid;
 
 import business.model.EU;
 
@@ -20,16 +21,19 @@ public class Teacher extends AbstractUser {
 	@CollectionTable(
 			name = "TeacherTDs",
 			joinColumns = @JoinColumn(name = "UserEmail"))
+	@Valid
 	private List<EU> td;
 	@ManyToMany
 	@CollectionTable(
 			name = "TeacherTPs",
 			joinColumns = @JoinColumn(name = "UserEmail"))
+	@Valid
 	private List<EU> tp;
 	@ManyToMany
 	@CollectionTable(
 			name = "TeacherCMs",
 			joinColumns = @JoinColumn(name = "UserEmail"))
+	@Valid
 	private List<EU> cm;
 	
 	/**

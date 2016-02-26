@@ -28,11 +28,11 @@ public class EU {
 	
 	@Id
 	private String id;
-	@Column
+	@Column(nullable = true)
 	private String name;
-	@Column
+	@Column(nullable = true)
 	private String description;
-	@Column
+	@Column(nullable = true)
 	private Integer nbCredits;
 	@ElementCollection
 	@CollectionTable(
@@ -40,7 +40,9 @@ public class EU {
 			joinColumns = @JoinColumn(name="IdEU"))
 	@MapKeyEnumerated(EnumType.STRING)
 	@MapKeyColumn(name = "LessonType")
-	@Column(name = "Hours")
+	@Column(
+			name = "Hours",
+			nullable = true)
 	private Map<LessonType, Integer> nbHours;
 	
 	/**

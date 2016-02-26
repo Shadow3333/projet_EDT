@@ -17,7 +17,9 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
+import javax.validation.constraints.Past;
 
+import business.model.validation.Email;
 import util.Hasher;
 
 /**
@@ -39,16 +41,18 @@ public abstract class AbstractUser {
 	}
 	
 	@Id
+	@Email
 	private String email;
-	@Column
+	@Column(nullable = false)
 	private String hashPwd;
-	@Column
+	@Column(nullable = true)
 	private String firstName;
-	@Column
+	@Column(nullable = true)
 	private String lastName;
-	@Column
+	@Column(nullable = true)
+	@Past
 	private Date birthDate;
-	@Column
+	@Column(nullable = true)
 	private String webSite;
 	@ElementCollection
 	@CollectionTable(
@@ -56,7 +60,9 @@ public abstract class AbstractUser {
 			joinColumns = @JoinColumn(name="UserEmail"))
 	@MapKeyEnumerated(EnumType.STRING)
 	@MapKeyColumn(name = "PhoneType")
-	@Column(name = "PhoneNumber")
+	@Column(
+			name = "PhoneNumber",
+			nullable = true)
 	private Map<PhoneType, String> phones;
 	
 	/**

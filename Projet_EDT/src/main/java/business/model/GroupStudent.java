@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.Valid;
 
 import business.model.EU.LessonType;
 import business.model.users.AbstractUser;
@@ -20,9 +21,10 @@ public class GroupStudent {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column
+	@Column(nullable = false)
 	private LessonType groupType;
-	@Column
+	@Column(nullable = true)
+	@Valid
 	private List<AbstractUser> students;
 	
 	/**

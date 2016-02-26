@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.MapKeyColumn;
+import javax.validation.Valid;
 
 /**
  * GroupEU represent a set of one or several EUs
@@ -21,26 +22,30 @@ import javax.persistence.MapKeyColumn;
 public class GroupEU {
 	@Id
 	private Long id;
-	@Column
+	@Column(nullable = true)
 	private Boolean optionnal;
 	@ManyToMany
 	@CollectionTable(
 			name = "GroupEUListEU",
 			joinColumns = @JoinColumn(name = "GroupEUId"))
+	@Valid
 	private List<EU> eus;
 	@ManyToMany
 	@CollectionTable(
 			joinColumns = @JoinColumn(name="GroupEUId"))
 	@MapKeyColumn(name = "GroupNumber")
 	@Column(name = "GroupTD")
+	@Valid
 	private Map<Integer, GroupStudent> td;
 	@ManyToMany
 	@CollectionTable(
 			joinColumns = @JoinColumn(name="GroupEUId"))
 	@MapKeyColumn(name = "GroupNumber")
 	@Column(name = "GroupTP")
+	@Valid
 	private Map<Integer, GroupStudent> tp;
 	@Column
+	@Valid
 	private GroupStudent cm;
 	
 	/**

@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.validation.Valid;
 
 import business.model.GroupEU;
 
@@ -17,12 +18,13 @@ import business.model.GroupEU;
  */
 @Entity
 public class Student extends AbstractUser {
-	@Column
+	@Column(nullable = true)
 	private String idCourses;
 	@ManyToMany
 	@CollectionTable(
 			name = "StudentGroupsEU",
 			joinColumns = @JoinColumn(name = "UserEmail"))
+	@Valid
 	private List<GroupEU> groups;
 	
 	/**

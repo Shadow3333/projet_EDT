@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.validation.Valid;
 
 /**
  * Courses presents every possible courses.
@@ -19,14 +20,16 @@ import javax.persistence.ManyToMany;
 public class Courses {
 	@Id
 	private String id;
-	@Column
+	@Column(nullable = true)
 	private String name;
-	@Column
+	@Column(nullable = true)
+	@Valid
 	private GroupEU obligatories;
 	@ManyToMany
 	@CollectionTable(
 			name = "CoursesListOptions",
 			joinColumns = @JoinColumn(name = "CoursesId"))
+	@Valid
 	private List<GroupEU> options;
 	
 	/**
