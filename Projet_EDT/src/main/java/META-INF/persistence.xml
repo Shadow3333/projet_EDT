@@ -12,6 +12,7 @@
 		<class>business.model.EU</class>
 		<class>business.model.GroupEU</class>
 		<class>business.model.GroupStudent</class>
+		<class>business.model.Session</class>
 
 		<properties>
 			<property name="hibernate.show_sql" value="false" />
