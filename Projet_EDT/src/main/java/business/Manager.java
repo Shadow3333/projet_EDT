@@ -2,9 +2,9 @@ package business;
 
 import java.util.Map;
 
-import javax.management.RuntimeErrorException;
-
 import business.dao.IDao;
+import business.model.GroupEU;
+import business.model.Session;
 import business.model.users.AbstractUser;
 
 /**
@@ -15,33 +15,13 @@ import business.model.users.AbstractUser;
 public class Manager {
 
 	private IDao dao;
-	private static Manager currentInstance = null;
-	private Map<String, AbstractUser> userMap;
-	
-	private Manager(){}
-	
-	/**
-	 * @return
-	 */
-	public static Manager newInstance() {
-		if(currentInstance != null) 
-			throw new RuntimeErrorException(null, "This class is already instantiated");
-		
-		currentInstance = new Manager();
-		return currentInstance;
-	}
+	private AbstractUser currentUser;
+	private static Map<String, AbstractUser> userMap;
 
-	/**
-	 * @param dao
-	 * @return
-	 */
-	public static Manager newInstance(IDao dao) {
-		if(currentInstance != null) 
-			throw new RuntimeErrorException(null, "This class is already instantiated");		
-		
-		currentInstance = new Manager();
-		currentInstance.dao = dao;
-		return currentInstance;
+	public Manager() {}
+
+	public Manager(IDao dao){
+		this.dao = dao;
 	}
 
 	/**
@@ -51,11 +31,11 @@ public class Manager {
 	public synchronized boolean login(String email, String hashPwd) {
 		if(userMap.containsKey(email))
 			return false;
-		
-		AbstractUser user = currentInstance.dao.find(AbstractUser.class, email);
-		if(user.getHashPwd().equals(hashPwd) && user != null)
+
+		currentUser = dao.find(AbstractUser.class, email);
+		if(currentUser.getHashPwd().equals(hashPwd) && currentUser != null)
 		{
-			userMap.put(email, user);
+			userMap.put(email, currentUser);
 			return true;
 		}
 		return false;
@@ -65,17 +45,63 @@ public class Manager {
 	 * 
 	 */
 	public synchronized void logout() {
-		
-		
+		userMap.remove(currentUser.getEmail());
 	}
 
 	/**
+	 * @param user
 	 * @return
 	 */
-	public static Manager getInstance() {
-		if(currentInstance != null)
-			return currentInstance;
-		return newInstance();
+	public boolean addUser(AbstractUser user){
+		return (user.getEmail() == null || user.getHashPwd() == null) ? false : dao.save(user);
+	}
+
+	/**
+	 * @param email
+	 * @return
+	 */
+	public boolean removeUser(String email){
+		AbstractUser removeUser = dao.find(AbstractUser.class, email);
+		return dao.remove(removeUser);
+	}
+
+	/**
+	 * @param group
+	 * @return
+	 */
+	public boolean addGroupEU(GroupEU group){
+		return (group.getId() == null || 
+				group.getEus() == null || 
+				group.getTd() == null ||
+				group.getTp() == null ||
+				group.getCm() != null) ? false : dao.save(group);
+	}
+
+	/**
+	 * @param group
+	 * @return
+	 */
+	public boolean removeGroupEU(String group){
+		GroupEU removeGroup = dao.find(GroupEU.class, group);
+		return dao.remove(removeGroup);
+	}
+
+	/**
+	 * @param session
+	 * @return
+	 */
+	public boolean addSession(Session session){
+		return (session.getId() == null) ? false : dao.save(session);
+	}
+
+	/**
+	 * @param session
+	 * @return
+	 */
+	public boolean removeSession(String session){
+		Session removeSession = dao.find(Session.class, session);
+		return dao.remove(removeSession);
+		
 	}
 
 }

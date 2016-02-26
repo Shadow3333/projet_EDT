@@ -1,6 +1,5 @@
 package business;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -45,7 +44,7 @@ public class ManagerTest {
 	@BeforeClass
 	public static void init() {
 		// Manager to test with mocked doa injection
-		manager = Manager.newInstance(dao);
+		manager = new Manager(dao);
 		
 		//
 		dao = Mockito.mock(IDao.class);
@@ -102,18 +101,6 @@ public class ManagerTest {
 		List<Admin> listAdmin = new ArrayList<Admin>();
 		listAdmin.add((Admin) a);
 		Mockito.when(dao.findAll(Admin.class)).thenReturn(listAdmin);
-	}
-	
-	@Test(expected = RuntimeException.class)
-	public void notSingleton() {
-		@SuppressWarnings("unused")
-		Manager manager2 = Manager.newInstance(dao);
-	}
-	
-	@Test
-	public void getInstance() {
-		Manager m = Manager.getInstance();
-		assertEquals(manager, m);
 	}
 	
 	@Test
