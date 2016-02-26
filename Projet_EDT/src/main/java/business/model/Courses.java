@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 /**
  * Courses presents every possible courses.
- * This class is used during pedagogic registration.
+ * This class is used during pedagogic registration and session creation
  * @author DUBUIS Michael
  *
  */

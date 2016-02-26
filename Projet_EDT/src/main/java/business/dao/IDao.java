@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 
+ * This interface must be implemented for find, update, delete and search entities
  * @author DUBUIS Michael
  *
  */

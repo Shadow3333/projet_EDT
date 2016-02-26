@@ -9,6 +9,11 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+/**
+ * This annotation is used to validate a Email
+ * @author DUBUIS Michael
+ *
+ */
 @Target({
 	ElementType.METHOD,
 	ElementType.FIELD,

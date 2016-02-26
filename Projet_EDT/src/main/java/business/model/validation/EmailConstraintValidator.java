@@ -6,6 +6,11 @@ import java.util.regex.Pattern;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Validator for <code>Email</code> interface
+ * @author DUBUIS Michael
+ *
+ */
 public class EmailConstraintValidator
 implements ConstraintValidator<Email, String> {
 	private static final String EMAIL_PATTERN = 

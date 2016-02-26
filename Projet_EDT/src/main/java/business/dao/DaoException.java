@@ -1,6 +1,7 @@
 package business.dao;
 
 /**
+ * Generic exception for DAO
  * @author DUBUIS Michael
  *
  */

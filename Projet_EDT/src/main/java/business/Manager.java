@@ -14,7 +14,7 @@ import util.Hasher;
 
 /**
  * @author LELIEVRE Romain
- * @contributor DUBUIS Micha�l
+ * @contributor DUBUIS Michael
  *
  */
 public class Manager {

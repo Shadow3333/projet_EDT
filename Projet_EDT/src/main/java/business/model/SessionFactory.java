@@ -9,7 +9,7 @@ import business.model.users.AbstractUser;
 import business.model.users.Teacher;
 
 /**
- * This class is a factory to Sesion
+ * This class is a factory to <code>Session</code>
  * @author DUBUIS Michael
  *
  */
