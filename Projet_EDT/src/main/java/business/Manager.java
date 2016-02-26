@@ -3,7 +3,10 @@ package business;
 import java.util.Map;
 
 import business.dao.IDao;
+import business.model.Courses;
+import business.model.EU;
 import business.model.GroupEU;
+import business.model.GroupStudent;
 import business.model.Session;
 import business.model.users.AbstractUser;
 
@@ -53,7 +56,7 @@ public class Manager {
 	 * @return
 	 */
 	public boolean addUser(AbstractUser user){
-		return (user.getEmail() == null || user.getHashPwd() == null) ? false : dao.save(user);
+		return (user.getEmail() != null && user.getHashPwd() != null) ? dao.save(user) : false;
 	}
 
 	/**
@@ -66,15 +69,68 @@ public class Manager {
 	}
 
 	/**
+	 * @param course
+	 * @return
+	 */
+	public boolean addCourse(Courses course){
+		return (course.getId() == null && course.getObligatories() == null) 
+				? dao.save(course) : false;
+
+	}
+
+	/**
+	 * @param course
+	 * @return
+	 */
+	public boolean removeCourse(String course){
+		Courses removeCourse = dao.find(Courses.class, course);
+		return dao.remove(removeCourse);
+	}
+
+	/**
+	 * @param eu
+	 * @return
+	 */
+	public boolean addEU(EU eu){
+		return (eu.getId() != null && eu.getName() != null) ? dao.save(eu) : false; 
+	}
+
+	/**
+	 * @param eu
+	 * @return
+	 */
+	public boolean removeEU(String eu){
+		EU removeEu = dao.find(EU.class, eu);
+		return dao.remove(removeEu);
+	}
+	
+	/**
+	 * @param session
+	 * @return
+	 */
+	public boolean addSession(Session session){
+		return (session.getId() != null &&
+				session.getEu() != null &&
+				session.getDate() != null &&
+				session.getNbHour() != null) 
+					? dao.save(session) : false;
+	}
+
+	/**
+	 * @param session
+	 * @return
+	 */
+	public boolean removeSession(String session){
+		Session removeSession = dao.find(Session.class, session);
+		return dao.remove(removeSession);
+	}
+	
+	/**
 	 * @param group
 	 * @return
 	 */
 	public boolean addGroupEU(GroupEU group){
-		return (group.getId() == null || 
-				group.getEus() == null || 
-				group.getTd() == null ||
-				group.getTp() == null ||
-				group.getCm() != null) ? false : dao.save(group);
+		return (group.getId() != null && group.getOptionnal() != null) ? dao.save(group) : false;
 	}
 
 	/**
@@ -86,22 +142,13 @@ public class Manager {
 		return dao.remove(removeGroup);
 	}
 
-	/**
-	 * @param session
-	 * @return
-	 */
-	public boolean addSession(Session session){
-		return (session.getId() == null) ? false : dao.save(session);
+	public boolean addGroupStudent(GroupStudent group){
+		return (group.getId() != null) ? dao.save(group) : false;
 	}
 
-	/**
-	 * @param session
-	 * @return
-	 */
-	public boolean removeSession(String session){
-		Session removeSession = dao.find(Session.class, session);
-		return dao.remove(removeSession);
-		
+	public boolean removeGroupStudent(String group){
+		GroupStudent removeGroup = dao.find(GroupStudent.class, group);
+		return dao.remove(removeGroup);
 	}
 
 }
