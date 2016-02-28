@@ -76,8 +76,7 @@ public class Manager {
 	 * @return
 	 */
 	public boolean removeUser(String email){
-		AbstractUser removeUser = dao.find(AbstractUser.class, email);
-		return dao.remove(removeUser);
+		return dao.removeById(AbstractUser.class, email);
 	}
 
 	/**
@@ -95,8 +94,7 @@ public class Manager {
 	 * @return
 	 */
 	public boolean removeCourse(String course){
-		Courses removeCourse = dao.find(Courses.class, course);
-		return dao.remove(removeCourse);
+		return dao.removeById(Courses.class, course);
 	}
 
 	/**
@@ -112,8 +110,7 @@ public class Manager {
 	 * @return
 	 */
 	public boolean removeEU(String eu){
-		EU removeEu = dao.find(EU.class, eu);
-		return dao.remove(removeEu);
+		return dao.removeById(EU.class, eu);
 	}
 	
 	/**
@@ -133,8 +130,7 @@ public class Manager {
 	 * @return
 	 */
 	public boolean removeSession(String session){
-		Session removeSession = dao.find(Session.class, session);
-		return dao.remove(removeSession);
+		return dao.removeById(Session.class, session);
 	}
 	
 	/**
@@ -150,8 +146,7 @@ public class Manager {
 	 * @return
 	 */
 	public boolean removeGroupEU(String group){
-		GroupEU removeGroup = dao.find(GroupEU.class, group);
-		return dao.remove(removeGroup);
+		return dao.removeById(GroupEU.class, group);
 	}
 
 	public boolean addGroupStudent(GroupStudent group){
@@ -159,8 +154,7 @@ public class Manager {
 	}
 
 	public boolean removeGroupStudent(String group){
-		GroupStudent removeGroup = dao.find(GroupStudent.class, group);
-		return dao.remove(removeGroup);
+		return dao.removeById(GroupStudent.class, group);
 	}
 
 }
