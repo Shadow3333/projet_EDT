@@ -33,18 +33,18 @@ public class JpaDao implements IDao {
 		em = emf.createEntityManager();
 	}
 
-	public boolean save(Object entity) {
-		em.persist(entity);
-		return true;
+	public void save(Object entity) throws DaoException {
+		try {
+			em.persist(entity);
+		} catch (Exception e) {
+			throw new DaoException(e);
+		}
 	}
 
-	public boolean[] save(Object... entities) {
-		boolean[] booleans = new boolean[entities.length];
-		for(int i = 0 ; i < entities.length ; i++) {
-			booleans[i] = true;
-			em.persist(entities[i]);
+	public void save(Object... entities) throws DaoException {
+		for(Object entity : entities) {
+			save(entity);
 		}
-		return booleans;
 	}
 
 	public <T> T find(Class<T> type, Serializable id) {
@@ -68,46 +68,53 @@ public class JpaDao implements IDao {
 		TypedQuery<T> query = em.createQuery(criteriaQuery);
 		return query.getResultList();
 	}
-
+	
+	public void update(Object entity) throws DaoException {
+		try {
+			em.merge(entity);
+		} catch (Exception e) {
+			throw new DaoException(e);
+		}
+	}
+	
+	public void update(Object...entities) throws DaoException {
+		for(Object entity : entities) {
+			update(entity);
+		}
+	}
+	
 	public void flush() {
 		em.getTransaction().begin();
 		em.flush();
 		em.getTransaction().commit();
 	}
 
-	public boolean remove(Object entity) {
-		em.remove(entity);
-		return true;
-	}
-
-	public boolean[] remove(Object... entities) {
-		boolean[] booleans = new boolean[entities.length];
-		for(int i = 0 ; i < entities.length ; i++) {
-			booleans[i] = true;
-			em.remove(entities[i]);
+	public void remove(Object entity) throws DaoException {
+		try {
+			em.remove(entity);
+		} catch(Exception e) {
+			throw new DaoException(e);
 		}
-		return booleans;
 	}
 
-	public <T> boolean removeById(Class<T> type, Serializable id) {
+	public void remove(Object... entities) throws DaoException {
+		for(Object entity : entities) {
+			remove(entity);
+		}
+	}
+
+	public <T> void removeById(Class<T> type, Serializable id) throws DaoException {
 		T t = find(type, id);
 		if(t == null) {
-			return false;
+			throw new DaoException("Non-existent entity");
 		}
-		return remove(t);
+		remove(t);
 	}
 
-	public <T> boolean[] removeByIds(Class<T> type, Serializable... ids) {
-		boolean[] booleans = new boolean[ids.length];
-		for(int i = 0 ; i < ids.length ; i++) {
-			T t = find(type, ids[i]);
-			if(t == null) {
-				booleans[i] = false;
-			} else {
-				booleans[i] = remove(t);
-			}
+	public <T> void removeByIds(Class<T> type, Serializable... ids) throws DaoException {
+		for(Serializable id : ids) {
+			removeById(type, id);
 		}
-		return booleans;
 	}
 
 	public <T> List<T> search(Class<T> type, String field, String key)

@@ -13,19 +13,16 @@ public interface IDao {
 	/**
 	 * Create one entity
 	 * @param entity
-	 * @return The state of backup data parameter entity
-	 * @return True if saved, false else.
+	 * @throws DaoException - if entity already exist
 	 */
-	public boolean save(Object entity);
+	public void save(Object entity) throws DaoException;
 
 	/**
 	 * Create all entities
 	 * @param entities
-	 * @return Array of boolean
-	 * @return Each boolean matches the state of backup parameter entities
-	 * @return True if saved, false else.
+	 * @throws DaoException - if one of entities already exist
 	 */
-	public boolean[] save(Object... entities);
+	public void save(Object... entities) throws DaoException;
 
 	//Read
 	/**
@@ -34,7 +31,7 @@ public interface IDao {
 	 * @param id - Entity's ID
 	 * @return
 	 */
-	public <T> T find(Class<T> type, Serializable id);
+	public <T> T find(Class<T> type, Serializable id) throws DaoException;
 
 	/**
 	 * Find all entities with these IDs
@@ -42,16 +39,31 @@ public interface IDao {
 	 * @param ids - Array of entities' IDs
 	 * @return
 	 */
-	public <T> T[] find(Class<T> type, Serializable... ids);
+	public <T> T[] find(Class<T> type, Serializable... ids) throws DaoException;
 
 	/**
 	 * 
 	 * @param type - Entities' class
 	 * @return
 	 */
-	public <T> List<T> findAll(Class<T> type);
+	public <T> List<T> findAll(Class<T> type) throws DaoException;
 
 	// Update
+	/**
+	 * Update an existent entity
+	 * @param entity
+	 * @return
+	 * @throws DaoException
+	 */
+	public void update(Object entity) throws DaoException;
+	
+	/**
+	 * Update existent entities
+	 * @param entities
+	 * @throws DaoException
+	 */
+	public void update(Object... entities) throws DaoException;
+	
 	/**
 	 * Sends to the database any changes made to the EntityManager
 	 */
@@ -64,7 +76,7 @@ public interface IDao {
 	 * @return The suppression state parameter entity
 	 * @return True if saved, false else.
 	 */
-	public boolean remove(Object entity);
+	public void remove(Object entity) throws DaoException;
 
 	/**
 	 * Delete all entities if exists
@@ -73,7 +85,7 @@ public interface IDao {
 	 * @return Each boolean matches the suppression state parameter entities
 	 * @return True if saved, false else.
 	 */
-	public boolean[] remove(Object... entities);
+	public void remove(Object... entities) throws DaoException;
 
 	/**
 	 * Delete an entity with this ID
@@ -82,7 +94,7 @@ public interface IDao {
 	 * @return The suppression state parameter entity
 	 * @return True if saved, false else.
 	 */
-	public <T> boolean removeById(Class<T> type, Serializable id);
+	public <T> void removeById(Class<T> type, Serializable id) throws DaoException;
 
 	/**
 	 * Delete all entities with these ID
@@ -92,7 +104,7 @@ public interface IDao {
 	 * @return Each boolean matches the suppression state parameter entities
 	 * @return True if saved, false else.
 	 */
-	public <T> boolean[] removeByIds(Class<T> type, Serializable... ids);
+	public <T> void removeByIds(Class<T> type, Serializable... ids) throws DaoException;
 	
 	// Search
 	/**
@@ -126,5 +138,5 @@ public interface IDao {
      * Upgrade to entities from the database
      * @param entities
      */
-    public void refresh(Object... entities);
+    public void refresh(Object... entities) throws DaoException;
 }
