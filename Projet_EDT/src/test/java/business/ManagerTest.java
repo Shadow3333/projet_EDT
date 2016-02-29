@@ -1,6 +1,5 @@
 package business;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -10,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import business.dao.DaoException;
 import business.dao.IDao;
 import business.model.users.AbstractUser;
 import business.model.users.Admin;
@@ -36,44 +36,51 @@ public class ManagerTest {
 	/*
 	 * Variables for tests
 	 */
-	private static AbstractUser s = new Student();
-	private static AbstractUser t = new Teacher();
-	private static AbstractUser a = new Admin();
+	private static AbstractUser student = new Student();
+	private static AbstractUser teacher = new Teacher();
+	private static AbstractUser admin = new Admin();
+	private static AbstractUser newStudent = new Student();
+	private static AbstractUser newTeacher = new Teacher();
+	private static AbstractUser newAdmin = new Admin();
+	//private static AbstractUser incompleteStudent = new Student();
+	//private static AbstractUser incompleteTeacher = new Teacher();
+	//private static AbstractUser incompleteAdmin = new Admin();
 	
 	
 	@BeforeClass
-	public static void init() {
+	public static void init() throws DaoException {
 		//
 		dao = Mockito.mock(IDao.class);
 		// Mock comportement
-		s.setEmail("student@projet_edt.com");
-		s.setPassword("student");
-		t.setEmail("teacher@projet_edt.com");
-		t.setPassword("teacher");
-		a.setEmail("admin@projet_edt.com");
-		a.setPassword("admin");
+		student.setEmail("student@projet_edt.com");
+		student.setPassword("student");
+		teacher.setEmail("teacher@projet_edt.com");
+		teacher.setPassword("teacher");
+		admin.setEmail("admin@projet_edt.com");
+		admin.setPassword("admin");
+		
 		// find with email
 		Mockito.when(dao.find(
-				AbstractUser.class, s.getEmail())
-			).thenReturn((AbstractUser) s);
+				AbstractUser.class, student.getEmail())
+			).thenReturn((AbstractUser) student);
 		Mockito.when(
-				dao.find(AbstractUser.class, t.getEmail())
-			).thenReturn((AbstractUser) t);
+				dao.find(AbstractUser.class, teacher.getEmail())
+			).thenReturn((AbstractUser) teacher);
 		Mockito.when(
-				dao.find(AbstractUser.class, a.getEmail())
-			).thenReturn((AbstractUser) a);
+				dao.find(AbstractUser.class, admin.getEmail())
+			).thenReturn((AbstractUser) admin);
 		Mockito.when(
 				dao.find(AbstractUser.class, "absente@projet_edt.com")
 			).thenReturn((AbstractUser) null);
 		Mockito.when(
-				dao.find(Student.class, s.getEmail())
-			).thenReturn((Student) s);
+				dao.find(Student.class, student.getEmail())
+			).thenReturn((Student) student);
 		Mockito.when(
-				dao.find(Teacher.class, t.getEmail())
-			).thenReturn((Teacher) t);
+				dao.find(Teacher.class, teacher.getEmail())
+			).thenReturn((Teacher) teacher);
 		Mockito.when(
-				dao.find(Admin.class, a.getEmail())
-			).thenReturn((Admin) a);
+				dao.find(Admin.class, admin.getEmail())
+			).thenReturn((Admin) admin);
 		Mockito.when(
 				dao.find(Student.class, "absente@projet_edt.com")
 			).thenReturn((Student) null);
@@ -85,41 +92,64 @@ public class ManagerTest {
 			).thenReturn((Admin) null);
 		// findAll
 		List<AbstractUser> listAbstract = new ArrayList<AbstractUser>();
-		listAbstract.add(s);
-		listAbstract.add(t);
-		listAbstract.add(a);
+		listAbstract.add(student);
+		listAbstract.add(teacher);
+		listAbstract.add(admin);
 		Mockito.when(dao.findAll(AbstractUser.class)).thenReturn(listAbstract);
 		List<Student> listStudent = new ArrayList<Student>();
-		listStudent.add((Student) s);
+		listStudent.add((Student) student);
 		Mockito.when(dao.findAll(Student.class)).thenReturn(listStudent);
 		List<Teacher> listTeacher = new ArrayList<Teacher>();
-		listTeacher.add((Teacher) t);
+		listTeacher.add((Teacher) teacher);
 		Mockito.when(dao.findAll(Teacher.class)).thenReturn(listTeacher);
 		List<Admin> listAdmin = new ArrayList<Admin>();
-		listAdmin.add((Admin) a);
+		listAdmin.add((Admin) admin);
 		Mockito.when(dao.findAll(Admin.class)).thenReturn(listAdmin);
 
 		// Manager to test with mocked doa injection
 		manager = new Manager(dao);
 	}
 	
+	/**
+	 * Test a login method with an existent AbstractUser
+	 * Student, Teacher and Admin
+	 * @throws IllegalAccessException
+	 * @throws DaoException 
+	 */
 	@Test
-	public void LoginWithExistant() throws IllegalAccessException {
-		assertTrue(manager.login(s.getEmail(), "student"));
+	public void LoginWithExistent() throws IllegalAccessException, DaoException {
+		assertTrue(manager.login(student.getEmail(), "student"));
 		manager.logout();
-		assertTrue(manager.login(t.getEmail(), "teacher"));
+		assertTrue(manager.login(teacher.getEmail(), "teacher"));
 		manager.logout();
-		assertTrue(manager.login(a.getEmail(), "admin"));
+		assertTrue(manager.login(admin.getEmail(), "admin"));
 		manager.logout();
 	}
 	
+	/**
+	 * Test a login method with a non-existent AbstractUser
+	 * @throws DaoException 
+	 */
 	@Test
-	public void LoginWithUnexistante() {
-		assertFalse(manager.login("absente@projet_edt.com", "password"));
+	public void LoginWithNonExistent() throws DaoException {
+		manager.login("absente@projet_edt.com", "password");
 	}
 	
+	/**
+	 * Try to logout without logged user
+	 * @throws IllegalAccessException
+	 */
 	@Test(expected = IllegalAccessException.class)
 	public void LogoutWithoutLoggedUser() throws IllegalAccessException {
 		manager.logout();
+	}
+	
+	/**
+	 * Try to add an non-existent user with admin logged
+	 * AbstractUser is well formed
+	 */
+	@Test
+	public void addNonExistentUserWithAdminLogged() {
+		
 	}
 }

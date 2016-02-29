@@ -14,6 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import business.dao.DaoException;
 import business.dao.IDao;
 import business.model.EU.LessonType;
 import business.model.users.AbstractUser;
@@ -49,7 +50,7 @@ public class SessionFactoryTest {
 	private static Date date = new Date(System.currentTimeMillis());
 	
 	@BeforeClass
-	public static void init() {
+	public static void init() throws DaoException {
 		//
 		dao = Mockito.mock(IDao.class);
 		// Variables initialization
