@@ -360,5 +360,130 @@ public class Manager {
 		}
 		return true;
 	}
-
+	
+	/**
+	 * @param course
+	 * @return
+	 * @throws IllegalAccessException
+	 */
+	public boolean updateCourse(Courses course) throws IllegalAccessException{
+		if(currentUser == null ||
+				!(currentUser instanceof Admin)) {
+			throw new IllegalAccessException(
+					"Current user haven't rights to update Courses");
+		}
+		try {
+			dao.update(course);
+			dao.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * @param eu
+	 * @return
+	 * @throws IllegalAccessException
+	 */
+	public boolean updateEU(EU eu) throws IllegalAccessException{
+		if(currentUser == null ||
+				!(currentUser instanceof Admin)) {
+			throw new IllegalAccessException(
+					"Current user haven't rights to update EU");
+		}
+		try {
+			dao.update(eu);
+			dao.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * @param group
+	 * @return
+	 * @throws IllegalAccessException
+	 */
+	public boolean updateGroupEU(GroupEU group) throws IllegalAccessException{
+		if(currentUser == null ||
+				!(currentUser instanceof Admin)) {
+			throw new IllegalAccessException(
+					"Current user haven't rights to update GroupEU");
+		}
+		try {
+			dao.update(group);
+			dao.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * @param group
+	 * @return
+	 * @throws IllegalAccessException
+	 */
+	public boolean updateGroupStudent(GroupStudent group) throws IllegalAccessException{
+		if(currentUser == null ||
+				!(currentUser instanceof Admin)) {
+			throw new IllegalAccessException(
+					"Current user haven't rights to update GroupStudent");
+		}
+		try {
+			dao.update(group);
+			dao.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * @param session
+	 * @return
+	 * @throws IllegalAccessException 
+	 */
+	public boolean updateSession(Session session) throws IllegalAccessException{
+		if(currentUser == null ||
+				!(currentUser instanceof Admin)) {
+			throw new IllegalAccessException(
+					"Current user haven't rights to update Session");
+		}
+		try {
+			dao.update(session);
+			dao.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * @param user
+	 * @return
+	 * @throws IllegalAccessException
+	 */
+	public boolean updateUser(AbstractUser user) throws IllegalAccessException{
+		if(currentUser == null ||
+				!(currentUser instanceof Admin)) {
+			throw new IllegalAccessException(
+					"Current user haven't rights to update AbstractUser");
+		}
+		try {
+			dao.update(user);
+			dao.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;	
+	}
 }
