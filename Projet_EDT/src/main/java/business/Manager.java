@@ -32,7 +32,11 @@ public class Manager {
 		this.dao = dao;
 		userMap = new HashMap<String, AbstractUser>();
 	}
-
+	
+	public AbstractUser getCurrentUser() {
+		return currentUser;
+	}
+	
 	/**
 	 * @param email
 	 * @param hashPwd
@@ -102,6 +106,10 @@ public class Manager {
 		try {
 			dao.removeById(AbstractUser.class, email);
 			dao.flush();
+			if(currentUser.getEmail().equals(email)) {
+				currentUser= null;
+				userMap.remove(email);
+			}
 		} catch(DaoException e) {
 			e.printStackTrace();
 			return false;
