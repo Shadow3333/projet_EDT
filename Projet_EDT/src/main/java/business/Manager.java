@@ -91,7 +91,6 @@ public class Manager {
 	}
 
 	/**
-	 * TODO Manager have to check if currentUser have rights for remove this user.
 	 * @param email
 	 * @return
 	 * @throws IllegalAccessException 
@@ -139,7 +138,6 @@ public class Manager {
 	}
 
 	/**
-	 * TODO Manager have to check if currentUser have rights for remove a Courses.
 	 * @param course
 	 * @return
 	 * @throws IllegalAccessException 
@@ -208,7 +206,7 @@ public class Manager {
 			e.printStackTrace();
 			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	/**
@@ -340,7 +338,7 @@ public class Manager {
 	 * @return
 	 * @throws IllegalAccessException 
 	 */
-	public boolean removeGroupStudent(String group) throws IllegalAccessException{
+	public boolean removeGroupStudent(Long group) throws IllegalAccessException{
 		/*
 		 * TODO Can another User remove a GroupStudent ?
 		 * Yes, so add in condition
