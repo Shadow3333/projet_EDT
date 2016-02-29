@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -41,6 +42,7 @@ public class SessionFactoryTest {
 	 */
 	private static Courses courses = new Courses();
 	private static EU eu = new EU();
+	private static EU anotherEu = new EU();
 	private static GroupEU groupEU = new GroupEU();
 	private static AbstractUser student = new Student();
 	private static AbstractUser teacher = new Teacher();
@@ -56,6 +58,8 @@ public class SessionFactoryTest {
 		// Variables initialization
 		eu.setId("AMU0001");
 		eu.setName("Test");
+		anotherEu.setId("AMU0002");
+		anotherEu.setName("Test 2");
 		student.setEmail("student@projet_edt.com");
 		student.setPassword("student");
 		teacher.setEmail("teacher@projet_edt.com");
@@ -87,10 +91,16 @@ public class SessionFactoryTest {
 		courses.setObligatories(groupEU);
 		// Mock comportement
 		Mockito.when(dao.find(EU.class, eu.getId())).thenReturn(eu);
+		Mockito.when(dao.find(EU.class, anotherEu.getId())).thenReturn(anotherEu);
 		Mockito.when(dao.find(EU.class, "wrongId")).thenReturn((EU) null);
 		Mockito.when(dao.find(Teacher.class, teacher.getEmail())).thenReturn((Teacher) teacher);
 		Mockito.when(dao.find(AbstractUser.class, teacher.getEmail())).thenReturn(teacher);
-
+		
+		factory = new SessionFactory();
+	}
+	
+	@Before
+	public void reset() {
 		factory = new SessionFactory(dao);
 	}
 	
@@ -137,6 +147,19 @@ public class SessionFactoryTest {
 		factory.setNbHour(2);
 		factory.setType(LessonType.CM);
 		factory.setIdEU("WrongId");
+		factory.setRoom("A001");
+		
+		Session session = factory.createSession();
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected = IllegalArgumentException.class)
+	public void notStaticNotInsideEU() throws Exception {
+		factory.setCourses(courses);
+		factory.setDate(date);
+		factory.setNbHour(2);
+		factory.setType(LessonType.CM);
+		factory.setIdEU(anotherEu.getId());
 		factory.setRoom("A001");
 		
 		Session session = factory.createSession();
@@ -213,13 +236,42 @@ public class SessionFactoryTest {
 		factory.setCourses(courses);
 		factory.setDate(date);
 		factory.setIdEU(eu.getId());
-		factory.setNbHour(-1);
+		factory.setNbHour(1);
 		factory.setNumGroup(null);
-		factory.setType(LessonType.CM);
+		factory.setType(LessonType.TD);
 		factory.setRoom("A001");
 		
 		Session session = factory.createSession();
 	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected = IllegalArgumentException.class)
+	public void NotStaticTDWithWrongNumGroup() throws Exception {
+		factory.setCourses(courses);
+		factory.setDate(date);
+		factory.setIdEU(eu.getId());
+		factory.setNbHour(1);
+		factory.setNumGroup(10);
+		factory.setType(LessonType.TD);
+		factory.setRoom("A001");
+		
+		Session session = factory.createSession();
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected = Exception.class)
+	public void NotStaticOtherType() throws Exception {
+		factory.setCourses(courses);
+		factory.setDate(date);
+		factory.setIdEU(eu.getId());
+		factory.setNbHour(1);
+		factory.setNumGroup(1);
+		factory.setType(LessonType.Other);
+		factory.setRoom("A001");
+		
+		Session session = factory.createSession();
+	}
+	
 	
 	@Test
 	public void staticWithoutTeacher() throws Exception {
