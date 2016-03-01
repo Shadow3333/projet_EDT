@@ -161,4 +161,37 @@ public class Courses {
 		}
 		return null;
 	}
+	
+	/**
+	 * Add a groupEU to options
+	 * @param groupEU
+	 * @return true if added, false else
+	 * @throws IllegalArgumentException - if groupEU is null
+	 */
+	public boolean addOptions(GroupEU groupEU)
+			throws IllegalArgumentException{
+		if(groupEU == null) {
+			throw new IllegalArgumentException(
+					"groupEU must be different than null !");
+		}
+		if(options == null) {
+			options = new ArrayList<GroupEU>();
+		}
+		return options.add(groupEU);
+	}
+
+	/**
+	 * Remove a groupEU to options
+	 * @param groupEU
+	 * @return true if removed, false else
+	 * @throws IllegalArgumentException - if groupEU is null
+	 */
+	public boolean removeOptions(GroupEU groupEU)
+			throws IllegalArgumentException{
+		if(groupEU == null) {
+			throw new IllegalArgumentException(
+					"groupEU must be different than null !");
+		}
+		return options.remove(groupEU);
+	}
 }

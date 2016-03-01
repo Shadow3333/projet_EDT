@@ -1,5 +1,6 @@
 package business.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -73,6 +74,33 @@ public class GroupStudent {
 	public void setStudents(List<AbstractUser> students) {
 		this.students = students;
 	}
+
+	/**
+	 * Add an <code>AbstractUser</code> to students list
+	 * @param student
+	 * @return
+	 */
+	public boolean addStudent(AbstractUser student) {
+		if(student == null) {
+			throw new IllegalArgumentException(
+					"student must be different than Null !");
+		}
+		if(students == null) {
+			students = new ArrayList<AbstractUser>();
+		}
+		return students.add(student);
+	}
 	
-	// TODO UTILS TOOLS FOR GROUPSTUDENT (ADDERS & REMOVERS)
+	/**
+	 * Remove an <code>AbstractUser</code> from students list
+	 * @param student
+	 * @return
+	 */
+	public boolean removeStudent(AbstractUser student) {
+		if(student == null) {
+			throw new IllegalArgumentException(
+					"student must be different than Null !");
+		}
+		return students.remove(student);
+	}
 }
