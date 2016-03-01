@@ -371,7 +371,7 @@ public class Manager {
 					"Current user haven't rights to update Courses");
 		}
 		try {
-			dao.update(course);
+			course = (Courses) dao.update(course);
 			dao.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -392,7 +392,7 @@ public class Manager {
 					"Current user haven't rights to update EU");
 		}
 		try {
-			dao.update(eu);
+			eu = (EU) dao.update(eu);
 			dao.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -413,7 +413,7 @@ public class Manager {
 					"Current user haven't rights to update GroupEU");
 		}
 		try {
-			dao.update(group);
+			group = (GroupEU) dao.update(group);
 			dao.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -434,7 +434,7 @@ public class Manager {
 					"Current user haven't rights to update GroupStudent");
 		}
 		try {
-			dao.update(group);
+			group = (GroupStudent) dao.update(group);
 			dao.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -455,7 +455,7 @@ public class Manager {
 					"Current user haven't rights to update Session");
 		}
 		try {
-			dao.update(session);
+			session = (Session) dao.update(session);
 			dao.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -476,7 +476,7 @@ public class Manager {
 					"Current user haven't rights to update AbstractUser");
 		}
 		try {
-			dao.update(user);
+			user = (AbstractUser) dao.update(user);
 			dao.flush();
 		} catch (Exception e) {
 			e.printStackTrace();

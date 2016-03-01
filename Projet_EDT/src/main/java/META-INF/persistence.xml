@@ -30,4 +30,5 @@
 				value="create"/> -->
 		</properties>
 	</persistence-unit>
+	<!-- TODO Need another persistence-unit to test DAO -->
 </persistence>

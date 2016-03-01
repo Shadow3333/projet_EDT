@@ -51,18 +51,20 @@ public interface IDao {
 	// Update
 	/**
 	 * Update an existent entity
+	 * For update, it's possible to modify the entity (with setters) and to only flush.
 	 * @param entity
 	 * @return
 	 * @throws DaoException
 	 */
-	public void update(Object entity) throws DaoException;
+	public <T> Object update(T entity) throws DaoException;
 	
 	/**
 	 * Update existent entities
+	 * For update, it's possible to modify the entities (with setters) and to only flush.
 	 * @param entities
 	 * @throws DaoException
 	 */
-	public void update(Object... entities) throws DaoException;
+	public <T> Object[] update(T... entities) throws DaoException;
 	
 	/**
 	 * Sends to the database any changes made to the EntityManager

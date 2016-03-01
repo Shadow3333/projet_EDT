@@ -69,18 +69,19 @@ public class JpaDao implements IDao {
 		return query.getResultList();
 	}
 	
-	public void update(Object entity) throws DaoException {
+	public <T> T update(T entity) throws DaoException {
 		try {
-			em.merge(entity);
+			return em.merge(entity);
 		} catch (Exception e) {
 			throw new DaoException(e);
 		}
 	}
 	
-	public void update(Object...entities) throws DaoException {
+	public <T> T[] update(T...entities) throws DaoException {
 		for(Object entity : entities) {
-			update(entity);
+			entity = update(entity);
 		}
+		return entities;
 	}
 	
 	public void flush() {
