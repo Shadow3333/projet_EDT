@@ -121,7 +121,7 @@ public class Manager {
 	 * @return
 	 * @throws IllegalAccessException 
 	 */
-	public boolean addCourse(Courses course) throws IllegalAccessException{
+	public boolean addCourses(Courses course) throws IllegalAccessException{
 		if(currentUser == null ||
 				!(currentUser instanceof Admin)) {
 			throw new IllegalAccessException(
@@ -142,7 +142,7 @@ public class Manager {
 	 * @return
 	 * @throws IllegalAccessException 
 	 */
-	public boolean removeCourse(String course) throws IllegalAccessException{
+	public boolean removeCourses(String course) throws IllegalAccessException{
 		if(currentUser == null || !(currentUser instanceof Admin)) {
 			throw new IllegalAccessException(
 					"Current user haven't rights to remove Courses");
@@ -290,7 +290,7 @@ public class Manager {
 	 * @return
 	 * @throws IllegalAccessException 
 	 */
-	public boolean removeGroupEU(String group) throws IllegalAccessException {
+	public boolean removeGroupEU(Long group) throws IllegalAccessException {
 		// TODO Maybe different than Admin can remove GroupEU
 		if(currentUser == null ||
 				!(currentUser instanceof Admin)) {
