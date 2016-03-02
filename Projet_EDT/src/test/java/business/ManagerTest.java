@@ -344,17 +344,6 @@ public class ManagerTest {
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	
 	@Test
-	public void constructor() {
-		Manager m;
-		m = new Manager();
-		assertTrue(m instanceof Manager);
-		m = new Manager(dao);
-		assertTrue(m instanceof Manager);
-	}
-	
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	
-	@Test
 	public void LoginWithExistent()
 			throws IllegalAccessException, DaoException {
 		assertTrue(manager.login(student.getEmail(), "student"));

@@ -21,16 +21,18 @@ import util.Hasher;
  *
  */
 public class Manager {
-
 	private IDao dao;
+	
 	private AbstractUser currentUser = null;
 	private static Map<String, AbstractUser> userMap;
-
-	public Manager() {}
+	
+	private Manager() {
+		userMap = new HashMap<String, AbstractUser>();
+	}
 
 	public Manager(IDao dao){
+		this();
 		this.dao = dao;
-		userMap = new HashMap<String, AbstractUser>();
 	}
 	
 	public AbstractUser getCurrentUser() {

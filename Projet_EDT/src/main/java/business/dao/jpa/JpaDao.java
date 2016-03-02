@@ -178,5 +178,8 @@ public class JpaDao implements IDao {
 			em.refresh(entities[i]);
 		}
 	}
-
+	
+	public <T> boolean isEntity(Class<T> type) {
+		return em.getMetamodel().getEntities().contains(type);
+	}
 }

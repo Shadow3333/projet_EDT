@@ -141,4 +141,11 @@ public interface IDao {
      * @param entities
      */
     public void refresh(Object... entities) throws DaoException;
+    
+    /**
+     * Define if Class is of entity object
+     * @param type
+     * @return true if entity, false else.
+     */
+    public <T> boolean isEntity(Class<T> type);
 }
