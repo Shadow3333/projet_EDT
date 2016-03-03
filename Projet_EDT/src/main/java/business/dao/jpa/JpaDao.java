@@ -15,6 +15,8 @@ import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
 
+import org.springframework.stereotype.Component;
+
 import business.dao.DaoException;
 import business.dao.IDao;
 import business.dao.ISearchSettings;
@@ -24,15 +26,20 @@ import business.dao.ISearchSettings;
  * @author DUBUIS Michael
  *
  */
+@Component
 public class JpaDao implements IDao {
 	private EntityManagerFactory emf;
 	private EntityManager em;
 
 	public JpaDao() {
-		emf = Persistence.createEntityManagerFactory("Projet_EDT");
+		this("Projet_EDT");
+	}
+	
+	public JpaDao(String entityUnit) {
+		emf = Persistence.createEntityManagerFactory(entityUnit);
 		em = emf.createEntityManager();
 	}
-
+	
 	public void save(Object entity) throws DaoException {
 		try {
 			em.persist(entity);
