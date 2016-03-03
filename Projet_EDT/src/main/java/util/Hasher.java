@@ -21,7 +21,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * This class is used for hash a message
- * @author Michael
+ * @author DUBUIS Michael
  *
  */
 public class Hasher {	

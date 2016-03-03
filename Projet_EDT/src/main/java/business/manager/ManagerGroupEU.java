@@ -5,6 +5,10 @@ import business.model.GroupEU;
 import business.model.users.AbstractUser;
 import business.model.users.Admin;
 
+/**
+ * @author LELIEVRE Romain
+ * @contributor DUBUIS Michael
+ */
 public class ManagerGroupEU extends AbstractManager<GroupEU> {
 
 	public ManagerGroupEU(IDao dao) {

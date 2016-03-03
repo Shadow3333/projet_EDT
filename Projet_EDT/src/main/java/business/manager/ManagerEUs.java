@@ -5,6 +5,10 @@ import business.model.EU;
 import business.model.users.AbstractUser;
 import business.model.users.Admin;
 
+/**
+ * @author LELIEVRE Romain
+ * @contributor DUBUIS Michael
+ */
 public class ManagerEUs extends AbstractManager<EU>{
 	/**
 	 * @param dao

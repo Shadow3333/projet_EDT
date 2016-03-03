@@ -11,13 +11,13 @@ import business.model.users.Admin;
 
 /**
  * @author DUBUIS Michael
- *
+ * @contributor LELIEVRE Romain
  */
 @SuppressWarnings("unchecked")
 public abstract class AbstractManager<T extends Object> {
 	protected IDao dao = null;
 	
-	private Class<? extends Type> type;
+	protected Class<? extends Type> type;
 	
 	/**
 	 * Empty constructor

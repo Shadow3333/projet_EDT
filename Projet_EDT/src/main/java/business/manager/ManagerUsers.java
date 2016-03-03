@@ -1,5 +1,6 @@
 package business.manager;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ import util.Hasher;
 
 /**
  * @author DUBUIS Michael
- *
+ * @contributor LELIEVRE Romain
  */
 public class ManagerUsers extends AbstractManager<AbstractUser> {
 
@@ -57,6 +58,22 @@ public class ManagerUsers extends AbstractManager<AbstractUser> {
 		return true;
 	}
 	
+	@Override
+	public boolean remove(AbstractUser user, Serializable id)
+			throws IllegalAccessException {
+		if(!canRemove(user) && user.getEmail().equals(id)) {
+			throw new IllegalAccessException();
+		}
+		try {
+			dao.removeById(type, id);
+			dao.flush();
+			return true;
+		} catch(DaoException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	/**
 	 * Log a user with his email and password
 	 * @param email
@@ -90,5 +107,13 @@ public class ManagerUsers extends AbstractManager<AbstractUser> {
 		}
 		userMap.remove(currentUser.getEmail());
 		currentUser = null;
+	}
+	
+	/**
+	 * Return the current user
+	 * @return
+	 */
+	public AbstractUser getCurrentUser() {
+		return currentUser;
 	}
 }

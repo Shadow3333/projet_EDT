@@ -5,6 +5,10 @@ import business.model.Courses;
 import business.model.users.AbstractUser;
 import business.model.users.Admin;
 
+/**
+ * @author LELIEVRE Romain
+ * @contributor DUBUIS Michael
+ */
 public class ManagerCourses extends AbstractManager<Courses>{
 
 	public ManagerCourses(IDao dao) {

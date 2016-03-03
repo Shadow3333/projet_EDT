@@ -17,7 +17,7 @@ package util;
 
 /**
  * This class is useful to convert the hex to another format or another in the hexadecimal format.
- * @author michael
+ * @author DUBUIS Michael
  *
  */
 public class Hexa {

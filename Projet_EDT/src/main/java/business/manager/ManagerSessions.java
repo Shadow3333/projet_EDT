@@ -5,6 +5,10 @@ import business.model.Session;
 import business.model.users.AbstractUser;
 import business.model.users.Admin;
 
+/**
+ * @author LELIEVRE Romain
+ * @contributor DUBUIS Michael
+ */
 public class ManagerSessions extends AbstractManager<Session> {
 
 	public ManagerSessions(IDao dao) {
