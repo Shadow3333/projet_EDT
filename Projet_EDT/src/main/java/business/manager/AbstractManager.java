@@ -5,7 +5,9 @@ import java.lang.reflect.Type;
 
 import business.dao.DaoException;
 import business.dao.IDao;
+import business.model.Courses;
 import business.model.users.AbstractUser;
+import business.model.users.Admin;
 
 /**
  * @author DUBUIS Michael
@@ -13,7 +15,7 @@ import business.model.users.AbstractUser;
  */
 @SuppressWarnings("unchecked")
 public abstract class AbstractManager<T extends Object> {
-	private IDao dao = null;
+	protected IDao dao = null;
 	
 	private Class<? extends Type> type;
 	
@@ -63,6 +65,13 @@ public abstract class AbstractManager<T extends Object> {
 	 * @return
 	 */
 	public abstract boolean canFind(AbstractUser user);
+	
+	/**
+	 * User passed in parameter can update this type of Entity ?
+	 * @param user
+	 * @return
+	 */
+	public abstract boolean canUpdate(AbstractUser user);
 	
 	/**
 	 * Find entity
@@ -159,5 +168,26 @@ public abstract class AbstractManager<T extends Object> {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	/**
+	 * Update entity
+	 * @param user
+	 * @param entity
+	 * @return
+	 * @throws IllegalAccessException
+	 */
+	public boolean update(AbstractUser user, T entity) 
+			throws IllegalAccessException{
+		if(!canUpdate(user)) {
+			throw new IllegalAccessException();
+		}
+		try {
+			entity = (T) dao.update(entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }
