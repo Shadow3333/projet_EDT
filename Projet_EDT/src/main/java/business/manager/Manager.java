@@ -1,7 +1,5 @@
 package business.manager;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import business.dao.IDao;
 
 /**
@@ -9,7 +7,6 @@ import business.dao.IDao;
  *
  */
 public class Manager {
-	@Autowired
 	IDao dao;
 	
 	public ManagerCourses managerCourses;
@@ -20,15 +17,19 @@ public class Manager {
 	public ManagerUsers managerUsers;
 	
 	/**
-	 * 
+	 * Empty constructor
+	 * @deprecated
 	 */
 	public Manager() {
-		managerCourses = new ManagerCourses(dao);
-		managerEus = new ManagerEUs(dao);
-		managergroupEU = new ManagerGroupEU(dao);
-		managerGroupStudent = new ManagerGroupStudent(dao);
-		managerSessions = new ManagerSessions(dao);
-		managerUsers = new ManagerUsers(dao);
 	}
-
+	
+	public Manager(IDao dao) {
+		this.dao = dao;
+		managerCourses = new ManagerCourses(this.dao, this);
+		managerEus = new ManagerEUs(this.dao, this);
+		managergroupEU = new ManagerGroupEU(this.dao, this);
+		managerGroupStudent = new ManagerGroupStudent(this.dao, this);
+		managerSessions = new ManagerSessions(this.dao, this);
+		managerUsers = new ManagerUsers(this.dao, this);
+	}
 }

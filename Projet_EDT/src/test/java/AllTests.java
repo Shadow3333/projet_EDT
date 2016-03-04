@@ -2,8 +2,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import business.ManagerTest;
+import business.ManagerOldTest;
 import business.dao.JpaDaoTest;
+import business.manager.ManagerTest;
 import business.model.SessionFactoryTest;
 import business.model.StudentTest;
 import util.HasherTest;

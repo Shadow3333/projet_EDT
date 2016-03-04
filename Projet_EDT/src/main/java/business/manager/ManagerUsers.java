@@ -22,51 +22,52 @@ public class ManagerUsers extends AbstractManager<AbstractUser> {
 	/**
 	 * @param dao
 	 */
-	public ManagerUsers(IDao dao) {
-		super(dao);
+	public ManagerUsers(IDao dao, Manager manager) {
+		super(dao, manager);
 		userMap = new HashMap<String, AbstractUser>();
 	}
+	
+	/**
+	 * Return the current user
+	 * @return
+	 */
+	public AbstractUser getCurrentUser() {
+		return currentUser;
+	}
 
 	@Override
-	public boolean canSave(AbstractUser user) {
-		if(user instanceof Admin) {
+	public boolean canSave() {
+		if(manager.managerUsers.getCurrentUser() != null
+				&& manager.managerUsers.getCurrentUser() instanceof Admin) {
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public boolean canRemove(AbstractUser user) {
-		if(user instanceof Admin) {
+	public boolean canRemove() {
+		if(manager.managerUsers.getCurrentUser() != null
+				&& manager.managerUsers.getCurrentUser() instanceof Admin) {
 			return true;
 		}
 		return false;
 	}
-
-	@Override
-	public boolean canFindAll(AbstractUser user) {
-		return true;
-	}
-
-	@Override
-	public boolean canFind(AbstractUser user) {
-		return true;
-	}
 	
 	@Override
-	public boolean canUpdate(AbstractUser user) {
-		return true;
-	}
-	
-	@Override
-	public boolean remove(AbstractUser user, Serializable id)
+	public boolean remove(Serializable id)
 			throws IllegalAccessException {
-		if(!canRemove(user) && user.getEmail().equals(id)) {
+		if(!canRemove() &&
+				(currentUser == null ||
+				!currentUser.getEmail().equals(id))) {
 			throw new IllegalAccessException();
 		}
 		try {
 			dao.removeById(type, id);
 			dao.flush();
+			if(currentUser.getEmail().equals(id)) {
+				currentUser = null;
+				userMap.remove(id);
+			}
 			return true;
 		} catch(DaoException e) {
 			e.printStackTrace();
@@ -80,7 +81,8 @@ public class ManagerUsers extends AbstractManager<AbstractUser> {
 	 * @param hashPwd
 	 * @throws DaoException 
 	 */
-	public synchronized boolean login(String email, String password) throws DaoException {
+	public synchronized boolean login(String email, String password)
+			throws DaoException {
 		String hashPwd = Hasher.SHA256(password);
 		
 		if(userMap.containsKey(email)) {
@@ -107,13 +109,5 @@ public class ManagerUsers extends AbstractManager<AbstractUser> {
 		}
 		userMap.remove(currentUser.getEmail());
 		currentUser = null;
-	}
-	
-	/**
-	 * Return the current user
-	 * @return
-	 */
-	public AbstractUser getCurrentUser() {
-		return currentUser;
 	}
 }

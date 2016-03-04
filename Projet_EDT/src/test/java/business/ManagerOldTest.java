@@ -33,7 +33,7 @@ import business.model.users.Teacher;
  * @author DUBUIS Michael
  *
  */
-public class ManagerTest {
+public class ManagerOldTest {
 	/*
 	 * IDao is mocked for not use DataBase
 	 */

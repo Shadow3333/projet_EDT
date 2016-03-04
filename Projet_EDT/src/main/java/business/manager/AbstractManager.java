@@ -1,13 +1,11 @@
 package business.manager;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import business.dao.DaoException;
 import business.dao.IDao;
-import business.model.Courses;
-import business.model.users.AbstractUser;
-import business.model.users.Admin;
 
 /**
  * @author DUBUIS Michael
@@ -16,6 +14,7 @@ import business.model.users.Admin;
 @SuppressWarnings("unchecked")
 public abstract class AbstractManager<T extends Object> {
 	protected IDao dao = null;
+	protected Manager manager = null;
 	
 	protected Class<? extends Type> type;
 	
@@ -23,19 +22,21 @@ public abstract class AbstractManager<T extends Object> {
 	 * Empty constructor
 	 */
 	private AbstractManager() {
-		type = this.getClass().getGenericSuperclass().getClass();
-		if(!dao.isEntity(type)) {
-			System.exit(1);
-		}
+		type = (Class<? extends Type>) ((ParameterizedType) getClass()
+                .getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 	
 	/**
 	 * Constructor with <code>IDao</code> parameter
 	 * @param dao
 	 */
-	public AbstractManager(IDao dao) {
+	public AbstractManager(IDao dao, Manager manager) {
 		this();
 		this.dao = dao;
+		this.manager = manager;
+		/*if(!dao.isEntity(type)) {
+			System.exit(1);
+		}*/
 	}
 	
 	/**
@@ -43,35 +44,45 @@ public abstract class AbstractManager<T extends Object> {
 	 * @param user
 	 * @return
 	 */
-	public abstract boolean canSave(AbstractUser user);
+	public boolean canSave() {
+		return true;
+	}
 	
 	/**
 	 * User passed in parameter can Remove this type of Entity ?
 	 * @param user
 	 * @return
 	 */
-	public abstract boolean canRemove(AbstractUser user);
+	public boolean canRemove() {
+		return true;
+	}
 	
 	/**
 	 * User passed in parameter can FindAll Entities of this type ?
 	 * @param user
 	 * @return
 	 */
-	public abstract boolean canFindAll(AbstractUser user);
+	public boolean canFindAll() {
+		return true;
+	}
 	
 	/**
 	 * User passed in parameter can Find Entity of this type ?
 	 * @param user
 	 * @return
 	 */
-	public abstract boolean canFind(AbstractUser user);
+	public boolean canFind() {
+		return true;
+	}
 	
 	/**
 	 * User passed in parameter can update this type of Entity ?
 	 * @param user
 	 * @return
 	 */
-	public abstract boolean canUpdate(AbstractUser user);
+	public boolean canUpdate() {
+		return true;
+	}
 	
 	/**
 	 * Find entity
@@ -81,8 +92,8 @@ public abstract class AbstractManager<T extends Object> {
 	 * @throws DaoException
 	 * @throws IllegalAccessException
 	 */
-	public T find(AbstractUser user, Serializable id) throws DaoException, IllegalAccessException {
-		if(!canFind(user)) {
+	public T find(Serializable id) throws DaoException, IllegalAccessException {
+		if(!canFind()) {
 			throw new IllegalAccessException();
 		}
 		return (T) dao.find(type, id);
@@ -95,9 +106,9 @@ public abstract class AbstractManager<T extends Object> {
 	 * @throws DaoException
 	 * @throws IllegalAccessException
 	 */
-	public T findAll(AbstractUser user)
+	public T findAll()
 			throws DaoException, IllegalAccessException {
-		if(!canFindAll(user)) {
+		if(!canFindAll()) {
 			throw new IllegalAccessException();
 		}
 		return (T) dao.findAll(type);
@@ -110,9 +121,9 @@ public abstract class AbstractManager<T extends Object> {
 	 * @return
 	 * @throws IllegalAccessException
 	 */
-	public boolean save(AbstractUser user, T entity)
+	public boolean save(T entity)
 			throws IllegalAccessException {
-		if(!canSave(user)) {
+		if(!canSave()) {
 			throw new IllegalAccessException();
 		}
 		try {
@@ -133,9 +144,9 @@ public abstract class AbstractManager<T extends Object> {
 	 * @throws DaoException
 	 * @throws IllegalAccessException
 	 */
-	public boolean remove(AbstractUser user, T entity)
+	public boolean remove(T entity)
 			throws DaoException, IllegalAccessException {
-		if(!canRemove(user)) {
+		if(!canRemove()) {
 			throw new IllegalAccessException();
 		}
 		try {
@@ -155,9 +166,9 @@ public abstract class AbstractManager<T extends Object> {
 	 * @return
 	 * @throws IllegalAccessException
 	 */
-	public boolean remove(AbstractUser user, Serializable id)
+	public boolean remove(Serializable id)
 			throws IllegalAccessException {
-		if(!canRemove(user)) {
+		if(!canRemove()) {
 			throw new IllegalAccessException();
 		}
 		try {
@@ -177,9 +188,9 @@ public abstract class AbstractManager<T extends Object> {
 	 * @return
 	 * @throws IllegalAccessException
 	 */
-	public boolean update(AbstractUser user, T entity) 
+	public boolean update(T entity) 
 			throws IllegalAccessException{
-		if(!canUpdate(user)) {
+		if(!canUpdate()) {
 			throw new IllegalAccessException();
 		}
 		try {

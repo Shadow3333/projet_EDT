@@ -18,7 +18,7 @@ import util.Hasher;
 /**
  * @author LELIEVRE Romain
  * @contributor DUBUIS Michael
- *
+ * @deprecated
  */
 public class Manager {
 	private IDao dao;

@@ -2,7 +2,6 @@ package business.manager;
 
 import business.dao.IDao;
 import business.model.Session;
-import business.model.users.AbstractUser;
 import business.model.users.Admin;
 
 /**
@@ -11,39 +10,25 @@ import business.model.users.Admin;
  */
 public class ManagerSessions extends AbstractManager<Session> {
 
-	public ManagerSessions(IDao dao) {
-		super(dao);
+	public ManagerSessions(IDao dao, Manager manager) {
+		super(dao, manager);
 	}
 
 	@Override
-	public boolean canSave(AbstractUser user) {
-		if(user instanceof Admin) {
+	public boolean canSave() {
+		if(manager.managerUsers.getCurrentUser() != null
+				&& manager.managerUsers.getCurrentUser() instanceof Admin) {
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public boolean canRemove(AbstractUser user) {
-		if(user instanceof Admin) {
+	public boolean canRemove() {
+		if(manager.managerUsers.getCurrentUser() != null
+				&& manager.managerUsers.getCurrentUser() instanceof Admin) {
 			return true;
 		}
 		return false;
 	}
-
-	@Override
-	public boolean canFindAll(AbstractUser user) {
-		return true;
-	}
-
-	@Override
-	public boolean canFind(AbstractUser user) {
-		return true;
-	}
-	
-	@Override
-	public boolean canUpdate(AbstractUser user) {
-		return true;
-	}
-
 }
