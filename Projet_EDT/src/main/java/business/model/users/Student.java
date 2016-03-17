@@ -2,6 +2,7 @@ package business.model.users;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ import business.model.GroupEU;
 public class Student extends AbstractUser {
 	@Column(nullable = true)
 	private String idCourses;
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	@CollectionTable(
 			name = "StudentGroupsEU",
 			joinColumns = @JoinColumn(name = "UserEmail"))

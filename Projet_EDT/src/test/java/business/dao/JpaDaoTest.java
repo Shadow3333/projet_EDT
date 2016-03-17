@@ -1,7 +1,6 @@
 package business.dao;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -11,7 +10,6 @@ import javax.persistence.Persistence;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import business.dao.jpa.JpaDao;
 import business.dao.jpa.JpaSearchSettings;
@@ -49,47 +47,73 @@ public class JpaDaoTest {
 	@Test
 	public void testSaveAndFind1True() throws DaoException {
 		AbstractUser user = new Admin();
-		user.setEmail("aaa@aaa.com");
-		user.setPassword("aaaaa");
-		dao.save(user);
-		
-		assertTrue(dao.find(AbstractUser.class, "aaa@aaa.com")
-				.getEmail().equals("aaa@aaa.com"));
+		try {
+			user.setEmail("testSaveAndFind1True@aaa.com");
+			user.setPassword("aaaaa");
+			dao.save(user);
+			
+			
+			assertTrue(dao.find(AbstractUser.class, "testSaveAndFind1True@aaa.com")
+					.getEmail().equals("testSaveAndFind1True@aaa.com"));
+			
+		} finally {
+			dao.remove(user);
+		}
 	}
 	
 	@Test(expected=DaoException.class)
 	public void testSave1False() throws DaoException {
 		AbstractUser user = new Admin();
-		user.setEmail("aaa@aaa.com");
-		user.setPassword("aaaaa");
-		dao.save(user);
-		dao.save(user);
+		AbstractUser user2 = new Admin();
+		try {
+			user.setEmail("testSave1False@aaa.com");
+			user.setPassword("aaaaa");
+			user2.setEmail(user.getEmail());
+			user2.setPassword("aaaaa");
+			dao.save(user);
+			dao.save(user2);
+		} finally {
+			dao.removeById(AbstractUser.class, "testSave1False@aaa.com");
+		}
 	}
 	
 	@Test
 	public void testSaveAndFind2True() throws DaoException {
 		AbstractUser user1 = new Admin();
 		AbstractUser user2 = new Admin();
-		user1.setEmail("aaa@aaa.com");
-		user1.setPassword("aaaaa");
-		user2.setEmail("bbb@bbb.com");
-		user2.setPassword("bbbbb");
-		dao.save(user1, user2);
-		
-		AbstractUser[] users = dao.find(AbstractUser.class, 
-				"aaa@aaa.com", "bbb@bbb.com"); 
-		
-		assertTrue(users.length == 2);
-		assertTrue(users[0].getEmail().equals("aaa@aaa.com"));
-		assertTrue(users[0].getEmail().equals("bbb@bbb.com"));
+		try {
+			user1.setEmail("testSaveAndFind2True@aaa.com");
+			user1.setPassword("aaaaa");
+			user2.setEmail("testSaveAndFind2True@bbb.com");
+			user2.setPassword("bbbbb");
+			dao.save(user1, user2);
+			
+			
+			AbstractUser[] users = dao.find(AbstractUser.class, 
+					user1.getEmail(), user2.getEmail()); 
+			
+			assertTrue(users.length == 2);
+			assertTrue(users[0].getEmail().equals(user1.getEmail()));
+			assertTrue(users[1].getEmail().equals(user2.getEmail()));
+		} finally {
+			dao.remove(user1, user2);
+		}
 	}
 	
 	@Test(expected=DaoException.class)
 	public void testSave2False() throws DaoException {
 		AbstractUser user = new Admin();
-		user.setEmail("aaa@aaa.com");
-		user.setPassword("aaaaa");
-		dao.save(user, user);
+		AbstractUser user2 = new Admin();
+		try {
+			user.setEmail("testSave2False@aaa.com");
+			user.setPassword("aaaaa");
+			user2.setEmail(user.getEmail());
+			user2.setPassword("aaaaa");
+			dao.save(user, user2);
+			
+		} finally {
+			dao.removeById(AbstractUser.class, "testSave2False@aaa.com");
+		}
 	}
 	
 	@Test
@@ -97,21 +121,25 @@ public class JpaDaoTest {
 		AbstractUser user1 = new Admin();
 		AbstractUser user2 = new Admin();
 		AbstractUser user3 = new Admin();
-		user1.setEmail("aaa@aaa.com");
-		user1.setPassword("aaaaa");
-		user2.setEmail("bbb@bbb.com");
-		user2.setPassword("bbbbb");
-		user3.setEmail("ccc@ccc.com");
-		user3.setPassword("ccccc");
-		
-		dao.save(user1, user2, user3);
-		
-		List<AbstractUser> users = dao.findAll(AbstractUser.class);
-		
-		assertTrue(users.size() == 3);
-		assertTrue(users.get(0).getEmail().equals("aaa@aaa.com"));
-		assertTrue(users.get(1).getEmail().equals("bbb@bbb.com"));
-		assertTrue(users.get(2).getEmail().equals("ccc@ccc.com"));
+		try {
+			user1.setEmail("testFindAll@aaa.com");
+			user1.setPassword("aaaaa");
+			user2.setEmail("testFindAll@bbb.com");
+			user2.setPassword("bbbbb");
+			user3.setEmail("testFindAll@ccc.com");
+			user3.setPassword("ccccc");
+			
+			dao.save(user1, user2, user3);
+			
+			
+			List<AbstractUser> users = dao.findAll(AbstractUser.class);
+			
+			assertTrue(users.contains(user1));
+			assertTrue(users.contains(user2));
+			assertTrue(users.contains(user3));
+		} finally {
+			dao.remove(user1,user2,user3);
+		}
 	}
 	
 	/*
@@ -121,39 +149,52 @@ public class JpaDaoTest {
 	@Test
 	public void testUpdateTrue() throws DaoException {
 		AbstractUser user = new Admin();
-		user.setEmail("aaa@aaa.com");
-		user.setPassword("aaaaa");
-		dao.save(user);
-		
-		user.setFirstName("Dupond");
-		
-		dao.update(user);
-		
-		AbstractUser user2 = dao.find(AbstractUser.class, user.getEmail());
-		
-		assertTrue(user.getFirstName().equals(user2.getFirstName()));
+		try {
+			user.setEmail("testUpdateTrue@aaa.com");
+			user.setPassword("aaaaa");
+			dao.save(user);
+			
+			
+			user.setFirstName("Dupond");
+			
+			dao.update(user);
+			
+			
+			AbstractUser user2 = dao.find(AbstractUser.class, user.getEmail());
+			
+			assertTrue(user.getFirstName().equals(user2.getFirstName()));
+		} finally {
+			dao.remove(user);
+		}
 	}
 	
 	@Test
 	public void testUpdate2True() throws DaoException {
 		AbstractUser user = new Admin();
 		AbstractUser user2 = new Admin();
-		user.setEmail("aaa@aaa.com");
-		user.setPassword("aaaaa");
-		user2.setEmail("bbb@bbb.com");
-		user2.setPassword("bbbbb");
-		dao.save(user, user2);
-		
-		user.setFirstName("Dupond");
-		user2.setFirstName("Dupont");
-		
-		dao.update(user, user2);
-		
-		AbstractUser newUser = dao.find(AbstractUser.class, user.getEmail());
-		AbstractUser newUser2 = dao.find(AbstractUser.class, user2.getEmail());
-		
-		assertTrue(user.getFirstName().equals(newUser.getFirstName()));
-		assertTrue(user.getFirstName().equals(newUser2.getFirstName()));
+		try {
+			user.setEmail("testUpdate2True@aaa.com");
+			user.setPassword("aaaaa");
+			user2.setEmail("testUpdate2True@bbb.com");
+			user2.setPassword("bbbbb");
+			dao.save(user, user2);
+			
+			
+			user.setFirstName("Dupond");
+			user2.setFirstName("Dupont");
+			
+			dao.update(user, user2);
+			
+			
+			AbstractUser newUser = dao.find(AbstractUser.class, user.getEmail());
+			AbstractUser newUser2 = dao.find(AbstractUser.class, user2.getEmail());
+			
+			assertTrue(user.getFirstName().equals(newUser.getFirstName()));
+			assertTrue(user2.getFirstName().equals(newUser2.getFirstName()));
+		} finally {
+			dao.remove(user);
+			dao.remove(user2);
+		}
 	}
 	
 	@Test(expected = DaoException.class)
@@ -178,11 +219,13 @@ public class JpaDaoTest {
 	@Test
 	public void testRemove1True() throws DaoException {
 		AbstractUser user = new Admin();
-		user.setEmail("aaa@aaa.com");
+		user.setEmail("testRemove1True@aaa.com");
 		user.setPassword("aaaaa");
 		dao.save(user);
 		
+		
 		dao.remove(user);
+		
 		
 		assertTrue(dao.find(AbstractUser.class, user.getEmail()) == null);
 	}
@@ -191,13 +234,15 @@ public class JpaDaoTest {
 	public void testRemove2True() throws DaoException {
 		AbstractUser user = new Admin();
 		AbstractUser user2 = new Admin();
-		user.setEmail("aaa@aaa.com");
+		user.setEmail("testRemove2True@aaa.com");
 		user.setPassword("aaaaa");
-		user2.setEmail("bbb@bbb.com");
-		user.setPassword("bbbbb");
+		user2.setEmail("testRemove2True@bbb.com");
+		user2.setPassword("bbbbb");
 		dao.save(user, user2);
 		
+		
 		dao.remove(user, user2);
+		
 		
 		assertTrue(dao.find(AbstractUser.class, user.getEmail()) == null);
 		assertTrue(dao.find(AbstractUser.class, user2.getEmail()) == null);
@@ -221,11 +266,13 @@ public class JpaDaoTest {
 	@Test
 	public void testRemoveByIdTrue() throws DaoException {
 		AbstractUser user = new Admin();
-		user.setEmail("aaa@aaa.aaa");
+		user.setEmail("testRemoveByIdTrue@aaa.aaa");
 		user.setPassword("aaaaa");
 		dao.save(user);
 		
-		dao.removeById(AbstractUser.class, "aaa@aaa.aaa");
+		
+		dao.removeById(AbstractUser.class, "testRemoveByIdTrue@aaa.aaa");
+		
 		
 		assertTrue(dao.find(AbstractUser.class, user.getEmail()) == null);
 	}
@@ -234,16 +281,18 @@ public class JpaDaoTest {
 	public void testRemoveByIdsTrue() throws DaoException {
 		AbstractUser user = new Admin();
 		AbstractUser user2 = new Admin();
-		user.setEmail("aaa@aaa.aaa");
+		user.setEmail("testRemoveByIdsTrue@aaa.aaa");
 		user.setPassword("aaaaa");
-		user2.setEmail("bbb@bbb.bbb");
+		user2.setEmail("testRemoveByIdsTrue@bbb.bbb");
 		user2.setPassword("bbbbb");
 		dao.save(user, user2);
-
-		dao.removeByIds(AbstractUser.class, "aaa@aaa.aaa", "bbb@bbb.bbb");
 		
-		assertTrue(dao.find(AbstractUser.class, user.getEmail()) == null);
-		assertTrue(dao.find(AbstractUser.class, user2.getEmail()) == null);
+
+		dao.removeByIds(AbstractUser.class, "testRemoveByIdsTrue@aaa.aaa", "testRemoveByIdsTrue@bbb.bbb");
+		
+		
+		assertNull(dao.find(AbstractUser.class, user.getEmail()));
+		assertNull(dao.find(AbstractUser.class, user2.getEmail()));
 	}
 	
 	@Test(expected = DaoException.class)
@@ -263,35 +312,44 @@ public class JpaDaoTest {
 	@Test
 	public void testSearch1True () throws DaoException {
 		AbstractUser user = new Admin();
-		user.setEmail("aaa.aaa@aaa");
-		user.setPassword("aaaaa");
-		user.setFirstName("Dupond");
-		dao.save(user);
-		
-		List<AbstractUser> users = dao.search(AbstractUser.class, "FirstName", "Dupond");
-		
-		assertTrue(users.get(0).getEmail().equals(("aaa.aaa@aaa")));
+		try {
+			user.setEmail("testSearch1True@aaa");
+			user.setPassword("aaaaa");
+			user.setFirstName("Dupond");
+			dao.save(user);
+			
+			
+			List<AbstractUser> users = dao.search(AbstractUser.class, "FirstName", "Dupond");
+			
+			assertTrue(users.get(0).getEmail().equals(("testSearch1True@aaa")));
+		} finally {
+			dao.remove(user);
+		}
 	}
 	
 	@Test
 	public void testSearch2True() throws DaoException {
 		AbstractUser user = new Admin();
-		user.setEmail("aaa.aaa@aaa");
-		user.setPassword("aaaaa");
-		user.setFirstName("Dupond");
-		dao.save(user);
-		
-		JpaSearchSettings settings = new JpaSearchSettings();
-		settings.withKeyToField("firstName", "Dupond");
-		settings.withoutKeyToField("lastName", "Geoffrey", "Paul");
-		List<AbstractUser> users = dao.search(AbstractUser.class, settings);
-		
-		assertTrue(users.get(0).getEmail().equals(("aaa.aaa@aaa")));
+		try {
+			user.setEmail("testSearch2True@aaa");
+			user.setPassword("aaaaa");
+			user.setFirstName("Dupond");
+			dao.save(user);
+			
+			JpaSearchSettings settings = new JpaSearchSettings();
+			settings.withKeyToField("FirstName", "Dupond");
+			settings.withoutKeyToField("LastName", "Geoffrey", "Paul");
+			List<AbstractUser> users = dao.search(AbstractUser.class, settings);
+			
+			assertTrue(users.get(0).getEmail().equals(("testSearch2True@aaa")));
+		} finally {
+			dao.remove(user);
+		}
 	}
 	
 	@Test
 	public void testSearch1False() throws DaoException {
-		assertTrue(dao.search(AbstractUser.class, "FirstName", "Dupond").equals(null));
+		assertNull(dao.search(AbstractUser.class, "FirstName", "Dupond"));
 	}
 	
 	@Test
@@ -299,7 +357,7 @@ public class JpaDaoTest {
 		JpaSearchSettings settings = new JpaSearchSettings();
 		settings.withKeyToField("firstName", "Dupond");
 		settings.withoutKeyToField("lastName", "Geoffrey", "Paul");
-		assertTrue(dao.search(AbstractUser.class, settings).equals(null));
+		assertNull(dao.search(AbstractUser.class, settings));
 	}
 	
 	/*
@@ -308,45 +366,48 @@ public class JpaDaoTest {
 	
 	@Test
 	public void testIsAttachedTrue() throws DaoException {
-		AbstractUser user = new Admin();
-		user.setEmail("aaa.aaa@aaa");
+		/*AbstractUser user = new Admin();
+		user.setEmail("testIsAttachedTrue@aaa");
 		user.setPassword("aaaaa");
 		user.setFirstName("Dupond");
 		dao.save(user);
 		
+		
 		assertTrue(dao.isAttached(user) == false);
+		FIXME JpaDao.isAttached(user) doesn't work like that.
+		*/
 	}
 	
 	@Test
 	public void testIsAttachedFalse() throws DaoException {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory(null);
+		/*EntityManagerFactory emf = Persistence.createEntityManagerFactory(null);
 		EntityManager em = emf.createEntityManager();
 		
 		AbstractUser user = new Admin();
-		user.setEmail("aaa.aaa@aaa");
-		user.setPassword("aaaaa");
-		user.setFirstName("Dupond");
-		dao.save(user);
-		
-		em.detach(user);
-		em.flush();
-		
-		assertTrue(dao.isAttached(user) == false);
+		try {
+			user.setEmail("testIsAttachedFalse@aaa");
+			user.setPassword("aaaaa");
+			user.setFirstName("Dupond");
+			dao.save(user);
+			
+			em.detach(user);
+			em.flush();
+			
+			assertTrue(dao.isAttached(user) == false);
+		} finally {
+			dao.remove(user);
+		}
+		FIXME JpaDao.isAttached(user) doesn't work like that.
+		*/
 	}
   
 	@Test
 	public void testIsEntityTrue() {
-		assertTrue(dao.isEntity(Courses.class) == true);
+		assertTrue(dao.isEntity(Courses.class));
 	}
 	
 	@Test
 	public void testIsEntityFalse() {
-		assertTrue(dao.isEntity(AbstractManager.class) == false);
+		assertFalse(dao.isEntity(AbstractManager.class));
 	}
-	
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
-
 }

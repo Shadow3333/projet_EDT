@@ -3,6 +3,7 @@ package business.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -26,11 +27,11 @@ public class Session {
 	private Long id;
 	@Column(nullable = false)
 	private Date date;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	private GroupStudent groupStudent;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	private EU eu;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	private AbstractUser teacher;
 	@Column(nullable = true)
 	@Enumerated(EnumType.STRING)

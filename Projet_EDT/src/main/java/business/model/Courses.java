@@ -3,6 +3,7 @@ package business.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,10 +25,10 @@ public class Courses {
 	private String id;
 	@Column(nullable = true)
 	private String name;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@Valid
 	private GroupEU obligatories;
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	@CollectionTable(
 			name = "CoursesListOptions",
 			joinColumns = @JoinColumn(name = "CoursesId"))

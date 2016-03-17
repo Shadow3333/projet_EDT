@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,25 +31,25 @@ public class GroupEU {
 	private Long id;
 	@Column(nullable = true)
 	private Boolean optionnal;
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	@CollectionTable(
 			name = "GroupEUListEU",
 			joinColumns = @JoinColumn(name = "GroupEUId"))
 	@Valid
 	private List<EU> eus;
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	@CollectionTable(
 			joinColumns = @JoinColumn(name="GroupEUId"))
 	@MapKeyColumn(name = "GroupNumber")
 	@Valid
 	private Map<Integer, GroupStudent> td;
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	@CollectionTable(
 			joinColumns = @JoinColumn(name="GroupEUId"))
 	@MapKeyColumn(name = "GroupNumber")
 	@Valid
 	private Map<Integer, GroupStudent> tp;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@Valid
 	private GroupStudent cm;
 	

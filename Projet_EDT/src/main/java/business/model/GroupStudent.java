@@ -3,6 +3,7 @@ package business.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -28,7 +29,7 @@ public class GroupStudent {
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private LessonType groupType;
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	@Valid
 	private List<AbstractUser> students;
 	

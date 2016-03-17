@@ -1,6 +1,7 @@
 package business.dao.jpa;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -46,7 +47,15 @@ public class JpaDao implements IDao {
 	
 	public void save(Object entity) throws DaoException {
 		try {
-			em.persist(entity);
+			em.getTransaction().begin();
+			try {
+				em.persist(entity);
+				em.getTransaction().commit();
+			} finally {
+				if(em.getTransaction().isActive()) {
+					em.getTransaction().rollback();
+				}
+			}
 		} catch (Exception e) {
 			throw new DaoException(e);
 		}
@@ -64,7 +73,7 @@ public class JpaDao implements IDao {
 
 	@SuppressWarnings("unchecked")
 	public <T> T[] find(Class<T> type, Serializable... ids) {
-		Object[] t = new Object[ids.length];
+		T[] t = (T[]) Array.newInstance(type, ids.length);
 		for(int i = 0 ; i < ids.length ; i++) {
 			t[i] = em.find(type, ids[i]);
 		}
@@ -96,14 +105,23 @@ public class JpaDao implements IDao {
 	}
 	
 	public void flush() {
-		em.getTransaction().begin();
 		em.flush();
-		em.getTransaction().commit();
 	}
 
 	public void remove(Object entity) throws DaoException {
+		if(!em.contains(entity)) {
+			throw new DaoException("EntityManager doesn't contain this entity");
+		}
 		try {
-			em.remove(entity);
+			em.getTransaction().begin();
+			try {
+				em.remove(entity);
+				em.getTransaction().commit();
+			} finally {
+				if(em.getTransaction().isActive()) {
+					em.getTransaction().rollback();
+				}
+			}
 		} catch(Exception e) {
 			throw new DaoException(e);
 		}
@@ -191,6 +209,7 @@ public class JpaDao implements IDao {
 	}
 	
 	public <T> boolean isEntity(Class<T> type) {
+		// FIXME False
 		return em.getMetamodel().getEntities().contains(type);
 	}
 }
