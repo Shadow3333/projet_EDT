@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 
 /**
@@ -23,7 +24,7 @@ public class Courses {
 	private String id;
 	@Column(nullable = true)
 	private String name;
-	@Column(nullable = true)
+	@ManyToOne
 	@Valid
 	private GroupEU obligatories;
 	@ManyToMany

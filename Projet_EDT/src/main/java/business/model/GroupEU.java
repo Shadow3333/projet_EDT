@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.validation.Valid;
 
@@ -39,17 +40,15 @@ public class GroupEU {
 	@CollectionTable(
 			joinColumns = @JoinColumn(name="GroupEUId"))
 	@MapKeyColumn(name = "GroupNumber")
-	@Column(name = "GroupTD")
 	@Valid
 	private Map<Integer, GroupStudent> td;
 	@ManyToMany
 	@CollectionTable(
 			joinColumns = @JoinColumn(name="GroupEUId"))
 	@MapKeyColumn(name = "GroupNumber")
-	@Column(name = "GroupTP")
 	@Valid
 	private Map<Integer, GroupStudent> tp;
-	@Column
+	@ManyToOne
 	@Valid
 	private GroupStudent cm;
 	

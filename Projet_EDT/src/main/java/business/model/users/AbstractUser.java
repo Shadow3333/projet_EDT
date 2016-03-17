@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -27,7 +28,7 @@ import util.Hasher;
  * @author DUBUIS Michael
  *
  */
-@MappedSuperclass
+@Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(
 		name = "UserType",

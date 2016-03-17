@@ -5,8 +5,11 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.validation.Valid;
 
 import business.model.EU.LessonType;
@@ -23,8 +26,9 @@ public class GroupStudent {
 	@GeneratedValue
 	private Long id;
 	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private LessonType groupType;
-	@Column(nullable = true)
+	@ManyToMany
 	@Valid
 	private List<AbstractUser> students;
 	

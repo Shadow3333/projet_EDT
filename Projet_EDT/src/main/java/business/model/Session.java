@@ -9,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 
 import business.model.EU.LessonType;
@@ -25,11 +26,11 @@ public class Session {
 	private Long id;
 	@Column(nullable = false)
 	private Date date;
-	@Column(nullable = true)
+	@ManyToOne
 	private GroupStudent groupStudent;
-	@Column(nullable = true)
+	@ManyToOne
 	private EU eu;
-	@Column(nullable = true)
+	@ManyToOne
 	private AbstractUser teacher;
 	@Column(nullable = true)
 	@Enumerated(EnumType.STRING)

@@ -36,8 +36,12 @@ public class JpaDao implements IDao {
 	}
 	
 	public JpaDao(String entityUnit) {
+		System.out.print("Creation entity manager factory... ");
 		emf = Persistence.createEntityManagerFactory(entityUnit);
+		System.out.println("Done");
+		System.out.print("Creation entity manager... ");
 		em = emf.createEntityManager();
+		System.out.println("Done");
 	}
 	
 	public void save(Object entity) throws DaoException {

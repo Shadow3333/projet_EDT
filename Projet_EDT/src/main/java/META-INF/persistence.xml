@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
  http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
 	version="1.0">
-	<persistence-unit name="Projet_EDT">
+	<!--  <persistence-unit name="Projet_EDT_MYSQL">
 	
 		<class>business.model.users.AbstractUser</class>
 		<class>business.model.users.Admin</class>
@@ -20,7 +20,6 @@
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 
-			<!-- parametres de connection JDBC -->
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/edt_bd" />
 			<property name="javax.persistence.jdbc.user" value="root" />
@@ -28,9 +27,33 @@
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="create" />
-			<!-- <property name="javax.persistence.schema-generation.database.action" 
-				value="create"/> -->
+		</properties>
+	</persistence-unit>-->
+	
+	<persistence-unit name="Projet_EDT">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		
+		<class>business.model.users.AbstractUser</class>
+		<class>business.model.users.Admin</class>
+		<class>business.model.users.Student</class>
+		<class>business.model.users.Teacher</class>
+		<class>business.model.Courses</class>
+		<class>business.model.EU</class>
+		<class>business.model.GroupEU</class>
+		<class>business.model.GroupStudent</class>
+		<class>business.model.Session</class>
+	
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect" />
+			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" />
+			<property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+			<property name="hibernate.connection.username" value="SYSTEM" />
+			<property name="hibernate.connection.password" value="Pourquoi0" />
+			
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.flushMode" value="FLUSH_AUTO" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 		</properties>
 	</persistence-unit>
-	<!-- TODO Need another persistence-unit to test DAO -->
+	
 </persistence>
