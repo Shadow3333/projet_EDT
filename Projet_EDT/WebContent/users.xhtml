@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:composition template="/template/myLayout.xhtml">
+		<ui:define name="content">
+			<f:view>
+				<h1>User List</h1>
+
+				<p:dataTable id="table" value="#{UserController.findAll()}" var="p">
+					<p:column headerText="Name">
+						<h:outputText value="#{p.lastName}" />
+					</p:column>
+
+					<p:column headerText="Fist name">
+						<h:outputText value="#{p.firstName}" />
+					</p:column>
+
+					<p:column headerText="Birthday">
+						<h:outputText value="#{UserController.getFormattedDate(p.birthDate)}" />
+					</p:column>
+					
+					<p:column headerText="Web site">
+						<h:outputText value="#{p.webSite}" />
+					</p:column>
+					
+					<p:column headerText="Role">
+						<h:outputText value="#{UserController.getRole(p)}" />
+					</p:column>
+					
+					<p:column headerText="Educational Registration">
+						<h:form>
+							<p:commandButton value="ER" id="educationalRegistration"
+								action="#{UserController.doER(p)}"
+								styleClass="ui-priority-primary" />
+						</h:form>
+					</p:column>
+					
+					<p:column headerText="Edit">
+						<h:form>
+							<p:commandButton value="E" id="edit"
+								action="#{UserController.show(p)}"
+								styleClass="ui-priority-primary" />
+						</h:form>
+					</p:column>
+					
+					<p:column headerText="Supprimer">
+						<h:form>
+							<p:commandButton value="X" id="supprimer"
+								action="#{UserController.remove(p)}" update="table"
+								styleClass="ui-priority-primary" />
+						</h:form>
+					</p:column>
+				</p:dataTable>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:composition template="/template/myLayout.xhtml">
+		<ui:define name="content">
+			<f:view>
+				<h1>Educational Background List</h1>
+
+				<p:dataTable id="table" value="#{EducationalBackgroundController.findAll()}" var="eb">
+					<p:column headerText="ID">
+						<h:outputText value="#{eb.id}" />
+					</p:column>
+				
+					<p:column headerText="Nom">
+						<h:outputText value="#{eb.name}" />
+					</p:column>
+					
+					<p:column headerText="Edit">
+						<h:form>
+							<p:commandButton value="E" id="edit"
+								action="#{EducationalBackgroundController.show(eb)}"
+								styleClass="ui-priority-primary" />
+						</h:form>
+					</p:column>
+
+					<p:column headerText="Supprimer">
+						<h:form>
+							<p:commandButton value="X" id="supprimer"
+								action="#{EducationalBackgroundController.remove(eb)}" update="table"
+								styleClass="ui-priority-primary" />
+						</h:form>
+					</p:column>
+				</p:dataTable>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

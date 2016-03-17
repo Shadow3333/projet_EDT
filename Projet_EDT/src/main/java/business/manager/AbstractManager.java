@@ -3,6 +3,7 @@ package business.manager;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
 import business.dao.DaoException;
 import business.dao.IDao;
@@ -106,12 +107,12 @@ public abstract class AbstractManager<T extends Object> {
 	 * @throws DaoException
 	 * @throws IllegalAccessException
 	 */
-	public T findAll()
+	public List<T> findAll()
 			throws DaoException, IllegalAccessException {
 		if(!canFindAll()) {
 			throw new IllegalAccessException();
 		}
-		return (T) dao.findAll(type);
+		return (List<T>) dao.findAll(type);
 	}
 	
 	/**

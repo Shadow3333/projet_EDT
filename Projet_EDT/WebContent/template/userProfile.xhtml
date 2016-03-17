@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<body>
+	<ui:composition template="/template/myLayout.xhtml">
+		<ui:define name="content">
+			<f:view>
+				
+				<ui:insert name="label"/>
+			
+				<h:form id="test">
+					<c:set var="user" value="#{UserController.theUser}" />
+					<ui:insert name="resetUser"/>
+					
+
+					<p:panelGrid columns="2">
+					
+						<h:outputText>Mail :</h:outputText>
+				        <p:inputText id="email" value="#{user.email}" required="true"
+									 requiredMessage="A mail is needed"/>
+						
+						<h:outputText>Name :</h:outputText>
+						<p:inputText id="lastName" value="#{user.lastName}"/>
+						             
+						<h:outputText>First name :</h:outputText>
+						<p:inputText id="firstName" value="#{user.firstName}"/>
+						 
+						<h:outputText>Birthday (DD/MM/YYYY):</h:outputText>
+						<p:inputText id="birthDate" value="#{user.birthDate}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+						</p:inputText>
+								     
+						<h:outputText>Website :</h:outputText>
+	            		<p:inputText id="webSite" value="#{user.webSite}"/>
+								     
+						<h:outputText>Password :</h:outputText>
+       					<p:inputText id="hashPwd" value="#{user.hashPwd}" type="password" required="true"
+								     requiredMessage="Please enter a password"/>
+						
+						<h:outputText>Role :</h:outputText>
+						<p:selectOneMenu value="#{UserController.role}">
+							<f:selectItems value="#{UserController.getRoles()}" />
+						</p:selectOneMenu>
+								     
+					</p:panelGrid>
+					<ui:insert name="method"/>
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</body>
+
+</html>

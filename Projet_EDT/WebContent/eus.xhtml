@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:composition template="/template/myLayout.xhtml">
+		<ui:define name="content">
+			<f:view>
+				<h1>Teaching Unit List</h1>
+
+				<p:dataTable id="table" value="#{euController.findAll()}" var="eu">
+					<p:column headerText="ID">
+						<h:outputText value="#{eu.id}" />
+					</p:column>
+				
+					<p:column headerText="Nom">
+						<h:outputText value="#{eu.name}" />
+					</p:column>
+
+					<p:column headerText="Description">
+						<h:outputText value="#{eu.description}" />
+					</p:column>
+
+					<p:column headerText="Nombre de crédits">
+						<h:outputText value="#{eu.nbCredits}" />
+					</p:column>
+					<p:column headerText="Supprimer">
+						<h:form>
+							<p:commandButton value="X" id="supprimer"
+								action="#{euController.remove(eu)}" update="table"
+								styleClass="ui-priority-primary" />
+						</h:form>
+					</p:column>
+				</p:dataTable>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

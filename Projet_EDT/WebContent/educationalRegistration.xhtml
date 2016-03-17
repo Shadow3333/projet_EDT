@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<head>
+
+<title>Educational Registration</title>
+
+</head>
+
+<body>
+	<ui:composition template="/template/myLayout.xhtml">
+		<ui:define name="content">
+			<f:view>
+				<h3>Educational Registration</h3>
+
+				<h:form id="test">
+
+					<p:panelGrid id="main" columns="2">
+
+						<p:outputLabel for="ebs" value="Educational Background :" />
+				        <p:selectOneMenu id="ebs" value="#{UserController.eb}" >
+				            <f:selectItems value="#{UserController.findAllEBs()}" var="currEB"
+				            			   itemLabel="#{currEB.id} : #{currEB.name}" itemValue="#{currEB}" />
+				            <f:ajax render=":test:menu1"/>
+				        </p:selectOneMenu>
+
+						<h:outputText id="test123" value="#{UserController.eb}"/>
+						<h:outputLabel for="menu1" value="Mandatory" />
+						<p:selectCheckboxMenu id="menu1"
+							value="#{UserController.eb.obligatories.eus}" label="UES"
+							filter="true" filterMatchMode="startsWith"
+							panelStyle="width:400px">
+							<f:selectItems value="#{UserController.eb.obligatories.eus}" 
+										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
+										   itemValue="#{eu}"/>
+							<f:converter converterId="TUConverter" />
+						</p:selectCheckboxMenu>
+
+						<h:outputLabel for="menu" value="Optional" />
+						<p:selectCheckboxMenu id="menu"
+							value="#{EducationalBackgroundController.optionals}" label="UES"
+							filter="true"
+							panelStyle="width:400px">
+							<f:selectItems value="#{eus}" 
+										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
+										   itemValue="#{eu}"/>
+							<f:converter converterId="TUConverter" />
+						</p:selectCheckboxMenu>
+
+					</p:panelGrid>
+					<tr>
+						<td colspan="2">
+							<h:commandButton action="#{EducationalBackgroundController.save()}" value="Save" />
+						</td>
+					</tr>
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</body>
+
+</html>

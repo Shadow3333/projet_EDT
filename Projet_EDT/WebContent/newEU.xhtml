@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<head>
+
+<title>Add a teaching unit</title>
+
+</head>
+
+<body>
+	<ui:composition template="/template/myLayout.xhtml">
+		<ui:define name="content">
+			<f:view>
+				<h1>Add a teaching unit</h1>
+
+				<h:form id="test">
+					<c:set var="eu" value="#{euController.theEU}" />
+
+					<p:panelGrid columns="2">
+					
+						<h:outputText>Identifiant :</h:outputText>
+						<p:inputText id="id" value="#{eu.id}" required="true"
+						             requiredMessage="An ID is needed"/>
+						             
+						<h:outputText>Nom :</h:outputText>
+						<p:inputText id="name" value="#{eu.name}" required="true"
+						             requiredMessage="A name is needed"/>
+						 
+						 <h:outputText>Description :</h:outputText>
+						<p:inputText id="description" value="#{eu.description}"/>
+									 
+						<h:outputText>Nombre de credits :</h:outputText>
+	            		<p:inputText id="nbCredits" value="#{eu.nbCredits}"/>
+								     
+					</p:panelGrid>
+					<tr>
+						<td colspan="2">
+							<h:commandButton action="#{euController.save()}" value="Save" />
+						</td>
+					</tr>
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</body>
+
+</html>
