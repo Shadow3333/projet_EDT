@@ -52,7 +52,6 @@ public class JpaDaoTest {
 			user.setPassword("aaaaa");
 			dao.save(user);
 			
-			
 			assertTrue(dao.find(AbstractUser.class, "testSaveAndFind1True@aaa.com")
 					.getEmail().equals("testSaveAndFind1True@aaa.com"));
 			
@@ -87,7 +86,6 @@ public class JpaDaoTest {
 			user2.setEmail("testSaveAndFind2True@bbb.com");
 			user2.setPassword("bbbbb");
 			dao.save(user1, user2);
-			
 			
 			AbstractUser[] users = dao.find(AbstractUser.class, 
 					user1.getEmail(), user2.getEmail()); 
@@ -130,7 +128,6 @@ public class JpaDaoTest {
 			user3.setPassword("ccccc");
 			
 			dao.save(user1, user2, user3);
-			
 			
 			List<AbstractUser> users = dao.findAll(AbstractUser.class);
 			
@@ -408,6 +405,6 @@ public class JpaDaoTest {
 	
 	@Test
 	public void testIsEntityFalse() {
-		assertFalse(dao.isEntity(AbstractManager.class));
+		assertFalse(dao.isEntity(String.class));
 	}
 }

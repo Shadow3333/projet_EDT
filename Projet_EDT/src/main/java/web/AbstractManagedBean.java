@@ -5,9 +5,8 @@ import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import business.dao.IDao;
+import business.dao.jpa.JpaDao;
 import business.manager.Manager;
 
 /**
@@ -18,8 +17,7 @@ import business.manager.Manager;
 @ManagedBean
 @SessionScoped
 public abstract class AbstractManagedBean {
-	@Autowired
-	protected IDao dao;
+	protected IDao dao = new JpaDao();
 	
 	protected Manager manager;
 	
