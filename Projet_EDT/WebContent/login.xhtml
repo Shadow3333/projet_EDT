@@ -8,6 +8,9 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui">
 
+<f:metadata>
+   		<f:event type="preRenderView" listener="#{loginController.indexIfConnected()}"/>
+</f:metadata>
 <h:body>
 	<ui:composition template="/template/myLayout.xhtml">
 		<ui:define name="content">

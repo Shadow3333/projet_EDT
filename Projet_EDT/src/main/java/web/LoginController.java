@@ -1,11 +1,14 @@
 package web;
 
+import java.io.IOException;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import business.dao.DaoException;
@@ -98,6 +101,26 @@ public class LoginController {
 						FacesMessage.SEVERITY_INFO, 	// This message is info
 						null,							// No ID to this message
 						"Email or password is wrong"));	// Detail of this message
+		return "";
+	}
+	
+	public boolean isConnected() {
+		return manager.managerUsers.getCurrentUser() != null;
+	}
+	
+	public String indexIfConnected() throws IOException {
+		if(isConnected()) {
+			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect("users.xhtml");
+		}
+		return "";
+	}
+	
+	public String connectionIfNotConnected() throws IOException {
+		if(!isConnected()) {
+			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect("login.xhtml");
+		}
 		return "";
 	}
 }

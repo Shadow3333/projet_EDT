@@ -75,7 +75,7 @@ public class UserController {
 			return "";
 		}
 		user.setEmail(theUser.getEmail());
-		user.setHashPwd(theUser.getHashPwd());
+		user.setPassword(theUser.getHashPwd());
 		user.setFirstName(theUser.getFirstName());
 		user.setLastName(theUser.getLastName());
 		user.setBirthDate(theUser.getBirthDate());

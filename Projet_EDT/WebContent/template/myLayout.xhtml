@@ -18,10 +18,17 @@
 
 		<div id="header">
 			<ui:insert name="header">
-				<h:form>
-					<span>Emploi du temps <p:spacer width="560" height="0" /> <h:link
-							outcome="login" value="Se connecter" /></span>
-				</h:form>
+				<c:if test="#{not loginController.isConnected()}">
+					<h:form>
+						<span>Emploi du temps <p:spacer width="560" height="0" /> <h:link
+								outcome="login" value="Se connecter" /></span>
+					</h:form>
+				</c:if>
+				<c:if test="#{loginController.isConnected()}">
+					<span>Emploi du temps <p:spacer width="560" height="0" />
+						<h:outputText value="connected"/>
+					</span>
+				</c:if>
 			</ui:insert>
 		</div>
 
