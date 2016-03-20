@@ -20,7 +20,7 @@
 				<ui:insert name="label"/>
 			
 				<h:form id="test">
-					<c:set var="user" value="#{UserController.theUser}" />
+					<c:set var="user" value="#{userController.theUser}" />
 					<ui:insert name="resetUser"/>
 					
 
@@ -49,8 +49,8 @@
 								     requiredMessage="Please enter a password"/>
 						
 						<h:outputText>Role :</h:outputText>
-						<p:selectOneMenu value="#{UserController.role}">
-							<f:selectItems value="#{UserController.getRoles()}" />
+						<p:selectOneMenu value="#{userController.role}">
+							<f:selectItems value="#{userController.getRoles()}" />
 						</p:selectOneMenu>
 								     
 					</p:panelGrid>

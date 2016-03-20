@@ -27,13 +27,13 @@
 		</ui:define>
 		
 		<ui:define name="resetUser">
-			<c:set var="user" value="#{UserController.newUser()}" />
+			<c:set var="user" value="#{userController.newUser()}" />
 		</ui:define>
 		
 		<ui:define name="method">
 			<tr>
 				<td colspan="2">
-					<h:commandButton action="#{UserController.save()}" value="Save" />
+					<h:commandButton action="#{userController.save()}" value="Save" />
 				</td>
 			</tr>
 		</ui:define>

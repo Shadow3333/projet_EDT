@@ -105,7 +105,19 @@ public class JpaDao implements IDao {
 	}
 	
 	public void flush() {
-		em.flush();
+		try {
+			em.getTransaction().begin();
+			try {
+				em.flush();
+				em.getTransaction().commit();
+			} finally {
+				if(em.getTransaction().isActive()) {
+					em.getTransaction().rollback();
+				}
+			}
+		} catch(Exception e) {
+			System.err.println("OUTCH !");
+		}
 	}
 
 	public void remove(Object entity) throws DaoException {

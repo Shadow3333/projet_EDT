@@ -26,8 +26,8 @@
 				<ui:insert name="label"/>
 
 				<h:form id="test">
-					<c:set var="eb" value="#{EducationalBackgroundController.theEducationalBackground}" />
-					<c:set var="eus" value="#{EducationalBackgroundController.findAllEUs()}" />
+					<c:set var="eb" value="#{educationalBackgroundController.theEducationalBackground}" />
+					<c:set var="eus" value="#{educationalBackgroundController.findAllEUs()}" />
 					<ui:insert name="resetEB"/>
 
 					<p:panelGrid columns="2">
@@ -53,7 +53,7 @@
 
 						<h:outputLabel for="menu" value="Optional" />
 						<p:selectCheckboxMenu id="menu"
-							value="#{EducationalBackgroundController.optionals}" label="UES"
+							value="#{educationalBackgroundController.optionals}" label="UES"
 							filter="true"
 							panelStyle="width:400px">
 							<f:selectItems value="#{eus}" 

@@ -30,19 +30,19 @@
 					<p:panelGrid id="main" columns="2">
 
 						<p:outputLabel for="ebs" value="Educational Background :" />
-				        <p:selectOneMenu id="ebs" value="#{UserController.eb}" >
-				            <f:selectItems value="#{UserController.findAllEBs()}" var="currEB"
+				        <p:selectOneMenu id="ebs" value="#{userController.eb}" >
+				            <f:selectItems value="#{userController.findAllEBs()}" var="currEB"
 				            			   itemLabel="#{currEB.id} : #{currEB.name}" itemValue="#{currEB}" />
 				            <f:ajax render=":test:menu1"/>
 				        </p:selectOneMenu>
 
-						<h:outputText id="test123" value="#{UserController.eb}"/>
+						<h:outputText id="test123" value="#{userController.eb}"/>
 						<h:outputLabel for="menu1" value="Mandatory" />
 						<p:selectCheckboxMenu id="menu1"
-							value="#{UserController.eb.obligatories.eus}" label="UES"
+							value="#{userController.eb.obligatories.eus}" label="UES"
 							filter="true" filterMatchMode="startsWith"
 							panelStyle="width:400px">
-							<f:selectItems value="#{UserController.eb.obligatories.eus}" 
+							<f:selectItems value="#{userController.eb.obligatories.eus}" 
 										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
 										   itemValue="#{eu}"/>
 							<f:converter converterId="TUConverter" />
@@ -50,7 +50,7 @@
 
 						<h:outputLabel for="menu" value="Optional" />
 						<p:selectCheckboxMenu id="menu"
-							value="#{EducationalBackgroundController.optionals}" label="UES"
+							value="#{educationalBackgroundController.optionals}" label="UES"
 							filter="true"
 							panelStyle="width:400px">
 							<f:selectItems value="#{eus}" 
@@ -62,7 +62,7 @@
 					</p:panelGrid>
 					<tr>
 						<td colspan="2">
-							<h:commandButton action="#{EducationalBackgroundController.save()}" value="Save" />
+							<h:commandButton action="#{educationalBackgroundController.save()}" value="Save" />
 						</td>
 					</tr>
 				</h:form>

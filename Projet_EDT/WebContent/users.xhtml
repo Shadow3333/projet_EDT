@@ -14,7 +14,7 @@
 			<f:view>
 				<h1>User List</h1>
 
-				<p:dataTable id="table" value="#{UserController.findAll()}" var="p">
+				<p:dataTable id="table" value="#{userController.findAll()}" var="p">
 					<p:column headerText="Name">
 						<h:outputText value="#{p.lastName}" />
 					</p:column>
@@ -24,7 +24,7 @@
 					</p:column>
 
 					<p:column headerText="Birthday">
-						<h:outputText value="#{UserController.getFormattedDate(p.birthDate)}" />
+						<h:outputText value="#{userController.getFormattedDate(p.birthDate)}" />
 					</p:column>
 					
 					<p:column headerText="Web site">
@@ -32,13 +32,13 @@
 					</p:column>
 					
 					<p:column headerText="Role">
-						<h:outputText value="#{UserController.getRole(p)}" />
+						<h:outputText value="#{userController.getRole(p)}" />
 					</p:column>
 					
 					<p:column headerText="Educational Registration">
 						<h:form>
 							<p:commandButton value="ER" id="educationalRegistration"
-								action="#{UserController.doER(p)}"
+								action="#{userController.doER(p)}"
 								styleClass="ui-priority-primary" />
 						</h:form>
 					</p:column>
@@ -46,7 +46,7 @@
 					<p:column headerText="Edit">
 						<h:form>
 							<p:commandButton value="E" id="edit"
-								action="#{UserController.show(p)}"
+								action="#{userController.show(p)}"
 								styleClass="ui-priority-primary" />
 						</h:form>
 					</p:column>
@@ -54,7 +54,7 @@
 					<p:column headerText="Supprimer">
 						<h:form>
 							<p:commandButton value="X" id="supprimer"
-								action="#{UserController.remove(p)}" update="table"
+								action="#{userController.remove(p)}" update="table"
 								styleClass="ui-priority-primary" />
 						</h:form>
 					</p:column>

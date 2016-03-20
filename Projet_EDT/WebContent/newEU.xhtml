@@ -26,7 +26,7 @@
 				<h1>Add a teaching unit</h1>
 
 				<h:form id="test">
-					<c:set var="eu" value="#{euController.theEU}" />
+					<c:set var="eu" value="#{eusController.theEU}" />
 
 					<p:panelGrid columns="2">
 					
@@ -47,7 +47,7 @@
 					</p:panelGrid>
 					<tr>
 						<td colspan="2">
-							<h:commandButton action="#{euController.save()}" value="Save" />
+							<h:commandButton action="#{eusController.save()}" value="Save" />
 						</td>
 					</tr>
 				</h:form>

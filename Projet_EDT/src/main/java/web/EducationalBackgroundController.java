@@ -3,7 +3,10 @@ package web;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import business.dao.DaoException;
@@ -11,6 +14,7 @@ import business.dao.IDao;
 import business.dao.jpa.JpaDao;
 import business.manager.Manager;
 import business.manager.ManagerCourses;
+import business.manager.ManagerEUs;
 import business.model.Courses;
 import business.model.EU;
 import business.model.GroupEU;
@@ -19,21 +23,31 @@ import business.model.GroupEU;
  * @author
  *
  */
-@ManagedBean(name = "EducationalBackgroundController")
+@ManagedBean(name = "educationalBackgroundController")
 @SessionScoped
 public class EducationalBackgroundController {
+	@ManagedProperty(value="#{containerManager.manager}")
+	private Manager manager;
 
-	Manager manager;
-	EUsController euM;
 	Courses theEducationalBackground;
 	List<EU> optionals;
+
+	@PostConstruct
+	public void init2() {
+		System.out.println(this + " created");
+	}
 	
-	public EducationalBackgroundController (){
-		// TODO @autowired
-		IDao dao = new JpaDao();
-		manager = new Manager(dao);
-		euM = new EUsController();
-		init();
+	@PreDestroy
+	public void close() {
+		System.out.println(this + " destroyed");
+	}
+
+	public Manager getManager() {
+		return manager;
+	}
+	
+	public void setManager(Manager manager) {
+		this.manager = manager;
 	}
 
 	public String save() throws IllegalAccessException {
@@ -70,7 +84,7 @@ public class EducationalBackgroundController {
 		
 	public List<EU> findAllEUs() throws IllegalAccessException, DaoException
 	{
-		return euM.findAll();
+		return manager.managerEus.findAll();
 	}
 
 	public List<Courses> findAll() throws IllegalAccessException, DaoException
@@ -84,22 +98,6 @@ public class EducationalBackgroundController {
 
 	public void setTheEducationalBackground(Courses theEducationalBackground) {
 		this.theEducationalBackground = theEducationalBackground;
-	}
-
-	public Manager getManager() {
-		return manager;
-	}
-
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
-
-	public EUsController getEuM() {
-		return euM;
-	}
-
-	public void setEuM(EUsController euM) {
-		this.euM = euM;
 	}
 
 	public List<EU> getOptionals() {

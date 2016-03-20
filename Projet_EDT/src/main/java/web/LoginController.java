@@ -19,13 +19,12 @@ import business.manager.Manager;
  */
 @ManagedBean
 @SessionScoped
-public class LoginBean {
-	@ManagedProperty(value="#{containerManager}")
-	private ContainerManager containerManager;
+public class LoginController {
+	@ManagedProperty(value="#{containerManager.manager}")
+	private Manager manager;
 	
 	private String email;
 	private String password;
-	
 
 	@PostConstruct
 	public void init() {
@@ -35,6 +34,14 @@ public class LoginBean {
 	@PreDestroy
 	public void close() {
 		System.out.println(this + " destroyed");
+	}
+
+	public Manager getManager() {
+		return manager;
+	}
+	
+	public void setManager(Manager manager) {
+		this.manager = manager;
 	}
 	
 	/**
@@ -64,20 +71,6 @@ public class LoginBean {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	/**
-	 * @return the containerManager
-	 */
-	public ContainerManager getContainerManager() {
-		return containerManager;
-	}
-
-	/**
-	 * @param containerManager the containerManager to set
-	 */
-	public void setContainerManager(ContainerManager containerManager) {
-		this.containerManager = containerManager;
-	}
 
 	/**
 	 * To connect an user who exists in Database
@@ -85,9 +78,14 @@ public class LoginBean {
 	 */
 	public String login() {
 		try {
-			if(containerManager.getManager().managerUsers.login(email, password)) {
+			if(manager.managerUsers.login(email, password)) {
 				// If login ok, redirect home page
-				System.out.println("Connection ok");
+				FacesContext context = FacesContext.getCurrentInstance();
+				context.addMessage(null,
+						new FacesMessage(
+								FacesMessage.SEVERITY_INFO, 	// This message is info
+								null,							// No ID to this message
+								"Connection ok"));	// Detail of this message
 				return "users?faces-redirect=true";
 			}
 		} catch (DaoException e) {

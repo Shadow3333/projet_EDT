@@ -18,14 +18,14 @@
 					<p:panelGrid columns="3" id="matchGrid" cellpadding="30">
 
 						<p:outputLabel for="email" value="Adresse Mail" />
-						<p:inputText id="email" value="#{loginBean.email}" required="true"
+						<p:inputText id="email" value="#{loginController.email}" required="true"
 							requiredMessage=" L'adresse mail est obligatoire. ">
 							<f:validateLength minimum="5" />
 						</p:inputText>
 						<p:message for="email" id="msgMail" display="icon" />
 
 						<p:outputLabel for="password" value="Mot de passe" />
-						<p:password id="password" value="#{loginBean.password}"
+						<p:password id="password" value="#{loginController.password}"
 							required="true"
 							requiredMessage="Veuillez entrer votre mot de passe. "
 							label="Password">
@@ -35,7 +35,7 @@
 						<p:message for="password" id="msgPassword" display="icon" />
 						
 					</p:panelGrid>
-					<p:commandButton value="Se connecter" id="connection" action="#{loginBean.login}" styleClass="ui-priority-primary"/>
+					<p:commandButton value="Se connecter" id="connection" action="#{loginController.login}" styleClass="ui-priority-primary"/>
 				</h:form>
 			</f:view>
 		</ui:define>

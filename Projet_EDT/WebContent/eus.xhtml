@@ -14,7 +14,7 @@
 			<f:view>
 				<h1>Teaching Unit List</h1>
 
-				<p:dataTable id="table" value="#{euController.findAll()}" var="eu">
+				<p:dataTable id="table" value="#{eusController.findAll()}" var="eu">
 					<p:column headerText="ID">
 						<h:outputText value="#{eu.id}" />
 					</p:column>
@@ -33,7 +33,7 @@
 					<p:column headerText="Supprimer">
 						<h:form>
 							<p:commandButton value="X" id="supprimer"
-								action="#{euController.remove(eu)}" update="table"
+								action="#{eusController.remove(eu)}" update="table"
 								styleClass="ui-priority-primary" />
 						</h:form>
 					</p:column>

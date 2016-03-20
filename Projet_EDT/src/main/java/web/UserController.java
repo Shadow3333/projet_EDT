@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import business.dao.DaoException;
@@ -19,23 +22,36 @@ import business.model.users.Student;
 import business.model.users.Teacher;
 import web.util.Role;
 
-@ManagedBean(name = "UserController")
+@ManagedBean(name = "userController")
 @SessionScoped
 public class UserController {
+	@ManagedProperty(value="#{containerManager.manager}")
+	private Manager manager;
 	
-	Manager manager;
 	AbstractUser theUser;
 	Courses eb;
 	String role;
 	
 	List<AbstractUser> users = new ArrayList<AbstractUser>();
 	
-	public UserController(){
-		// TODO @autowired
-		IDao dao = new JpaDao();
+	@PostConstruct
+	public void init(){
 		theUser = new Admin();
-		manager = new Manager(dao);
 		eb = new Courses();
+		System.out.println(this + " created");
+	}
+	
+	@PreDestroy
+	public void close() {
+		System.out.println(this + " destroyed");
+	}
+
+	public Manager getManager() {
+		return manager;
+	}
+	
+	public void setManager(Manager manager) {
+		this.manager = manager;
 	}
 	
 	public String save() throws IllegalAccessException
