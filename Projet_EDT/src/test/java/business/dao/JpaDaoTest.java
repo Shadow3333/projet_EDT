@@ -1,24 +1,23 @@
 package business.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import business.dao.jpa.JpaDao;
 import business.dao.jpa.JpaSearchSettings;
-import business.manager.AbstractManager;
 import business.model.Courses;
 import business.model.users.AbstractUser;
 import business.model.users.Admin;
 
 /**
+ * This file contains all methods to test JpaDao
+ * 
  * @author LELIEVRE Romain
  * @contributor DUBUIS Michael
  *
@@ -31,6 +30,9 @@ public class JpaDaoTest {
 	//@Autowired
 	private static JpaDao dao;
 	
+	/**
+	 * Init dao for test
+	 */
 	@BeforeClass
 	public static void init() {
 		try {
@@ -44,6 +46,12 @@ public class JpaDaoTest {
 	 * Test save and find methods
 	 */
 	
+	/**
+	 * test save and find functions 
+	 * with a true result
+	 * 
+	 * @throws DaoException
+	 */
 	@Test
 	public void testSaveAndFind1True() throws DaoException {
 		AbstractUser user = new Admin();
@@ -60,6 +68,11 @@ public class JpaDaoTest {
 		}
 	}
 	
+	/**
+	 * test save function 
+	 * with a false result
+	 * @throws DaoException
+	 */
 	@Test(expected=DaoException.class)
 	public void testSave1False() throws DaoException {
 		AbstractUser user = new Admin();
@@ -76,6 +89,11 @@ public class JpaDaoTest {
 		}
 	}
 	
+	/**
+	 * test 2nd version of save and find function
+	 * with true result
+	 * @throws DaoException
+	 */
 	@Test
 	public void testSaveAndFind2True() throws DaoException {
 		AbstractUser user1 = new Admin();
@@ -98,6 +116,11 @@ public class JpaDaoTest {
 		}
 	}
 	
+	/**
+	 * test 2nd version of save
+	 * with a false result
+	 * @throws DaoException
+	 */
 	@Test(expected=DaoException.class)
 	public void testSave2False() throws DaoException {
 		AbstractUser user = new Admin();
@@ -114,6 +137,11 @@ public class JpaDaoTest {
 		}
 	}
 	
+	/**
+	 * test FindAll function
+	 * 
+	 * @throws DaoException
+	 */
 	@Test
 	public void testFindAll() throws DaoException {
 		AbstractUser user1 = new Admin();
@@ -143,6 +171,12 @@ public class JpaDaoTest {
 	 * Test update methods
 	 */
 	
+	/**
+	 * test update function
+	 * with a true result
+	 * 
+	 * @throws DaoException
+	 */
 	@Test
 	public void testUpdateTrue() throws DaoException {
 		AbstractUser user = new Admin();
@@ -165,6 +199,12 @@ public class JpaDaoTest {
 		}
 	}
 	
+	/**
+	 * test 2nd version of update
+	 * with a true result
+	 * 
+	 * @throws DaoException
+	 */
 	@Test
 	public void testUpdate2True() throws DaoException {
 		AbstractUser user = new Admin();
@@ -194,6 +234,11 @@ public class JpaDaoTest {
 		}
 	}
 	
+	/**
+	 * test update function with an user not in database
+	 * 
+	 * @throws DaoException
+	 */
 	@Test(expected = DaoException.class)
 	public void testUpdate1False() throws DaoException {
 		AbstractUser user = new Admin();
@@ -201,6 +246,11 @@ public class JpaDaoTest {
 		dao.update(user);
 	}
 	
+	/**
+	 * test update function with an user not in database
+	 * 
+	 * @throws DaoException
+	 */
 	@Test(expected = DaoException.class)
 	public void testUpdate2False() throws DaoException {
 		AbstractUser user = new Admin();
@@ -213,6 +263,10 @@ public class JpaDaoTest {
 	 * Test remove methods
 	 */
 	
+	/**
+	 * test remove function with a true result
+	 * @throws DaoException
+	 */
 	@Test
 	public void testRemove1True() throws DaoException {
 		AbstractUser user = new Admin();
@@ -227,6 +281,11 @@ public class JpaDaoTest {
 		assertTrue(dao.find(AbstractUser.class, user.getEmail()) == null);
 	}
 	
+	/**
+	 * test 2nd version of remove with a true result
+	 * 
+	 * @throws DaoException
+	 */
 	@Test
 	public void testRemove2True() throws DaoException {
 		AbstractUser user = new Admin();
@@ -245,6 +304,11 @@ public class JpaDaoTest {
 		assertTrue(dao.find(AbstractUser.class, user2.getEmail()) == null);
 	}
 	
+	/**
+	 * test remove with an user not in database
+	 * 
+	 * @throws DaoException
+	 */
 	@Test(expected = DaoException.class)
 	public void testRemove1False() throws DaoException {
 		AbstractUser user = new Admin();
@@ -252,6 +316,11 @@ public class JpaDaoTest {
 		dao.remove(user);
 	}
 	
+	/**
+	 * test 2nd version of remove with an user not in database
+	 * 
+	 * @throws DaoException
+	 */
 	@Test(expected = DaoException.class)
 	public void testRemove2False() throws DaoException {
 		AbstractUser user = new Admin();
@@ -260,6 +329,11 @@ public class JpaDaoTest {
 		dao.remove(user, user2);
 	}
 	
+	/**
+	 * test removeById with a true result
+	 * 
+	 * @throws DaoException
+	 */
 	@Test
 	public void testRemoveByIdTrue() throws DaoException {
 		AbstractUser user = new Admin();
@@ -274,6 +348,11 @@ public class JpaDaoTest {
 		assertTrue(dao.find(AbstractUser.class, user.getEmail()) == null);
 	}
 	
+	/**
+	 * test removeByIds with a true result
+	 * 
+	 * @throws DaoException
+	 */
 	@Test
 	public void testRemoveByIdsTrue() throws DaoException {
 		AbstractUser user = new Admin();
@@ -292,11 +371,21 @@ public class JpaDaoTest {
 		assertNull(dao.find(AbstractUser.class, user2.getEmail()));
 	}
 	
+	/**
+	 * test removeById with an user not in database
+	 * 
+	 * @throws DaoException
+	 */
 	@Test(expected = DaoException.class)
 	public void testRemoveByIdFalse() throws DaoException {
 		dao.removeById(AbstractUser.class, "aaa@aaa.aaa");
 	}
 	
+	/**
+	 * test removeByIds with an user not in database
+	 * 
+	 * @throws DaoException
+	 */
 	@Test(expected = DaoException.class)
 	public void testRemoveByIdsFalse() throws DaoException {
 		dao.removeByIds(AbstractUser.class, "aaa@aaa.aaa", "bbb@bbb.bbb");
@@ -306,6 +395,11 @@ public class JpaDaoTest {
 	 * Test search methods
 	 */
 	
+	/**
+	 * test search with a true result
+	 * 
+	 * @throws DaoException
+	 */
 	@Test
 	public void testSearch1True () throws DaoException {
 		AbstractUser user = new Admin();
@@ -324,6 +418,10 @@ public class JpaDaoTest {
 		}
 	}
 	
+	/**
+	 * test 2nd version of search with a true result
+	 * @throws DaoException
+	 */
 	@Test
 	public void testSearch2True() throws DaoException {
 		AbstractUser user = new Admin();
@@ -344,11 +442,20 @@ public class JpaDaoTest {
 		}
 	}
 	
+	/**
+	 * test search with a user not in database
+	 * 
+	 * @throws DaoException
+	 */
 	@Test
 	public void testSearch1False() throws DaoException {
 		assertNull(dao.search(AbstractUser.class, "FirstName", "Dupond"));
 	}
 	
+	/**
+	 * test 2nd version of search with a user not in database
+	 * @throws DaoException
+	 */
 	@Test
 	public void testSearch2False() throws DaoException {
 		JpaSearchSettings settings = new JpaSearchSettings();
@@ -361,6 +468,10 @@ public class JpaDaoTest {
 	 * Test other methods
 	 */
 	
+	
+	/**
+	 * test isAttached function with a true result
+	 */
 	@Test
 	public void testIsAttachedTrue() throws DaoException {
 		/*AbstractUser user = new Admin();
@@ -375,6 +486,9 @@ public class JpaDaoTest {
 		*/
 	}
 	
+	/**
+	 * test isAttached function with a false result
+	 */
 	@Test
 	public void testIsAttachedFalse() throws DaoException {
 		/*EntityManagerFactory emf = Persistence.createEntityManagerFactory(null);
@@ -398,11 +512,17 @@ public class JpaDaoTest {
 		*/
 	}
   
+	/**
+	 * test isEntity function with a true result
+	 */
 	@Test
 	public void testIsEntityTrue() {
 		assertTrue(dao.isEntity(Courses.class));
 	}
 	
+	/**
+	 * test isEntity function with a false result
+	 */
 	@Test
 	public void testIsEntityFalse() {
 		assertFalse(dao.isEntity(String.class));
