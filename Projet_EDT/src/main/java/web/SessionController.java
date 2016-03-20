@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import business.dao.DaoException;
+import business.dao.jpa.JpaDao;
+import business.manager.AbstractManager;
 import business.manager.Manager;
 import business.model.EU;
 import business.model.EU.LessonType;
@@ -58,8 +60,11 @@ public class SessionController {
 //		return sessionM.findAllGroups();
 //	}
 	
-	public List<Teacher> findAllTeachers (){
-		return manager.managerSessions.findAllTeachers();
+	public List<Teacher> findAllTeachers() throws IllegalAccessException, DaoException{
+		AbstractManager<Teacher> teachersManager =
+				new AbstractManager<Teacher>(new JpaDao(), manager) {};
+		return teachersManager.findAll();
+		//return manager.managerSessions.findAllTeachers();
 	}
 	
 	public List<EU> findAllEUS() throws IllegalAccessException, DaoException{
