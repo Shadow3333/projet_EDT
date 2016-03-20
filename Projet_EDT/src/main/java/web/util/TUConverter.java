@@ -1,21 +1,32 @@
 package web.util;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-import manager.ManagerEUs;
-import models.EU;
+import business.dao.DaoException;
+import business.manager.Manager;
+import business.model.EU;
 
+@ManagedBean
+@SessionScoped
 public class TUConverter implements Converter {
-
-	private static ManagerEUs euM = new ManagerEUs();
-
-    // Actions ------------------------------------------------------------------------------------
+	@ManagedProperty(value="#{containerManager.manager}")
+	private Manager manager;
     
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         // Convert the unique String representation of Foo to the actual Foo object.
-        return euM.find(value);
+        try {
+			return manager.managerEus.find(value);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (DaoException e) {
+			e.printStackTrace();
+		}
+        return null;
     }
 
     public String getAsString(FacesContext context, UIComponent component, Object value) {
