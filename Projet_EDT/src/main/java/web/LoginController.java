@@ -85,12 +85,6 @@ public class LoginController {
 		try {
 			if(manager.managerUsers.login(email, password)) {
 				// If login ok, redirect home page
-				FacesContext context = FacesContext.getCurrentInstance();
-				context.addMessage(null,
-						new FacesMessage(
-								FacesMessage.SEVERITY_INFO, 	// This message is info
-								null,							// No ID to this message
-								"Connection ok"));	// Detail of this message
 				return "users?faces-redirect=true";
 			}
 		} catch (DaoException e) {
@@ -104,6 +98,21 @@ public class LoginController {
 						null,							// No ID to this message
 						"Email or password is wrong"));	// Detail of this message
 		return "";
+	}
+	
+	public String logout() {
+		try {
+			manager.managerUsers.logout();
+		} catch (IllegalAccessException e) {
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null,
+					new FacesMessage(
+							FacesMessage.SEVERITY_INFO, 	// This message is info
+							null,							// No ID to this message
+							"No user connected"));			// Detail of this message
+			e.printStackTrace();
+		}
+		return "login?faces-redirect=true";
 	}
 	
 	public boolean isConnected() {
@@ -143,8 +152,7 @@ public class LoginController {
 		if(!isConnected()) {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             context.redirect("login.xhtml");
-		}
-		if(!(manager.managerUsers.getCurrentUser() instanceof Admin)) {
+		} else if(!(manager.managerUsers.getCurrentUser() instanceof Admin)) {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             context.redirect("access-denied.xhtml");
 		}
@@ -159,8 +167,7 @@ public class LoginController {
 		if(!isConnected()) {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             context.redirect("login.xhtml");
-		}
-		if(!(manager.managerUsers.getCurrentUser() instanceof Teacher)) {
+		} else if(!(manager.managerUsers.getCurrentUser() instanceof Teacher)) {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             context.redirect("access-denied.xhtml");
 		}

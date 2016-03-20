@@ -26,7 +26,10 @@
 				</c:if>
 				<c:if test="#{loginController.isConnected()}">
 					<span>Emploi du temps <p:spacer width="560" height="0" />
-						<h:outputText value="connected"/>
+						<h:outputText value="#{loginController.email}"/>
+						<h:form>
+							<h:commandButton action="#{loginController.logout}" value="Disconnection"/>
+						</h:form>
 					</span>
 				</c:if>
 			</ui:insert>
