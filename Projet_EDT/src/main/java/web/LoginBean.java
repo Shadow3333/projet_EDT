@@ -1,11 +1,15 @@
 package web;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import business.dao.DaoException;
+import business.manager.Manager;
 
 /**
  * This is an example of ManagedBean
@@ -15,9 +19,23 @@ import business.dao.DaoException;
  */
 @ManagedBean
 @SessionScoped
-public class LoginBean extends AbstractManagedBean {
+public class LoginBean {
+	@ManagedProperty(value="#{containerManager}")
+	private ContainerManager containerManager;
+	
 	private String email;
 	private String password;
+	
+
+	@PostConstruct
+	public void init() {
+		System.out.println(this + " created");
+	}
+	
+	@PreDestroy
+	public void close() {
+		System.out.println(this + " destroyed");
+	}
 	
 	/**
 	 * @return the email
@@ -48,17 +66,33 @@ public class LoginBean extends AbstractManagedBean {
 	}
 	
 	/**
+	 * @return the containerManager
+	 */
+	public ContainerManager getContainerManager() {
+		return containerManager;
+	}
+
+	/**
+	 * @param containerManager the containerManager to set
+	 */
+	public void setContainerManager(ContainerManager containerManager) {
+		this.containerManager = containerManager;
+	}
+
+	/**
 	 * To connect an user who exists in Database
 	 * @return Page to load
 	 */
 	public String login() {
 		try {
-			if(manager.managerUsers.login(email, password)) {
+			if(containerManager.getManager().managerUsers.login(email, password)) {
 				// If login ok, redirect home page
-				return "home?faces-redirect=true";
+				System.out.println("Connection ok");
+				return "users?faces-redirect=true";
 			}
 		} catch (DaoException e) {
-			// TODO add message if DaoException ? 
+			// TODO add message if DaoException ?
+			e.printStackTrace();
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null,
