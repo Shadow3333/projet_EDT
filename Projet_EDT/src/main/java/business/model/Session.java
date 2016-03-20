@@ -43,7 +43,7 @@ public class Session {
 	/**
 	 * Empty constructor
 	 */
-	Session() {}
+	public Session() {}
 
 	/**
 	 * @return the id
