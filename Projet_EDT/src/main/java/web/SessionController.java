@@ -22,7 +22,7 @@ public class SessionController {
 	private Manager manager;
 	
 	Session theSession;
-
+ 
 	@PostConstruct
 	public void init() {
 		System.out.println(this + " created");
