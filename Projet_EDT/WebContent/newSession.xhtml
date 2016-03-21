@@ -15,7 +15,7 @@
 
 <head>
 
-<title>Add a session</title>
+<title><h:outputText value="#{msg['title.session.add']}" /></title>
 
 </head>
 
@@ -27,17 +27,17 @@
 	<ui:composition template="/template/myLayout.xhtml">
 		<ui:define name="content">
 			<f:view>
-				<h1>Add a session</h1>
+				<h1><h:outputText value="#{msg['title.session.add']}" /></h1>
 
 				<h:form id="test">
 					<c:set var="session" value="#{sessionController.theSession}" />
 
 					<p:panelGrid columns="2">
 
-						<p:outputLabel for="date" value="Date :" />
+						<p:outputLabel for="date" value="#{msg['lable.date']}" />
 						<p:calendar id="date" value="#{session.date}" />
 
-						<p:outputLabel for="UES" value="UE :" />
+						<p:outputLabel for="UES" value="#{msg['label.eu']}" />
 						<p:selectOneListbox id="UES"
 							value="#{sessionController.findAllEUS()}"
 							converter="themeConverter" var="t" filter="true"
@@ -53,7 +53,7 @@
 							<f:selectItem itemLabel="TP" itemValue="3" />
 						</p:selectOneListbox>
 
-						<h:outputLabel for="menu" value="Groupes :" />
+						<h:outputLabel for="menu" value="#{msg['label.group']}" />
 						<p:selectCheckboxMenu id="menu" value="#{session.findAllGroups()}"
 							label="Groupes" filter="true" filterMatchMode="startsWith"
 							panelStyle="width:250px">
@@ -61,7 +61,7 @@
 						</p:selectCheckboxMenu>
 						<p:commandLink value="Submit" update="display" />
 
-						<p:outputLabel for="teachers" value="Enseignant :" />
+						<p:outputLabel for="teachers" value="#{msg['label.teacher']}" />
 						<p:selectOneListbox id="teachers"
 							value="#{sessionController.findAllTeachers()}"
 							converter="themeConverter" var="t" filter="true"
@@ -69,23 +69,23 @@
 							<f:selectItems value="#{session.teacher}" var="theme"
 								itemLabel="#{theme.displayName}" itemValue="#{theme}" />
 						</p:selectOneListbox>
+						
+						<h:outputText value="#{msg['label.room']}" />
+						<p:inputText id="eu" value="#{session.room}" required="true"
+							requiredMessage="#{msg['error.room.required']}" />
 
-						<h:outputText>Salle :</h:outputText>
-						<p:inputText id="eu" value="#{session.eu}" required="true"
-							requiredMessage=" L'UE est obligatoire." />
+						<h:outputText value="#{msg['label.hour']}" />
+						<p:inputText id="eu" value="#{session.date}" required="true"
+							requiredMessage="#{msg['error.hour.required']}" />
 
-						<h:outputText>Heure :</h:outputText>
-						<p:inputText id="eu" value="#{session.eu}" required="true"
-							requiredMessage=" L'UE est obligatoire." />
-
-						<h:outputText>Durée :</h:outputText>
-						<p:inputText id="eu" value="#{session.eu}" required="true"
-							requiredMessage=" L'UE est obligatoire." />
+						<h:outputText value="#{msg['label.duration']}" />
+						<p:inputText id="eu" value="#{session.nbHour}" required="true"
+							requiredMessage="#{msg['error.duration.required']}" />
 
 					</p:panelGrid>
 					<tr>
 						<td colspan="2"><h:commandButton
-								action="#{sessionController.save()}" value="Save" /></td>
+								action="#{sessionController.save()}" value="#{msg['button.save']}" /></td>
 					</tr>
 				</h:form>
 			</f:view>

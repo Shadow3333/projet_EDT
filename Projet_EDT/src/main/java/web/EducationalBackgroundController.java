@@ -33,7 +33,12 @@ public class EducationalBackgroundController {
 	List<EU> optionals;
 
 	@PostConstruct
-	public void init2() {
+	public void init() {
+		theEducationalBackground = new Courses();
+		GroupEU gEU = new GroupEU();
+		gEU.setEus(new ArrayList<EU>());
+		theEducationalBackground.setObligatories(gEU);
+		optionals = new ArrayList<EU>();
 		System.out.println(this + " created");
 	}
 	
@@ -107,14 +112,4 @@ public class EducationalBackgroundController {
 	public void setOptionals(List<EU> optionals) {
 		this.optionals = optionals;
 	}
-	
-	public void init()
-	{
-		theEducationalBackground = new Courses();
-		GroupEU gEU = new GroupEU();
-		gEU.setEus(new ArrayList<EU>());
-		theEducationalBackground.setObligatories(gEU);
-		optionals = new ArrayList<EU>();
-	}
-	
 }

@@ -15,7 +15,7 @@
 
 <head>
 
-<title>Add a teaching unit</title>
+<title><h:outputText value="#{msg['title.course.add']}"/></title>
 
 </head>
 
@@ -23,7 +23,7 @@
 	<ui:composition template="/template/educationalBackgroundProfile.xhtml">
 	
 		<ui:define name="label">
-			<h1>Add an Educational Background</h1>
+			<h1><h:outputText value="#{msg['title.course.add']}"/></h1>
 		</ui:define>
 		
 		<ui:define name="resetUser">
@@ -31,7 +31,7 @@
 		</ui:define>
 		
 		<ui:define name="method">
-			<h:commandButton action="#{educationalBackgroundController.save()}" value="Save" />
+			<h:commandButton action="#{educationalBackgroundController.save()}" value="#{msg['button.save']}" />
 		</ui:define>
 	</ui:composition>
 </body>

@@ -18,20 +18,20 @@
 
 		<div id="header">
 			<ui:insert name="header">
-				<c:if test="#{not loginController.isConnected()}">
-					<h:form>
-						<span>Emploi du temps <p:spacer width="560" height="0" /> <h:link
-								outcome="login" value="Se connecter" /></span>
-					</h:form>
-				</c:if>
-				<c:if test="#{loginController.isConnected()}">
-					<span>Emploi du temps <p:spacer width="560" height="0" />
-						<h:outputText value="#{loginController.email}"/>
-						<h:form>
-							<h:commandButton action="#{loginController.logout}" value="Disconnection"/>
-						</h:form>
+				<h:form>
+					<span>
+						<h:outputText value="#{msg['title.timetable']}" />
+						<p:spacer width="560" height="0" />
+						<c:if test="#{not loginController.isConnected()}">
+							<h:commandButton action="login?faces-redirect=true" value="#{msg['button.login']}" />
+						</c:if>
+						<c:if test="#{loginController.isConnected()}">
+							<h:outputText value="#{loginController.email}"/>
+							<p:spacer width="680" height="0" />
+							<h:commandButton action="#{loginController.logout}" value="#{msg['button.logout']}"/>
+						</c:if>
 					</span>
-				</c:if>
+				</h:form>
 			</ui:insert>
 		</div>
 

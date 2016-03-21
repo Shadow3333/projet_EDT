@@ -26,29 +26,29 @@
 
 					<p:panelGrid columns="2">
 					
-						<h:outputText>Mail :</h:outputText>
+						<h:outputText value="#{msg['label.email']}"/>
 				        <p:inputText id="email" value="#{user.email}" required="true"
-									 requiredMessage="A mail is needed"/>
+									 requiredMessage="#{msg['error.email.required']}"/>
 						
-						<h:outputText>Name :</h:outputText>
+						<h:outputText value="#{msg['label.name']}"/>
 						<p:inputText id="lastName" value="#{user.lastName}"/>
 						             
-						<h:outputText>First name :</h:outputText>
+						<h:outputText value="#{msg['label.firstname']}"/>
 						<p:inputText id="firstName" value="#{user.firstName}"/>
 						 
-						<h:outputText>Birthday (DD/MM/YYYY):</h:outputText>
+						<h:outputText value="#{msg['label.birthdate']}"/>
 						<p:inputText id="birthDate" value="#{user.birthDate}">
 							<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
 						</p:inputText>
 								     
-						<h:outputText>Website :</h:outputText>
+						<h:outputText value="#{msg['label.website']}"/>
 	            		<p:inputText id="webSite" value="#{user.webSite}"/>
 								     
-						<h:outputText>Password :</h:outputText>
+						<h:outputText value="#{msg['label.password']}"/>
        					<p:inputText id="hashPwd" value="#{user.hashPwd}" type="password" required="true"
-								     requiredMessage="Please enter a password"/>
+								     requiredMessage="#{msg['error.password.required']}"/>
 						
-						<h:outputText>Role :</h:outputText>
+						<h:outputText value="#{msg['label.role']}"/>
 						<p:selectOneMenu value="#{userController.role}">
 							<f:selectItems value="#{userController.getRoles()}" />
 						</p:selectOneMenu>

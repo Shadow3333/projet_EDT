@@ -12,25 +12,25 @@
 	<ui:composition template="/template/myLayout.xhtml">
 		<ui:define name="content">
 			<f:view>
-				<h1>Teaching Unit List</h1>
+				<h1><h:outputText value="#{msg['title.eus']}" /></h1>
 
 				<p:dataTable id="table" value="#{eusController.findAll()}" var="eu">
-					<p:column headerText="ID">
+					<p:column headerText="#{msg['table.header.id']}">
 						<h:outputText value="#{eu.id}" />
 					</p:column>
 				
-					<p:column headerText="Nom">
+					<p:column headerText="#{msg['table.header.name']}">
 						<h:outputText value="#{eu.name}" />
 					</p:column>
 
-					<p:column headerText="Description">
+					<p:column headerText="#{msg['table.header.description']}">
 						<h:outputText value="#{eu.description}" />
 					</p:column>
 
-					<p:column headerText="Nombre de crédits">
+					<p:column headerText="#{msg['table.header.credits']}">
 						<h:outputText value="#{eu.nbCredits}" />
 					</p:column>
-					<p:column headerText="Supprimer">
+					<p:column headerText="#{msg['table.header.delete']}">
 						<h:form>
 							<p:commandButton value="X" id="supprimer"
 								action="#{eusController.remove(eu)}" update="table"

@@ -12,18 +12,18 @@
 	<ui:composition template="/template/myLayout.xhtml">
 		<ui:define name="content">
 			<f:view>
-				<h1>Educational Background List</h1>
+				<h1><h:outputText value="#{msg['title.courses']}" /></h1>
 
 				<p:dataTable id="table" value="#{educationalBackgroundController.findAll()}" var="eb">
-					<p:column headerText="ID">
+					<p:column headerText="#{msg['table.header.id']}">
 						<h:outputText value="#{eb.id}" />
 					</p:column>
 				
-					<p:column headerText="Nom">
+					<p:column headerText="#{msg['table.header.name']}">
 						<h:outputText value="#{eb.name}" />
 					</p:column>
 					
-					<p:column headerText="Edit">
+					<p:column headerText="#{msg['table.header.edit']}">
 						<h:form>
 							<p:commandButton value="E" id="edit"
 								action="#{educationalBackgroundController.show(eb)}"
@@ -31,7 +31,7 @@
 						</h:form>
 					</p:column>
 
-					<p:column headerText="Supprimer">
+					<p:column headerText="#{msg['table.header.delete']}">
 						<h:form>
 							<p:commandButton value="X" id="supprimer"
 								action="#{educationalBackgroundController.remove(eb)}" update="table"

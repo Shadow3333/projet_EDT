@@ -15,7 +15,7 @@
 
 <head>
 
-<title>Add a teaching unit</title>
+<title><h:outputText value="#{msg['title.eu.add']}"/></title>
 
 </head>
 
@@ -27,31 +27,31 @@
 	<ui:composition template="/template/myLayout.xhtml">
 		<ui:define name="content">
 			<f:view>
-				<h1>Add a teaching unit</h1>
+				<h1><h:outputText value="#{msg['title.eu.add']}"/></h1>
 
 				<h:form id="test">
 					<c:set var="eu" value="#{eusController.theEU}" />
 
 					<p:panelGrid columns="2">
 					
-						<h:outputText>Identifiant :</h:outputText>
+						<h:outputText value="#{msg['label.id']}"/>
 						<p:inputText id="id" value="#{eu.id}" required="true"
-						             requiredMessage="An ID is needed"/>
+						             requiredMessage="#{msg['error.id.required']}"/>
 						             
-						<h:outputText>Nom :</h:outputText>
+						<h:outputText value="#{msg['label.name']}" />
 						<p:inputText id="name" value="#{eu.name}" required="true"
-						             requiredMessage="A name is needed"/>
+						             requiredMessage="#{msg['error.name.required']}"/>
 						 
-						 <h:outputText>Description :</h:outputText>
+						 <h:outputText value="#{msg['label.description']}" />
 						<p:inputText id="description" value="#{eu.description}"/>
 									 
-						<h:outputText>Nombre de credits :</h:outputText>
+						<h:outputText value="#{msg['label.credits']}" />
 	            		<p:inputText id="nbCredits" value="#{eu.nbCredits}"/>
 								     
 					</p:panelGrid>
 					<tr>
 						<td colspan="2">
-							<h:commandButton action="#{eusController.save()}" value="Save" />
+							<h:commandButton action="#{eusController.save()}" value="#{msg['button.save']}" />
 						</td>
 					</tr>
 				</h:form>

@@ -15,7 +15,7 @@
 
 <head>
 
-<title>Add User</title>
+<title><h:outputText value="#{msg['title.user.add']}" /></title>
 
 </head>
 
@@ -27,7 +27,7 @@
 	<ui:composition template="/template/userProfile.xhtml">
 	
 		<ui:define name="label">
-			<h1>Add an User</h1>
+			<h1><h:outputText value="#{msg['title.user.add']}" /></h1>
 		</ui:define>
 		
 		<ui:define name="resetUser">
@@ -37,7 +37,7 @@
 		<ui:define name="method">
 			<tr>
 				<td colspan="2">
-					<h:commandButton action="#{userController.save()}" value="Save" />
+					<h:commandButton action="#{userController.save()}" value="#{msg['button.save']}" />
 				</td>
 			</tr>
 		</ui:define>

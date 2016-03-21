@@ -32,34 +32,34 @@
 
 					<p:panelGrid columns="2">
 
-						<h:outputText>Id :</h:outputText>
+						<h:outputText value="#{msg['label.id']}"/>
 						<p:inputText id="id" value="#{eb.id}" required="true"
-							requiredMessage="An ID is needed" />
+							requiredMessage="#{msg['error.id.required']}" />
 
-						<h:outputText>Name :</h:outputText>
+						<h:outputText value="#{msg['label.name']}"/>
 						<p:inputText id="name" value="#{eb.name}" required="true"
-							requiredMessage="A name is needed" />
+							requiredMessage="#{msg['error.name.required']}" />
 
-						<h:outputLabel for="menu1" value="Mandatory" />
+						<h:outputLabel for="menu1" value="#{msg['label.eus.mandatory']}" />
 						<p:selectCheckboxMenu id="menu1"
-							value="#{eb.obligatories.eus}" label="UES"
+							value="#{eb.obligatories.eus}" label="#{msg['label.eus']}"
 							filter="true" filterMatchMode="startsWith"
 							panelStyle="width:400px">
 							<f:selectItems value="#{eus}" 
 										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
-										   itemValue="#{eu}"/>
-							<f:converter converterId="TUConverter" />
+										   itemValue="#{eu}"
+										   converter="#{TUConverter}"/>
 						</p:selectCheckboxMenu>
 
-						<h:outputLabel for="menu" value="Optional" />
+						<h:outputLabel for="menu" value="#{msg['label.eus.optional']}" />
 						<p:selectCheckboxMenu id="menu"
-							value="#{educationalBackgroundController.optionals}" label="UES"
+							value="#{educationalBackgroundController.optionals}" label="#{msg['label.eus']}"
 							filter="true"
 							panelStyle="width:400px">
 							<f:selectItems value="#{eus}" 
 										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
-										   itemValue="#{eu}"/>
-							<f:converter converterId="TUConverter" />
+										   itemValue="#{eu}"
+										   converter="#{TUConverter}"/>
 						</p:selectCheckboxMenu>
 
 					</p:panelGrid>

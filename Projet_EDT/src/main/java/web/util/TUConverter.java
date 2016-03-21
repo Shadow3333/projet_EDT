@@ -11,7 +11,7 @@ import business.dao.DaoException;
 import business.manager.Manager;
 import business.model.EU;
 
-@ManagedBean
+@ManagedBean(name="TUConverter")
 @SessionScoped
 public class TUConverter implements Converter {
 	@ManagedProperty(value="#{containerManager.manager}")

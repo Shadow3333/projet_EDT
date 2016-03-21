@@ -15,7 +15,7 @@
 
 <head>
 
-<title>Educational Registration</title>
+<title><h:outputText value="#{msg['title.student.registration']}" /></title>
 
 </head>
 
@@ -23,13 +23,13 @@
 	<ui:composition template="/template/myLayout.xhtml">
 		<ui:define name="content">
 			<f:view>
-				<h3>Educational Registration</h3>
+				<h3><h:outputText value="#{msg['title.student.registration']}" /></h3>
 
 				<h:form id="test">
 
 					<p:panelGrid id="main" columns="2">
 
-						<p:outputLabel for="ebs" value="Educational Background :" />
+						<p:outputLabel for="ebs" value="#{msg['label.course']}" />
 				        <p:selectOneMenu id="ebs" value="#{userController.eb}" >
 				            <f:selectItems value="#{userController.findAllEBs()}" var="currEB"
 				            			   itemLabel="#{currEB.id} : #{currEB.name}" itemValue="#{currEB}" />
@@ -37,7 +37,7 @@
 				        </p:selectOneMenu>
 
 						<h:outputText id="test123" value="#{userController.eb}"/>
-						<h:outputLabel for="menu1" value="Mandatory" />
+						<h:outputLabel for="menu1" value="#{msg['label.eus.mandatory']}" />
 						<p:selectCheckboxMenu id="menu1"
 							value="#{userController.eb.obligatories.eus}" label="UES"
 							filter="true" filterMatchMode="startsWith"
@@ -48,7 +48,7 @@
 							<f:converter converterId="TUConverter" />
 						</p:selectCheckboxMenu>
 
-						<h:outputLabel for="menu" value="Optional" />
+						<h:outputLabel for="menu" value="#{msg['label.eus.optional']}" />
 						<p:selectCheckboxMenu id="menu"
 							value="#{educationalBackgroundController.optionals}" label="UES"
 							filter="true"
@@ -62,7 +62,7 @@
 					</p:panelGrid>
 					<tr>
 						<td colspan="2">
-							<h:commandButton action="#{educationalBackgroundController.save()}" value="Save" />
+							<h:commandButton action="#{educationalBackgroundController.save()}" value="#{msg['button.save']}" />
 						</td>
 					</tr>
 				</h:form>

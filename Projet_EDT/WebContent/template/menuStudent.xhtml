@@ -12,14 +12,14 @@
 
 <ui:composition>
 	<p:menubar>
-		<p:menuitem value="EBs List" outcome="educationalBackgrounds" icon="ui-icon-person" />
-		<p:menuitem value="TUs List" outcome="eus" icon="ui-icon-star" />
-		<p:menuitem value="Users List" outcome="users" icon="ui-icon-person" />
-		<p:submenu label="Add" icon="ui-icon-search">
-			<p:menuitem value="TU" outcome="newEU"/>
-			<p:menuitem value="User" outcome="newUser"/>
-			<p:menuitem value="Educational background" outcome="newEducationalBackground"/>
-			<p:menuitem value="Session" outcome="newSession"/>
+		<p:menuitem value="#{msg['menu.courses.list']}" outcome="educationalBackgrounds" icon="ui-icon-person" />
+		<p:menuitem value="#{msg['menu.eu.list']}" outcome="eus" icon="ui-icon-star" />
+		<p:menuitem value="#{msg['menu.user.list']}" outcome="users" icon="ui-icon-person" />
+		<p:submenu label="#{msg['menu.add']}" icon="ui-icon-search">
+			<p:menuitem value="#{msg['menu.eu.add']}" outcome="newEU"/>
+			<p:menuitem value="#{msg['menu.user.add']}" outcome="newUser"/>
+			<p:menuitem value="#{msg['menu.courses.add']}" outcome="newEducationalBackground"/>
+			<p:menuitem value="#{msg['menu.session.add']}" outcome="newSession"/>
 		</p:submenu>
 	</p:menubar>
 </ui:composition>

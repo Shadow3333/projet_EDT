@@ -12,46 +12,46 @@
 	<ui:composition template="/template/myLayout.xhtml">
 		<ui:define name="content">
 			<f:view>
-				<h1>User List</h1>
+				<h1><h:outputText value="#{msg['title.users']}" /></h1>
 
 				<p:dataTable id="table" value="#{userController.findAll()}" var="p">
-					<p:column headerText="Name">
+					<p:column headerText="#{msg['table.header.name']}">
 						<h:outputText value="#{p.lastName}" />
 					</p:column>
 
-					<p:column headerText="Fist name">
+					<p:column headerText="#{msg['table.header.firstname']}">
 						<h:outputText value="#{p.firstName}" />
 					</p:column>
 
-					<p:column headerText="Birthday">
+					<p:column headerText="#{msg['table.header.birthdate']}">
 						<h:outputText value="#{userController.getFormattedDate(p.birthDate)}" />
 					</p:column>
 					
-					<p:column headerText="Web site">
+					<p:column headerText="#{msg['table.header.website']}">
 						<h:outputText value="#{p.webSite}" />
 					</p:column>
 					
-					<p:column headerText="Role">
+					<p:column headerText="#{msg['table.header.role']}">
 						<h:outputText value="#{userController.getRole(p)}" />
 					</p:column>
 					
-					<p:column headerText="Educational Registration">
+					<p:column headerText="#{msg['table.header.educationregistration']}">
 						<h:form>
-							<p:commandButton value="ER" id="educationalRegistration"
+							<p:commandButton value="X" id="educationalRegistration"
 								action="#{userController.doER(p)}"
 								styleClass="ui-priority-primary" />
 						</h:form>
 					</p:column>
 					
-					<p:column headerText="Edit">
+					<p:column headerText="#{msg['table.header.edit']}">
 						<h:form>
-							<p:commandButton value="E" id="edit"
+							<p:commandButton value="X" id="edit"
 								action="#{userController.show(p)}"
 								styleClass="ui-priority-primary" />
 						</h:form>
 					</p:column>
 					
-					<p:column headerText="Supprimer">
+					<p:column headerText="#{msg['table.header.delete']}">
 						<h:form>
 							<p:commandButton value="X" id="supprimer"
 								action="#{userController.remove(p)}" update="table"
