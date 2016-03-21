@@ -14,8 +14,11 @@ import javax.faces.bean.SessionScoped;
 import business.dao.DaoException;
 import business.dao.IDao;
 import business.dao.jpa.JpaDao;
+import business.exceptions.PedagogicRegistrationException;
 import business.manager.Manager;
 import business.model.Courses;
+import business.model.EU;
+import business.model.GroupEU;
 import business.model.users.AbstractUser;
 import business.model.users.Admin;
 import business.model.users.Student;
@@ -32,12 +35,15 @@ public class UserController {
 	Courses eb;
 	String role;
 	
-	List<AbstractUser> users = new ArrayList<AbstractUser>();
+	List<EU> optionals;
+	List<AbstractUser> users;
 	
 	@PostConstruct
 	public void init(){
 		theUser = new Admin();
 		eb = new Courses();
+		users = new ArrayList<AbstractUser>();
+		optionals = new ArrayList<EU>();
 		System.out.println(this + " created");
 	}
 	
@@ -55,42 +61,51 @@ public class UserController {
 	}
 	
 	public String save() throws IllegalAccessException
-	{
-		AbstractUser user;
-		switch (getUserType()) {
-		case Admin:
-			user = new Admin();
-			break;
-			
-		case Teacher:
-			user = new Teacher();
-			break;
-				
-		case Student:
-			user = new Student();
-			break;
-		
-		default:
-			//gestion err
-			return "";
-		}
-		user.setEmail(theUser.getEmail());
-		user.setPassword(theUser.getHashPwd());
-		user.setFirstName(theUser.getFirstName());
-		user.setLastName(theUser.getLastName());
-		user.setBirthDate(theUser.getBirthDate());
-		user.setWebSite(theUser.getWebSite());
-		user.setPhones(theUser.getPhones());
-		manager.managerUsers.save(user);
-		theUser = new Admin();
-		return "users";
-	}
+  	{
+ 		AbstractUser user = roleToObject();
+ 		manager.managerUsers.save(user);
+ 		theUser = new Admin();
+ 		return "users";
+ 	}
+	
+	public AbstractUser roleToObject()
+	 	{
+	 		AbstractUser user = null;
+	 		switch (getUserType()) {
+	  		case Admin:
+	 			user = new Admin();
+	  			break;
+	  			
+	  		case Teacher:
+	 			user = new Teacher();
+	  			break;
+	  				
+	  		case Student:
+	 			user = new Student();
+	  			break;
+	  		
+	  		default:
+	  			//gestion err
+	 			break;
+	  		}
+	 		
+	 		user.setEmail(theUser.getEmail());
+	 		user.setPassword(theUser.getHashPwd());
+	 		user.setFirstName(theUser.getFirstName());
+	 		user.setLastName(theUser.getLastName());
+	 		user.setBirthDate(theUser.getBirthDate());
+	 		user.setWebSite(theUser.getWebSite());
+	 		user.setPhones(theUser.getPhones());
+	 		return user;
+	  	}
 	
 	public String update() throws IllegalAccessException
 	{
 		
-		manager.managerUsers.update(theUser);
-		return "users";
+	AbstractUser user = roleToObject();
+		manager.managerUsers.update(user);
+ 		theUser = new Admin();
+  		return "users";
 	}
 	
 	public String show(AbstractUser user)
@@ -112,10 +127,22 @@ public class UserController {
     	return myList;
     }
 	
-	public List<Courses> findAllEBs() throws IllegalAccessException, DaoException
-	{
-		return manager.managerCourses.findAll();
-	}
+	public List<Courses> findAllEBs() throws PedagogicRegistrationException, IllegalAccessException, DaoException
+  	{
+ 		if (theUser == null) {
+ 			throw new PedagogicRegistrationException();
+ 		}
+  		List<Courses> list = manager.managerCourses.findAll();
+  		if (list.isEmpty() == false) {
+  			eb = list.get(0);
+ 		}
+ 		return list;
+ 	}
+	
+	public List<EU> getEBOptionals()
+    {
+    	return eb.getEUs();
+    }
 	
 	public String doER(AbstractUser user)
 	{
@@ -123,6 +150,31 @@ public class UserController {
 		return "educationalRegistration";
 	}
 
+	public String saveER() throws PedagogicRegistrationException
+	{
+		
+		if (theUser == null) {
+			optionals = new ArrayList<EU>();
+			return "users";
+		}
+		if (theUser.getClass().equals(Student.class)) {
+			List<GroupEU> listGrEU = new ArrayList<GroupEU>();
+			listGrEU.add(eb.getObligatories());
+			GroupEU tempo;
+			for (EU eu : optionals) {
+				tempo = new GroupEU();
+				tempo.addEU(eu);
+				listGrEU.add(tempo);
+			}
+			((Student)theUser).setGroups(listGrEU);
+			((Student)theUser).setIdCourses(eb.getId());
+			optionals = new ArrayList<EU>();
+			return "users";
+		}
+		optionals = new ArrayList<EU>();
+		return "errUser";
+		
+	}
 	
 	public List<AbstractUser> findAll() throws IllegalAccessException, DaoException
 	{
