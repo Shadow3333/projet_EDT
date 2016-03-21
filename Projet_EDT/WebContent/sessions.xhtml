@@ -20,18 +20,18 @@
 						widgetVar="sessionTable">
 						
 
-						<p:column filterBy="#{currSession.date}" headerText="Date">
+						<p:column filterBy="#{currSession.date}" headerText="#{msg['table.header.date']}">
 							<h:outputText value="#{currSession.date}" >
 								<f:convertDateTime pattern="MM/dd/yyyy" />
 							</h:outputText>
 						</p:column>
 
-						<p:column filterBy="#{currSession.teacher}" headerText="Teacher">
+						<p:column filterBy="#{currSession.teacher}" headerText="#{msg['table.header.teacher']}">
 							<h:outputText value="#{currSession.teacher.lastName}" />
 						</p:column>
 
 						<p:column filterBy="#{currSession.type}" 
-								  headerText="Type"
+								  headerText="#{msg['table.header.type']}"
 								  filterMatchMode="in">
 				            <f:facet name="filter">
 				                <p:selectCheckboxMenu label="by" onchange="PF('sessionTable').filter()"
