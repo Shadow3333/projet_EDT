@@ -177,4 +177,19 @@ public abstract class AbstractUser {
 	public void setPassword(String password) {
 		hashPwd = Hasher.SHA256(password);
 	}
+	
+	public boolean equals(Object other) {
+         return other instanceof AbstractUser && (getEmail() != null) ? getEmail().equals(((AbstractUser) other).getEmail()) : (other == this);
+     }
+ 
+     // This must return the same hashcode for every Foo object with the same key.
+     public int hashCode() {
+         return getEmail() != null ? this.getClass().hashCode() + getEmail().hashCode() : super.hashCode();
+     }
+ 
+     // Override Object#toString() so that it returns a human readable String representation.
+     // It is not required by the Converter or so, it just pleases the reading in the logs.
+     public String toString() {
+         return "Teacher";
+     }
 }

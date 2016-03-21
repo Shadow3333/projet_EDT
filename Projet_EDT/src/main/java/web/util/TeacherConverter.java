@@ -1,21 +1,23 @@
-package web.util;
+package util;
 
+import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-import manager.SessionManager;
-import models.AbstractUser;
+import business.manager.Manager;
+import business.model.users.AbstractUser;
 
 public class TeacherConverter implements Converter {
 
-	private static SessionManager sM = new SessionManager();
+	@ManagedProperty(value="#{containerManager.manager}")
+	private Manager manager;
 
     // Actions ------------------------------------------------------------------------------------
     
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         // Convert the unique String representation of Foo to the actual Foo object.
-        return sM.find(value);
+        return manager.managerSessions.find(value);
     }
 
     public String getAsString(FacesContext context, UIComponent component, Object value) {
