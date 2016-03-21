@@ -9,6 +9,7 @@ import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.persistence.PostLoad;
 
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
@@ -24,22 +25,39 @@ import business.model.Session;
 @SessionScoped
 public class ScheduleController implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@ManagedProperty(value="#{containerManager.manager}")
 	private Manager manager;
+	
 	private ScheduleModel eventModel;
 	ScheduleEvent event = new DefaultScheduleEvent();
 
 	@PostConstruct
-    public void init() throws IllegalAccessException, DaoException {
+    public void init() {
 		System.out.println(this + " created");
         eventModel = new DefaultScheduleModel();
         
+//        List<Session> listSession  = findAllSessions();
+//        for (Session currSession : listSession) {
+//			addEvent(currSession);
+//		}
+        
+    }
+	
+	@PostLoad
+	 public void load() throws IllegalAccessException, DaoException {
+		System.out.println("kikou");
         List<Session> listSession  = findAllSessions();
         for (Session currSession : listSession) {
 			addEvent(currSession);
 		}
         
     }
+	
 	
 	@PreDestroy
 	public void close() {
@@ -85,5 +103,13 @@ public class ScheduleController implements Serializable {
 
 	public void setEvent(ScheduleEvent event) {
 		this.event = event;
+	}
+
+	public Manager getManager() {
+		return manager;
+	}
+
+	public void setManager(Manager manager) {
+		this.manager = manager;
 	}
 }

@@ -61,7 +61,16 @@ public class EducationalBackgroundController {
 			tempo = new GroupEU();
 			tempo.addEU(eu);
 			theEducationalBackground.addOptions(tempo);
+			manager.managergroupEU.save(tempo);
 		}
+//		System.out.println(theEducationalBackground);
+//		System.out.println(theEducationalBackground.getId());
+//		System.out.println(theEducationalBackground.getName());
+//		System.out.println(theEducationalBackground.getEUs().toString());
+//		System.out.println("-----------------------------");
+//		System.out.println(theEducationalBackground.getObligatories().getEus().get(0).getName());
+		
+		manager.managergroupEU.save(theEducationalBackground.getObligatories());
 		manager.managerCourses.save(theEducationalBackground);
 		init();
 		return "educationalBackgrounds";

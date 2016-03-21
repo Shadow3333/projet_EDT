@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -28,6 +29,7 @@ import business.model.users.AbstractUser;
 @Entity
 public class GroupEU {
 	@Id
+	@GeneratedValue
 	private Long id;
 	@Column(nullable = true)
 	private Boolean optionnal;

@@ -120,13 +120,28 @@ public class EU {
 		this.nbHours = nbHours;
 	}
 	
-	@Override
-	public boolean equals(Object obj) {
-		if(!(obj instanceof EU)) {
-			return false;
-		}
-		EU e = (EU) obj;
-		return e.getId().equals(this.getId());
-	}
+//	@Override
+//	public boolean equals(Object obj) {
+//		if(!(obj instanceof EU)) {
+//			return false;
+//		}
+//		EU e = (EU) obj;
+//		return e.getId().equals(this.getId());
+//	}
+	
+	public boolean equals(Object other) {
+        return other instanceof EU && (id != null) ? id.equals(((EU) other).id) : (other == this);
+    }
+
+    // This must return the same hashcode for every Foo object with the same key.
+    public int hashCode() {
+        return id != null ? this.getClass().hashCode() + id.hashCode() : super.hashCode();
+    }
+
+    // Override Object#toString() so that it returns a human readable String representation.
+    // It is not required by the Converter or so, it just pleases the reading in the logs.
+    public String toString() {
+        return "EU";
+    }
 	// TODO UTILS TOOLS FOR EU (ADDERS & REMOVERS)
 }

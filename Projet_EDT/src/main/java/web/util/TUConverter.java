@@ -6,6 +6,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 
 import business.dao.DaoException;
 import business.manager.Manager;
@@ -13,6 +14,7 @@ import business.model.EU;
 
 @ManagedBean(name="TUConverter")
 @SessionScoped
+@FacesConverter(value = "TUConverter")
 public class TUConverter implements Converter {
 	@ManagedProperty(value="#{containerManager.manager}")
 	private Manager manager;
@@ -33,5 +35,13 @@ public class TUConverter implements Converter {
         // Convert the Foo object to its unique String representation.
         return ((EU) value).getId();
     }
+
+	public Manager getManager() {
+		return manager;
+	}
+
+	public void setManager(Manager manager) {
+		this.manager = manager;
+	}
 	
 }
