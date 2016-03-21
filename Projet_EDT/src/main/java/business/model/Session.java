@@ -20,12 +20,12 @@ import business.model.users.AbstractUser;
  * @author DUBUIS Michael
  *
  */
-@Entity
+@Entity(name="T_Session")
 public class Session {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column(nullable = false)
+	@Column(name = "Session_date", nullable = false)
 	private Date date;
 	@ManyToOne(cascade=CascadeType.ALL)
 	private GroupStudent groupStudent;

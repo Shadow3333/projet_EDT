@@ -78,5 +78,13 @@ public class SessionController {
 	public void setTheSession(Session theSession) {
 		this.theSession = theSession;
 	}
+	
+	public Manager getManager() {
+		return manager;
+	}
+
+	public void setManager(Manager manager) {
+		this.manager = manager;
+	}
 
 }

@@ -12,16 +12,16 @@
 </h:head>
 <h:body>
 
-	<h:outputStylesheet library="css" name="style.css" />
+	<h:outputStylesheet library="css" name="stylee.css" />
 
 	<div id="page">
 
-		<div id="header">
-			<ui:insert name="header">
+		<div id="header" style="width: 100%">
+			<ui:insert name="header" style="width: 100%">
 				<h:form>
 					<span>
 						<h:outputText value="#{msg['title.timetable']}" />
-						<p:spacer width="560" height="0" />
+						<p:spacer width="70%" height="0" />
 						<c:if test="#{not loginController.isConnected()}">
 							<h:commandButton action="login?faces-redirect=true" value="#{msg['button.login']}" />
 						</c:if>

@@ -21,6 +21,7 @@
 
 <f:metadata>
    		<f:event type="preRenderView" listener="#{loginController.accessDeniedIfNotAdmin()}"/>
+   		<f:event type="preRenderView" listener="#{userController.newUser()}"/>
 </f:metadata>
 
 <body>
@@ -28,10 +29,6 @@
 	
 		<ui:define name="label">
 			<h1><h:outputText value="#{msg['title.user.add']}" /></h1>
-		</ui:define>
-		
-		<ui:define name="resetUser">
-			<h:inputHidden var="user" value="#{userController.newUser()}" />
 		</ui:define>
 		
 		<ui:define name="method">

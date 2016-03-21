@@ -1,0 +1,131 @@
+h1 {
+	border-bottom: solid 0px #000000;
+	margin: .67em 0;
+	font-size: 2em;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+.h-panelgrid tr, .h-panelgrid h {
+	border: none !important;
+}
+
+.preformatted {
+	white-space: pre-wrap;
+}
+
+.ui-separator {
+	background: #A8A8A8;
+	border: none;
+	width: 0px;
+	clear: none;
+	height: 15px;
+	margin: 0px 0px 0;
+	box-shadow: none;
+}
+
+td, th {
+	border: 1px solid black;
+	padding: 3px;
+}
+
+#page {
+	width: 70%;
+	margin: 0 auto;
+}
+
+#header {
+	border: solid 1px #000000;
+	padding: 5px;
+	size: large;
+	color: #000000;
+	background-color: #ececec;
+	margin-bottom: 20px;
+	display : inline-block;
+}
+
+#menu {
+	float: right;
+	width: 150px;
+	border: solid 1px gray;
+	padding: 5px;
+	color: #001a65;
+	background-color: #ffffff;
+	margin-left: 20px;
+
+}
+
+#content {
+}
+
+#footer {
+	border: solid 1px #020202;
+	padding: 5px;
+	size: small;
+	color: #000000;
+	background-color: #ececec;
+	margin-top: 20px;
+}
+
+.alert {
+	color: red;
+	border: solid 2px red;
+}
+
+.person-table {
+	border-collapse: collapse;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+.person-table-header {
+	text-align: center;
+	background: none repeat scroll 0 0 #E5E5E5;
+	border-top: 1px solid #BBBBBB;
+	border-bottom: 1px solid #BBBBBB;
+	padding: 5px;
+}
+
+.person-table-odd-row {
+	text-align: center;
+	background: none repeat scroll 0 0 #FFFFFFF;
+	border-top: 1px solid #BBBBBB;
+}
+
+.person-table-even-row {
+	text-align: center;
+	background: none repeat scroll 0 0 #F9F9F9;
+	border-top: 1px solid #BBBBBB;
+}
+
+.activity-table {
+	border-collapse: collapse;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+.activity-table-header {
+	text-align: center;
+	background: none repeat scroll 0 0 #E5E5E5;
+	border-top: 1px solid #BBBBBB;
+	border-bottom: 1px solid #BBBBBB;
+	padding: 5px;
+}
+
+.activity-table-odd-row {
+	text-align: center;
+	background: none repeat scroll 0 0 #FFFFFFF;
+	border-top: 1px solid #BBBBBB;
+}
+
+.activity-table-even-row {
+	text-align: center;
+	background: none repeat scroll 0 0 #F9F9F9;
+	border-top: 1px solid #BBBBBB;
+}
+
+.ui-panelgrid>*>tr, .ui-panelgrid .ui-panelgrid-cell {
+	border: none;
+}

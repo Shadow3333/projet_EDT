@@ -12,8 +12,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import business.dao.DaoException;
-import business.dao.IDao;
-import business.dao.jpa.JpaDao;
 import business.exceptions.PedagogicRegistrationException;
 import business.manager.Manager;
 import business.model.Courses;
@@ -189,7 +187,10 @@ public class UserController {
 	public String getFormattedDate(Date date)
 	{
 		SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");//dd/MM/yyyy
-	    return sdfDate.format(date);
+		if (date != null) {
+			return sdfDate.format(date);
+		}
+		return null;
 	}
 	
 	public String getRole()
@@ -226,6 +227,14 @@ public class UserController {
 
 	public void setEb(Courses eb) {
 		this.eb = eb;
+	}
+
+	public List<EU> getOptionals() {
+		return optionals;
+	}
+
+	public void setOptionals(List<EU> optionals) {
+		this.optionals = optionals;
 	}
 	
 	/***
