@@ -31,7 +31,7 @@
 		</ui:define>
 		
 		<ui:define name="resetUser">
-			<c:set var="user" value="#{userController.newUser()}" />
+			<h:inputHidden var="user" value="#{userController.newUser()}" />
 		</ui:define>
 		
 		<ui:define name="method">

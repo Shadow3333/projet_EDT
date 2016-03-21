@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<h:form>
+		<ui:composition template="/template/userProfile.xhtml">
+			<ui:define name="content">
+				<p:growl id="messages" showDetail="true" />
+		
+				<h:panelGrid columnClasses="value">
+			        <h3 style="margin-top: 0">Editable Schedule</h3>
+			        <p:schedule id="schedule" value="#{ScheduleController.eventModel}" 
+			                    widgetVar="myschedule" timeZone="GMT+1"
+			                    draggable="false" resizable="false">
+				        <p:ajax event="eventSelect" 
+				        		listener="#{ScheduleController.onEventSelect}"
+				        		update="eventDetails"
+				        		oncomplete="PF('eventDialog').show();" />
+			        </p:schedule>
+			        <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+			        <h:panelGrid id="eventDetails" columns="2">
+			            <p:outputLabel for="title" value="Details :" />
+			            <p:outputLabel id="title" style="width: 150px;"
+			            			   value="#{ScheduleController.event.title}" required="true" autoResize="false"/>
+			 
+			            <p:outputLabel for="from" value="From:" />
+			            <p:outputLabel id="from" value="#{ScheduleController.event.startDate}" />
+			            
+			 
+			            <p:outputLabel for="to" value="To:" />
+			            <p:outputLabel id="to" value="#{ScheduleController.event.endDate}" pattern="dd/MM/yyyy HH:mm"/>
+			 
+			        </h:panelGrid>
+			    </p:dialog>
+		        </h:panelGrid>
+		    </ui:define>
+        </ui:composition>
+	</h:form>
+</h:body>
+</html>
