@@ -21,6 +21,7 @@
 
 <f:metadata>
    		<f:event type="preRenderView" listener="#{loginController.accessDeniedIfNotTeacher()}"/>
+   		<f:event type="preRenderView" listener="#{educationalBackgroundController.reset()}"/>
 </f:metadata>
 
 <body>
@@ -28,10 +29,6 @@
 	
 		<ui:define name="label">
 			<h1><h:outputText value="#{msg['title.course.add']}"/></h1>
-		</ui:define>
-		
-		<ui:define name="resetEB">
-			<c:set var="eb" value="#{educationalBackgroundController.init()}" />
 		</ui:define>
 		
 		<ui:define name="method">

@@ -34,12 +34,7 @@ public class EducationalBackgroundController {
 
 	@PostConstruct
 	public void init() {
-		theEducationalBackground = new Courses();
-		GroupEU gEU = new GroupEU();
-		gEU.setEus(new ArrayList<EU>());
-		theEducationalBackground.setObligatories(gEU);
-		optionals = new ArrayList<EU>();
-		System.out.println(this + " created");
+		reset();
 	}
 	
 	@PreDestroy
@@ -49,6 +44,16 @@ public class EducationalBackgroundController {
 
 	public Manager getManager() {
 		return manager;
+	}
+	
+	public void reset()
+	{
+		theEducationalBackground = new Courses();
+		GroupEU gEU = new GroupEU();
+		gEU.setEus(new ArrayList<EU>());
+		theEducationalBackground.setObligatories(gEU);
+		optionals = new ArrayList<EU>();
+		System.out.println(this + " created");
 	}
 	
 	public void setManager(Manager manager) {
@@ -61,18 +66,10 @@ public class EducationalBackgroundController {
 			tempo = new GroupEU();
 			tempo.addEU(eu);
 			theEducationalBackground.addOptions(tempo);
-			manager.managergroupEU.save(tempo);
 		}
-//		System.out.println(theEducationalBackground);
-//		System.out.println(theEducationalBackground.getId());
-//		System.out.println(theEducationalBackground.getName());
-//		System.out.println(theEducationalBackground.getEUs().toString());
-//		System.out.println("-----------------------------");
-//		System.out.println(theEducationalBackground.getObligatories().getEus().get(0).getName());
 		
-		manager.managergroupEU.save(theEducationalBackground.getObligatories());
 		manager.managerCourses.save(theEducationalBackground);
-		init();
+		reset();
 		return "educationalBackgrounds";
 	}
 	
