@@ -1,5 +1,6 @@
 package web;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,7 @@ import business.model.Session;
 
 @ManagedBean(name = "ScheduleController")
 @SessionScoped
-public class ScheduleController {
+public class ScheduleController implements Serializable {
 	
 	@ManagedProperty(value="#{containerManager.manager}")
 	private Manager manager;
