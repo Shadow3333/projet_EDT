@@ -25,6 +25,13 @@
 								<f:convertDateTime pattern="MM/dd/yyyy" />
 							</h:outputText>
 						</p:column>
+						
+						<p:column filterBy="#{currSession.date}" headerText="#{msg['table.header.start']}">
+							<h:outputText value="#{currSession.date}" >
+								<f:convertDateTime pattern="hh" />
+							</h:outputText>
+							<h:outputText value=" h" />
+						</p:column>
 
 						<p:column filterBy="#{currSession.teacher}" headerText="#{msg['table.header.teacher']}">
 							<h:outputText value="#{currSession.teacher.lastName}" />
