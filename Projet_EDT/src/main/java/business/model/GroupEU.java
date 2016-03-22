@@ -37,7 +37,7 @@ public class GroupEU {
 	private Long id;
 	@Column(nullable = true)
 	private Boolean optionnal;
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.PERSIST)
 	@CollectionTable(
 			name = "GroupEUListEU",
 			joinColumns = @JoinColumn(name = "GroupEUId"))

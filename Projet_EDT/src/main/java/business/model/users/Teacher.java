@@ -18,19 +18,19 @@ import business.model.EU;
  */
 @Entity
 public class Teacher extends AbstractUser {
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.PERSIST)
 	@CollectionTable(
 			name = "TeacherTDs",
 			joinColumns = @JoinColumn(name = "UserEmail"))
 	@Valid
 	private List<EU> td;
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.PERSIST)
 	@CollectionTable(
 			name = "TeacherTPs",
 			joinColumns = @JoinColumn(name = "UserEmail"))
 	@Valid
 	private List<EU> tp;
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.PERSIST)
 	@CollectionTable(
 			name = "TeacherCMs",
 			joinColumns = @JoinColumn(name = "UserEmail"))

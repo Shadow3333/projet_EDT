@@ -23,7 +23,7 @@
 	<ui:composition template="/template/myLayout.xhtml">
 		<ui:define name="content">
 			<f:view>
-				<h3><h:outputText value="#{msg['title.student.registration']}" /></h3>
+				<h3><h:outputText value="#{msg['title.student.registration']}" /> : <h:outputText value="#{userController.theUser.email}" /></h3>
 
 				<h:form id="test">
 
@@ -32,8 +32,8 @@
 						<p:outputLabel for="ebs" value="#{msg['label.course']}" />
 				        <p:selectOneMenu id="ebs" value="#{userController.eb}" >
 				            <f:selectItems value="#{userController.findAllEBs()}" var="currEB"
-				            			   itemLabel="#{currEB.id} : #{currEB.name}" itemValue="#{currEB}" />
-				            <f:converter converterId="CoursesConverter" />
+				            			   itemLabel="#{currEB.id} : #{currEB.name}" itemValue="#{currEB}"
+				            			   coverter="#{courseConverter}" />
 				            <f:ajax render=":test:menu1 :test:menu"/>
 				        </p:selectOneMenu>
 

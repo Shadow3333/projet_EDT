@@ -21,7 +21,7 @@ import business.model.GroupEU;
 public class Student extends AbstractUser {
 	@Column(nullable = true)
 	private String idCourses;
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.PERSIST)
 	@CollectionTable(
 			name = "StudentGroupsEU",
 			joinColumns = @JoinColumn(name = "UserEmail"))

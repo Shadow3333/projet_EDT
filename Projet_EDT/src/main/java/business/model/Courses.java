@@ -25,10 +25,10 @@ public class Courses {
 	private String id;
 	@Column(nullable = true)
 	private String name;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@Valid
 	private GroupEU obligatories;
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.PERSIST)
 	@CollectionTable(
 			name = "CoursesListOptions",
 			joinColumns = @JoinColumn(name = "CoursesId"))

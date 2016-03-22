@@ -13,7 +13,7 @@
 
 <ui:composition>
 	<p:menubar>
-		<p:menuitem value="#{msg['menu.Schedule']}" outcome="schedule" icon="ui-icon-star" />
+		<p:menuitem value="#{msg['menu.schedule']}" outcome="schedule" icon="ui-icon-star" />
 		<p:menuitem value="#{msg['menu.courses.list']}" outcome="educationalBackgrounds" icon="ui-icon-person" />
 		<p:menuitem value="#{msg['menu.eu.list']}" outcome="eus" icon="ui-icon-star" />
 		<p:menuitem value="#{msg['menu.user.list']}" outcome="users" icon="ui-icon-person" rendered="#{userController.loggedIsAdmin()}" />
@@ -24,6 +24,8 @@
 			<p:menuitem value="#{msg['menu.courses.add']}" outcome="newEducationalBackground" rendered="#{userController.loggedIsAdmin()}" />
 			<p:menuitem value="#{msg['menu.session.add']}" outcome="newSession" />
 		</p:submenu>
+		<p:menuitem value="#{msg['menu.ip']}" outcome="educationalRegistration"
+				action="#{userController.loggedUserEducationalRegistration()}" rendered="#{userController.loggedIsStudent()}" />
 	</p:menubar>
 </ui:composition>
 </html>

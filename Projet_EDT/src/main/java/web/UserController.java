@@ -53,7 +53,6 @@ public class UserController {
 	public Manager getManager() {
 		return manager;
 	}
-	
 	public void setManager(Manager manager) {
 		this.manager = manager;
 	}
@@ -179,6 +178,14 @@ public class UserController {
 		return "educationalRegistration";
 	}
 
+	public String loggedUserEducationalRegistration() {
+		theUser = manager.managerUsers.getCurrentUser();
+		if(theUser == null) {
+			return "";
+		}
+		return "educationalRegistration?faces-redirect=true";
+	}
+	
 	public String saveER() throws PedagogicRegistrationException, IllegalAccessException {
 		if (theUser == null) {
 			optionals = new ArrayList<EU>();

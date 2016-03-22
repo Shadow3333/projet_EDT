@@ -27,11 +27,11 @@ public class Session {
 	private Long id;
 	@Column(name = "Session_date", nullable = false)
 	private Date date;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	private GroupStudent groupStudent;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	private EU eu;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	private AbstractUser teacher;
 	@Column(nullable = true)
 	@Enumerated(EnumType.STRING)

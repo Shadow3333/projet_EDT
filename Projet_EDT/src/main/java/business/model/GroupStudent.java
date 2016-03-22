@@ -29,7 +29,7 @@ public class GroupStudent {
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private LessonType groupType;
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.PERSIST)
 	@Valid
 	private List<AbstractUser> students;
 	
