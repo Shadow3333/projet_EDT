@@ -32,7 +32,7 @@
 							required="true"
 							requiredMessage="#{msg['error.password.required']}"
 							label="Password">
-							<f:validateLength minimum="6" />
+							<f:validateLength minimum="3" />
 							<p:ajax update="msgPassword" event="keyup" />
 						</p:password>
 						<p:message for="password" id="msgPassword" display="icon" />

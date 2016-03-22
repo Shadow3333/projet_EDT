@@ -88,7 +88,6 @@ public class UserController {
 	
 	public String save() throws IllegalAccessException {
  		AbstractUser user = roleToObject();
- 		user.setHashPwd(theUser.getHashPwd());
  		manager.managerUsers.save(user);
  		theUser = new Admin();
  		return "users";
@@ -127,6 +126,7 @@ public class UserController {
 	
 	public String update() throws IllegalAccessException{
 		AbstractUser user = roleToObject();
+ 		user.setHashPwd(theUser.getHashPwd());
 		manager.managerUsers.update(user);
  		theUser = new Admin();
   		return "users";
