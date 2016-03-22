@@ -58,6 +58,34 @@ public class UserController {
 		this.manager = manager;
 	}
 	
+	public AbstractUser getLoggedUser() {
+		return manager.managerUsers.getCurrentUser();
+	}
+	
+	public boolean loggedIsStudent() {
+		AbstractUser current = manager.managerUsers.getCurrentUser();
+		if(current == null) {
+			return false;
+		}
+		return current instanceof Student;
+	}
+	
+	public boolean loggedIsTeacher() {
+		AbstractUser current = manager.managerUsers.getCurrentUser();
+		if(current == null) {
+			return false;
+		}
+		return current instanceof Teacher;
+	}
+	
+	public boolean loggedIsAdmin() {
+		AbstractUser current = manager.managerUsers.getCurrentUser();
+		if(current == null) {
+			return false;
+		}
+		return current instanceof Admin;
+	}
+	
 	public String save() throws IllegalAccessException {
  		AbstractUser user = roleToObject();
  		user.setHashPwd(theUser.getHashPwd());

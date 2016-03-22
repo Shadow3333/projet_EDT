@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
@@ -11,17 +12,18 @@
 
 
 <ui:composition>
+	<c:set var="p" value="#{userController.getLoggedUser()}" />
 	<p:menubar>
 		<p:menuitem value="#{msg['menu.Schedule']}" outcome="schedule" icon="ui-icon-star" />
 		<p:menuitem value="#{msg['menu.courses.list']}" outcome="educationalBackgrounds" icon="ui-icon-person" />
 		<p:menuitem value="#{msg['menu.eu.list']}" outcome="eus" icon="ui-icon-star" />
-		<p:menuitem value="#{msg['menu.user.list']}" outcome="users" icon="ui-icon-person" />
-		<p:menuitem value="#{msg['menu.session.list']}" outcome="sessions" icon="ui-icon-person" />
-		<p:submenu label="#{msg['menu.add']}" icon="ui-icon-search">
-			<p:menuitem value="#{msg['menu.eu.add']}" outcome="newEU"/>
-			<p:menuitem value="#{msg['menu.user.add']}" outcome="newUser"/>
-			<p:menuitem value="#{msg['menu.courses.add']}" outcome="newEducationalBackground"/>
-			<p:menuitem value="#{msg['menu.session.add']}" outcome="newSession"/>
+		<p:menuitem value="#{msg['menu.user.list']}" outcome="users" icon="ui-icon-person" rendered="#{userController.loggedIsAdmin()}" />
+		<p:menuitem value="#{msg['menu.session.list']}" outcome="sessions" icon="ui-icon-person" rendered="#{userController.loggedIsTeacher()}" />
+		<p:submenu label="#{msg['menu.add']}" icon="ui-icon-search" rendered="#{userController.loggedIsTeacher()}">
+			<p:menuitem value="#{msg['menu.eu.add']}" outcome="newEU" />
+			<p:menuitem value="#{msg['menu.user.add']}" outcome="newUser" rendered="#{userController.loggedIsAdmin()}" />
+			<p:menuitem value="#{msg['menu.courses.add']}" outcome="newEducationalBackground" rendered="#{userController.loggedIsAdmin()}" />
+			<p:menuitem value="#{msg['menu.session.add']}" outcome="newSession" />
 		</p:submenu>
 	</p:menubar>
 </ui:composition>
