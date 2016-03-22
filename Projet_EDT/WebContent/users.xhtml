@@ -36,7 +36,7 @@
 					</p:column>
 					
 					<p:column headerText="#{msg['table.header.educationregistration']}">
-						<h:form>
+						<h:form rendered="#{p.getClass().getSimpleName() eq 'Student'}" >
 							<p:commandButton value="X" id="educationalRegistration"
 								action="#{userController.doER(p)}"
 								styleClass="ui-priority-primary" />

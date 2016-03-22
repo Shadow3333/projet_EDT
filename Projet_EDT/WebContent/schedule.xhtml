@@ -25,15 +25,15 @@
 			        </p:schedule>
 			        <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
 			        <h:panelGrid id="eventDetails" columns="2">
-			            <p:outputLabel for="title" value="Details :" />
+			            <p:outputLabel for="title" value="#{msg['label.description']}" />
 			            <p:outputLabel id="title" style="width: 150px;"
 			            			   value="#{ScheduleController.event.title}" required="true" autoResize="false"/>
 			 
-			            <p:outputLabel for="from" value="From:" />
+			            <p:outputLabel for="from" value="#{msg['label.from']}" />
 			            <p:outputLabel id="from" value="#{ScheduleController.event.startDate}" />
 			            
 			 
-			            <p:outputLabel for="to" value="To:" />
+			            <p:outputLabel for="to" value="#{msg['label.to']}" />
 			            <p:outputLabel id="to" value="#{ScheduleController.event.endDate}" pattern="dd/MM/yyyy HH:mm"/>
 			 
 			        </h:panelGrid>
