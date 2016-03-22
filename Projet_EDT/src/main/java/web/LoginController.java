@@ -33,7 +33,6 @@ public class LoginController {
 
 	@PostConstruct
 	public void init() {
-		email = "admin@admin.admin";
 		System.out.println(this + " created");
 	}
 	
