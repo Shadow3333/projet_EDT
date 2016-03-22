@@ -24,6 +24,7 @@ public class SessionController {
 	private Manager manager;
 	
 	Session theSession;
+	private int hour;
  
 	@PostConstruct
 	public void init() {
@@ -85,6 +86,16 @@ public class SessionController {
 
 	public void setManager(Manager manager) {
 		this.manager = manager;
+	}
+
+	public int getHour() {
+		return hour;
+	}
+
+	@SuppressWarnings("deprecation")
+	public void setHour(int hour) {
+		this.hour = hour;
+		theSession.getDate().setHours(hour);
 	}
 
 }

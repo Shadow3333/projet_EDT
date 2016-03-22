@@ -38,5 +38,13 @@ public class TeacherConverter implements Converter {
         // Convert the Foo object to its unique String representation.
         return ((AbstractUser) value).getEmail();
     }
+
+	public Manager getManager() {
+		return manager;
+	}
+
+	public void setManager(Manager manager) {
+		this.manager = manager;
+	}
 	
 }

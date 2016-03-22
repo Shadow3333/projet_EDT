@@ -30,50 +30,47 @@
 				<h1><h:outputText value="#{msg['title.session.add']}" /></h1>
 
 				<h:form id="test">
-					<c:set var="session" value="#{sessionController.theSession}" />
+					<c:set var="currSession" value="#{sessionController.theSession}" />
 
 					<p:panelGrid columns="2">
+						<p:outputLabel for="date" value="Date :" />
+						<p:calendar id="date" value="#{currSession.date}" />
 
-						<p:outputLabel for="date" value="#{msg['label.date']}" />
-						<p:calendar id="date" value="#{session.date}" />
-
-						<p:outputLabel for="UES" value="#{msg['label.eu']}" />
-						<p:selectOneListbox id="UES"
-							value="#{sessionController.findAllEUS()}"
-							converter="TeacherConverter" var="t" filter="true"
-							filterMatchMode="contains">
-							<f:selectItems value="#{session.eu}" var="theme"
-								itemLabel="#{theme.displayName}" itemValue="#{theme}"
-								converter="TeacherConverter"/>
+						<p:outputLabel for="UES" value="UE :" />
+						<p:selectOneListbox style="width: 500px" id="UES" filter="true" value="#{currSession.eu}"
+							filterMatchMode="contains" converter="#{TUConverter}">
+							<f:selectItems value="#{sessionController.findAllEUS()}" 
+										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
+										   itemValue="#{eu}" converter="#{TUConverter}"/>
 						</p:selectOneListbox>
 
 						<p:outputLabel for="type" value="Type :" />
-						<p:selectOneListbox id="type" value="#{session.type}">
-							<f:selectItem itemLabel="CM" itemValue="1" />
-							<f:selectItem itemLabel="TD" itemValue="2" />
-							<f:selectItem itemLabel="TP" itemValue="3" />
+						<p:selectOneListbox style="width: 500px" id="type" value="#{currSession.type}">
+							<f:selectItem itemLabel="CM" itemValue="CM" />
+							<f:selectItem itemLabel="TD" itemValue="TD" />
+							<f:selectItem itemLabel="TP" itemValue="TP" />
 						</p:selectOneListbox>
 
-						<p:outputLabel for="teachers" value="#{msg['label.teacher']}" />
-						<p:selectOneListbox id="teachers"
-							value="#{sessionController.findAllTeachers()}"
-							converter="TeacherConverter" var="t" filter="true"
-							filterMatchMode="contains">
-							<f:selectItems value="#{session.teacher}" var="theme"
-								itemLabel="#{theme.displayName}" itemValue="#{theme}"
-								converter="TeacherConverter" />
+						<p:outputLabel for="teachers" value="Teacher :" />
+						<p:selectOneListbox style="width: 500px" id="teachers"
+							value="#{currSession.teacher}" converter="#{TeacherConverter}"
+							filter="true" filterMatchMode="contains">
+							<f:selectItems value="#{sessionController.findAllTeachers()}" 
+								var="teacher" itemValue="#{teacher}"
+								itemLabel="#{teacher.lastName} : #{teacher.firstName}" 
+								converter="#{TeacherConverter}"/>
 						</p:selectOneListbox>
 						
 						<h:outputText value="#{msg['label.room']}" />
-						<p:inputText id="eu" value="#{session.room}" required="true"
+						<p:inputText id="eu" value="currSession.room" required="true"
 							requiredMessage="#{msg['error.room.required']}" />
 
 						<h:outputText value="#{msg['label.hour']}" />
-						<p:inputText id="eu" value="#{session.date}" required="true"
+						<p:inputText id="begin" value="#{sessionController.hour}" required="true"
 							requiredMessage="#{msg['error.hour.required']}" />
 
 						<h:outputText value="#{msg['label.duration']}" />
-						<p:inputText id="eu" value="#{session.nbHour}" required="true"
+						<p:inputText id="nbHour" value="#{currSession.nbHour}" required="true"
 							requiredMessage="#{msg['error.duration.required']}" />
 
 					</p:panelGrid>
