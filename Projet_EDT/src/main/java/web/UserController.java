@@ -126,7 +126,9 @@ public class UserController {
 	public String update() throws IllegalAccessException{
 		AbstractUser user = roleToObject();
  		user.setHashPwd(theUser.getHashPwd());
-		manager.managerUsers.update(user);
+ 		manager.managerUsers.remove(user.getEmail());
+ 		// TODO check role to role
+		manager.managerUsers.save(user);
  		theUser = new Admin();
   		return "users";
 	}
