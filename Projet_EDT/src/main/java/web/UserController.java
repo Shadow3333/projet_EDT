@@ -58,9 +58,9 @@ public class UserController {
 		this.manager = manager;
 	}
 	
-	public String save() throws IllegalAccessException
-  	{
+	public String save() throws IllegalAccessException {
  		AbstractUser user = roleToObject();
+ 		user.setHashPwd(theUser.getHashPwd());
  		manager.managerUsers.save(user);
  		theUser = new Admin();
  		return "users";
@@ -97,10 +97,8 @@ public class UserController {
 	 		return user;
 	  	}
 	
-	public String update() throws IllegalAccessException
-	{
-		
-	AbstractUser user = roleToObject();
+	public String update() throws IllegalAccessException{
+		AbstractUser user = roleToObject();
 		manager.managerUsers.update(user);
  		theUser = new Admin();
   		return "users";
@@ -108,8 +106,13 @@ public class UserController {
 	
 	public String show(AbstractUser user)
 	{
-		theUser = user;
-		return "editUser";
+		if((manager.managerUsers.getCurrentUser() instanceof Admin)
+				|| manager.managerUsers.getCurrentUser().equals(user)) {
+			theUser = user;
+			return "editUser?faces-redirect=true";
+		} else {
+			return "";
+		}
 	}
 	
 	public void remove(AbstractUser user) throws IllegalAccessException, DaoException{
