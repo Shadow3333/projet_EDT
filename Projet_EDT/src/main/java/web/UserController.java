@@ -151,21 +151,35 @@ public class UserController {
 		return "educationalRegistration";
 	}
 
-	public String saveER() throws PedagogicRegistrationException
-	{
-		
+	public String saveER() throws PedagogicRegistrationException, IllegalAccessException {
 		if (theUser == null) {
 			optionals = new ArrayList<EU>();
 			return "users";
 		}
-		if (theUser.getClass().equals(Student.class)) {
+		if (theUser instanceof Student) {
 			List<GroupEU> listGrEU = new ArrayList<GroupEU>();
 			listGrEU.add(eb.getObligatories());
-			GroupEU tempo;
+			// add the current student to CM, TD and TP for mandatories EU
+			eb.getObligatories().addUserToCM(theUser);
+			eb.getObligatories().addUserToTD(theUser);
+			eb.getObligatories().addUserToTP(theUser);
 			for (EU eu : optionals) {
-				tempo = new GroupEU();
-				tempo.addEU(eu);
-				listGrEU.add(tempo);
+				GroupEU groupEUForOption = null;
+				groupEUForOption = eb.getGroupEUWhoContains(eu);
+				if(groupEUForOption == null) {
+					// Problem with pedagogic registration
+					throw new PedagogicRegistrationException(
+							"EU " + eu.getId() +
+							" not in university course " +
+							eb.getId());
+				}
+				listGrEU.add(groupEUForOption);
+				
+				// adding the current student to CM, TD and TP for this optional EU
+				groupEUForOption.addUserToCM(theUser);
+				groupEUForOption.addUserToTD(theUser);
+				groupEUForOption.addUserToTP(theUser);
+				manager.managergroupEU.save(groupEUForOption);
 			}
 			((Student)theUser).setGroups(listGrEU);
 			((Student)theUser).setIdCourses(eb.getId());

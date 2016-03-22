@@ -15,15 +15,6 @@ public class ManagerGroupEU extends AbstractManager<GroupEU> {
 	}
 	
 	@Override
-	public boolean canSave() {
-		if(manager.managerUsers.getCurrentUser() != null
-				&& manager.managerUsers.getCurrentUser() instanceof Admin) {
-			return true;
-		}
-		return false;
-	}
-
-	@Override
 	public boolean canRemove() {
 		if(manager.managerUsers.getCurrentUser() != null
 				&& manager.managerUsers.getCurrentUser() instanceof Admin) {

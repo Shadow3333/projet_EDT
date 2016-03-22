@@ -28,6 +28,10 @@ import business.model.users.AbstractUser;
  */
 @Entity
 public class GroupEU {
+	private static final Integer capacityTD = 30;
+	private static final Integer capacityTP = 20;
+	
+	
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -277,6 +281,42 @@ public class GroupEU {
 	}
 	
 	/**
+	 * Add an user to the first not full group of td
+	 * @param student
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
+	public boolean addUserToTD(AbstractUser student) throws IllegalArgumentException {
+		if(student == null) {
+			throw new IllegalArgumentException(
+					"student must be different than Null !");
+		}
+		Integer firstGroupNotFull = 0;
+		Integer lastGroupFull = 0;
+		for(Entry<Integer, GroupStudent> e : td.entrySet()) {
+			if(e.getValue() != null
+					&& e.getValue().getStudents() != null
+					&& e.getValue().getStudents().contains(student)) {
+				System.err.println("Student already in TD group n°" + e.getKey());
+				return false;
+			}
+			if(firstGroupNotFull <= 0
+					&& e.getValue() != null
+					&& e.getValue().getStudents().size() < capacityTD) {
+				firstGroupNotFull = e.getKey();
+			}
+			lastGroupFull = Integer.max(lastGroupFull, e.getKey());
+		}
+		if(firstGroupNotFull == 0) {
+			GroupStudent newGroupStudent = new GroupStudent();
+			newGroupStudent.setGroupType(LessonType.TD);
+			td.put(lastGroupFull + 1, newGroupStudent);
+			firstGroupNotFull = lastGroupFull + 1;
+		}
+		return addUserToTD(firstGroupNotFull, student);
+	}
+	
+	/**
 	 * Remove an user to group of td.
 	 * @param student
 	 * @return true if removed, else false
@@ -330,6 +370,42 @@ public class GroupEU {
 			return groupStudent.addStudent(student);
 		}
 		return tp.get(num).addStudent(student);
+	}
+	
+	/**
+	 * Add an user to the first not full group of tp
+	 * @param student
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
+	public boolean addUserToTP(AbstractUser student) throws IllegalArgumentException {
+		if(student == null) {
+			throw new IllegalArgumentException(
+					"student must be different than Null !");
+		}
+		Integer firstGroupNotFull = 0;
+		Integer lastGroupFull = 0;
+		for(Entry<Integer, GroupStudent> e : tp.entrySet()) {
+			if(e.getValue() != null
+					&& e.getValue().getStudents() != null
+					&& e.getValue().getStudents().contains(student)) {
+				System.err.println("Student already in TP group n°" + e.getKey());
+				return false;
+			}
+			if(firstGroupNotFull <= 0
+					&& e.getValue() != null
+					&& e.getValue().getStudents().size() < capacityTP) {
+				firstGroupNotFull = e.getKey();
+			}
+			lastGroupFull = Integer.max(lastGroupFull, e.getKey());
+		}
+		if(firstGroupNotFull == 0) {
+			GroupStudent newGroupStudent = new GroupStudent();
+			newGroupStudent.setGroupType(LessonType.TP);
+			tp.put(lastGroupFull + 1, newGroupStudent);
+			firstGroupNotFull = lastGroupFull + 1;
+		}
+		return addUserToTD(firstGroupNotFull, student);
 	}
 
 	/**
