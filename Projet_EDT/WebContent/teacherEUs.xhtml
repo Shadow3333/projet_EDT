@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<head>
+
+<title><h:outputText value="#{msg['title.teacherEUs']}" /></title>
+
+</head>
+
+<f:metadata>
+	   		<f:event type="preRenderView" listener="#{loginController.accessDeniedIfNotTeacher()}"/>
+	</f:metadata>
+
+<body>
+	<ui:composition template="/template/myLayout.xhtml">
+		<ui:define name="content">
+			<f:view>
+				<h1><h:outputText value="#{msg['title.teacherEUs']}" /></h1>
+
+				<h:form id="test">
+					<c:set var="eus" value="#{eusController.findAll()}" />
+
+					<p:panelGrid columns="2">
+
+						<h:outputLabel for="menu1" value="#{msg['label.teacherEUs.CM']}" />
+						<p:selectCheckboxMenu id="menu1"
+							value="#{teacherController.theTeacher.cm}" label="#{msg['label.eus']}"
+							filter="true" filterMatchMode="startsWith"
+							panelStyle="width:400px" converter="#{TUConverter}">
+							<f:selectItems value="#{eus}" 
+										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
+										   itemValue="#{eu}"
+										   converter="#{TUConverter}"/>
+						</p:selectCheckboxMenu>
+						
+						<h:outputLabel for="menu2" value="#{msg['label.teacherEUs.TD']}" />
+						<p:selectCheckboxMenu id="menu2"
+							value="#{teacherController.theTeacher.td}" label="#{msg['label.eus']}"
+							filter="true" filterMatchMode="startsWith"
+							panelStyle="width:400px" converter="#{TUConverter}">
+							<f:selectItems value="#{eus}" 
+										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
+										   itemValue="#{eu}"
+										   converter="#{TUConverter}"/>
+						</p:selectCheckboxMenu>
+
+						<h:outputLabel for="menu3" value="#{msg['label.teacherEUs.TP']}" />
+						<p:selectCheckboxMenu id="menu3"
+							value="#{teacherController.theTeacher.tp}" label="#{msg['label.eus']}"
+							filter="true" filterMatchMode="startsWith"
+							panelStyle="width:400px" converter="#{TUConverter}">
+							<f:selectItems value="#{eus}" 
+										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
+										   itemValue="#{eu}"
+										   converter="#{TUConverter}"/>
+						</p:selectCheckboxMenu>
+
+					</p:panelGrid>
+					<tr>
+						<td colspan="2">
+							<h:commandButton action="#{teacherController.save()}" value="#{msg['button.save']}" />
+						</td>
+					</tr>
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</body>
+
+</html>
