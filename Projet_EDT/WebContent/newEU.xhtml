@@ -43,7 +43,7 @@
 						             requiredMessage="#{msg['error.name.required']}"/>
 						 
 						 <h:outputText value="#{msg['label.description']}" />
-						<p:editor id="description" value="#{eu.description}"/>
+						<p:editor id="description" value="#{eu.description}" validator="descriptionValidator" validatorMessage="#{msg['error.description.script']}" />
 									 
 						<h:outputText value="#{msg['label.credits']}" />
 	            		<p:inputText id="nbCredits" value="#{eu.nbCredits}"/>

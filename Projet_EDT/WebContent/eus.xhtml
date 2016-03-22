@@ -24,7 +24,7 @@
 					</p:column>
 
 					<p:column headerText="#{msg['table.header.description']}">
-						<h:outputText value="#{eu.description}" />
+						<h:outputText value="#{eu.description}" escape="false"/>
 					</p:column>
 
 					<p:column headerText="#{msg['table.header.credits']}">
@@ -33,7 +33,7 @@
 					<p:column headerText="#{msg['table.header.delete']}">
 						<h:form>
 							<p:commandButton value="X" id="supprimer"
-								action="#{eusController.remove(eu)}" update="table"
+								action="#{eusController.remove(eu)}" update=":table"
 								styleClass="ui-priority-primary" />
 						</h:form>
 					</p:column>
