@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<head>
+
+<title><h:outputText value="#{msg['title.session.add']}" /></title>
+
+</head>
+
+<f:metadata>
+   		<f:event type="preRenderView" listener="#{loginController.accessDeniedIfNotTeacher()}"/>
+</f:metadata>
+
+<body>
+	<ui:composition template="/template/myLayout.xhtml">
+		<ui:define name="content">
+			<f:view>
+				<ui:insert name="label"/>
+
+				<h:form id="test">
+					<c:set var="currSession" value="#{sessionController.theSession}" />
+
+					<p:panelGrid columns="2">
+						<p:outputLabel for="date" value="Date :" />
+						<p:calendar id="date" value="#{currSession.date}" />
+
+						<p:outputLabel for="UES" value="UE :" />
+						<p:selectOneListbox style="width: 500px" id="UES" filter="true" value="#{currSession.eu}"
+							filterMatchMode="contains" converter="#{TUConverter}">
+							<f:selectItems value="#{sessionController.findAllEUS()}" 
+										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
+										   itemValue="#{eu}" converter="#{TUConverter}"/>
+						</p:selectOneListbox>
+
+						<p:outputLabel for="type" value="Type :" />
+						<p:selectOneListbox style="width: 500px" id="type" value="#{currSession.type}">
+							<f:selectItem itemLabel="CM" itemValue="CM" />
+							<f:selectItem itemLabel="TD" itemValue="TD" />
+							<f:selectItem itemLabel="TP" itemValue="TP" />
+						</p:selectOneListbox>
+
+						<p:outputLabel for="teachers" value="Teacher :" />
+						<p:selectOneListbox style="width: 500px" id="teachers"
+							value="#{currSession.teacher}" converter="#{TeacherConverter}"
+							filter="true" filterMatchMode="contains">
+							<f:selectItems value="#{sessionController.findAllTeachers()}" 
+								var="teacher" itemValue="#{teacher}"
+								itemLabel="#{teacher.lastName} : #{teacher.firstName}" 
+								converter="#{TeacherConverter}"/>
+						</p:selectOneListbox>
+						
+						<h:outputText value="#{msg['label.room']}" />
+						<p:inputText id="eu" value="currSession.room" required="true"
+							requiredMessage="#{msg['error.room.required']}" />
+
+						<h:outputText value="#{msg['label.hour']}" />
+						<p:inputText id="begin" value="#{sessionController.hour}" required="true"
+							requiredMessage="#{msg['error.hour.required']}" />
+
+						<h:outputText value="#{msg['label.duration']}" />
+						<p:inputText id="nbHour" value="#{currSession.nbHour}" required="true"
+							requiredMessage="#{msg['error.duration.required']}" />
+
+					</p:panelGrid>
+					<tr>
+						<td colspan="2">
+							<ui:insert name="method"/>
+						</td>
+					</tr>
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</body>
+
+</html>

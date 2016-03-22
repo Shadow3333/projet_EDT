@@ -12,21 +12,26 @@
 	<ui:composition template="/template/myLayout.xhtml">
 		<ui:define name="content">
 			<f:view>
-				<h1>Session List</h1>
+				<h1><h:outputText value="#{msg['title.sessions']}"/></h1>
 
-				<h:form>
+				<h:form id="form">
 					<p:dataTable value="#{sessionController.findAll()}" var="currSession"
 						emptyMessage="No sessions found with given criteria"
 						widgetVar="sessionTable">
 						
 
 						<p:column filterBy="#{currSession.date}" headerText="#{msg['table.header.date']}">
+							<f:facet name="filter">
+							    <p:calendar  pattern="dd/MM/yyyy">
+							        <p:ajax />
+							    </p:calendar>
+							</f:facet>
 							<h:outputText value="#{currSession.date}" >
-								<f:convertDateTime pattern="MM/dd/yyyy" />
+								<f:convertDateTime pattern="dd/MM/yyyy" />
 							</h:outputText>
 						</p:column>
 						
-						<p:column filterBy="#{currSession.date}" headerText="#{msg['table.header.start']}">
+						<p:column style="width: 50px" headerText="#{msg['table.header.start']}">
 							<h:outputText value="#{currSession.date}" >
 								<f:convertDateTime pattern="hh" />
 							</h:outputText>
@@ -41,13 +46,29 @@
 								  headerText="#{msg['table.header.type']}"
 								  filterMatchMode="in">
 				            <f:facet name="filter">
-				                <p:selectCheckboxMenu label="by" onchange="PF('sessionTable').filter()"
+				                <p:selectCheckboxMenu label="by" 
 				                 panelStyle="width:125px" scrollHeight="150">
 				                    <f:selectItems value="#{sessionController.getLessonType()}" />
 				                </p:selectCheckboxMenu>
 				            </f:facet>
 				            <h:outputText value="#{currSession.type}" />
 				        </p:column>
+				        
+				        <p:column headerText="#{msg['table.header.edit']}">
+							<h:form>
+								<p:commandButton value="X" id="edit"
+									action="#{sessionController.show(currSession)}"
+									styleClass="ui-priority-primary" />
+							</h:form>
+						</p:column>
+					
+						<p:column headerText="#{msg['table.header.delete']}">
+							<h:form>
+								<p:commandButton value="X" id="supprimer"
+									action="#{sessionController.remove(currSession)}"
+									styleClass="ui-priority-primary" />
+							</h:form>
+						</p:column>
 
 					</p:dataTable>
 				</h:form>

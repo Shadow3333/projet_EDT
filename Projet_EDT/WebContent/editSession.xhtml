@@ -15,20 +15,25 @@
 
 <head>
 
-<title>Add User</title>
+<title><h:outputText value="#{msg['title.user.add']}" /></title>
 
 </head>
 
+<f:metadata>
+   		<f:event type="preRenderView" listener="#{loginController.accessDeniedIfNotAdmin()}"/>
+</f:metadata>
+
 <body>
-	<ui:composition template="/template/userProfile.xhtml">
+	<ui:composition template="/template/sessionProfile.xhtml">
+	
 		<ui:define name="label">
-			<h1><h:outputText value="#{msg['title.user.edit']}" /></h1>
+			<h1><h:outputText value="#{msg['title.session.edit']}" /></h1>
 		</ui:define>
 		
 		<ui:define name="method">
 			<tr>
 				<td colspan="2">
-					<h:commandButton action="#{userController.update()}" value="#{msg['button.save']}" />
+					<h:commandButton action="#{sessionController.update()}" value="#{msg['button.save']}" />
 				</td>
 			</tr>
 		</ui:define>
