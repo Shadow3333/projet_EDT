@@ -62,8 +62,8 @@
 						</p:selectOneListbox>
 						
 						<h:outputText value="#{msg['label.room']}" />
-						<p:inputText id="eu" value="currSession.room" required="true"
-							requiredMessage="#{msg['error.room.required']}" />
+						<p:inputText id="eu" value="" required="true"
+							requiredMessage="#{msg['error.room.required']}" enable="false"/>
 
 						<h:outputText value="#{msg['label.hour']}" />
 						<p:inputText id="begin" value="#{sessionController.hour}" required="true"

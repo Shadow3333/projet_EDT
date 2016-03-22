@@ -2,6 +2,7 @@ package business.manager;
 
 import business.dao.IDao;
 import business.model.Session;
+import business.model.SessionFactory;
 import business.model.users.Admin;
 
 /**
@@ -30,5 +31,9 @@ public class ManagerSessions extends AbstractManager<Session> {
 			return true;
 		}
 		return false;
+	}
+	
+	public SessionFactory createFactory() {
+		return new SessionFactory(dao);
 	}
 }
