@@ -24,6 +24,8 @@ import business.model.GroupStudent;
 import business.model.Session;
 import business.model.SessionFactory;
 import business.model.users.AbstractUser;
+import business.model.users.AbstractUser;
+import business.model.users.Admin;
 import business.model.users.Teacher;
 
 @ManagedBean(name = "sessionController")
@@ -206,8 +208,15 @@ public class SessionController {
 	}
 	
 	public String remove(Session session) throws IllegalAccessException, DaoException {
+		System.out.println("session effac�");
 		manager.managerSessions.remove(session);
 		return "sessions";
+	}
+	
+	public String update() throws IllegalAccessException{
+		manager.managerSessions.update(theSession);
+ 		theSession = new Session();
+  		return "sessions";
 	}
 	
 	public LessonType[] getLessonType()
@@ -217,6 +226,24 @@ public class SessionController {
 	
 	public List<Session> findAll() throws IllegalAccessException, DaoException{
 		return manager.managerSessions.findAll();
+	}
+	
+	@SuppressWarnings("deprecation")
+	public String show(Session currSession)
+	{
+		if((manager.managerUsers.getCurrentUser() instanceof Admin)) {
+			
+			theSession = currSession;
+			hour = theSession.getDate().getHours();
+			return "editSession?faces-redirect=true";
+		} else {
+			return "";
+		}
+	}
+	
+	public void newSession()
+	{
+		theSession = new Session();
 	}
 	
 //	public List<GroupStudent> findAllGroups(){

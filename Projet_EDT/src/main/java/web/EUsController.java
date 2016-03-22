@@ -59,7 +59,7 @@ public class EUsController {
 	public String remove(EU ue) throws IllegalAccessException, DaoException {
 		manager.managerEus.remove(ue);
 		return "eus";
-}
+	}
 		
 	
 	public List<EU> findAll() throws IllegalAccessException, DaoException{

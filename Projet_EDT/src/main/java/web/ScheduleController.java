@@ -9,8 +9,6 @@ import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.persistence.PostLoad;
-
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
@@ -34,13 +32,12 @@ public class ScheduleController implements Serializable {
 	private Manager manager;
 	
 	private ScheduleModel eventModel;
-	ScheduleEvent event = new DefaultScheduleEvent();
+	ScheduleEvent event;
 
 	@PostConstruct
     public void init() {
 		System.out.println(this + " created");
-        eventModel = new DefaultScheduleModel();
-        
+		event = new DefaultScheduleEvent();
 //        List<Session> listSession  = findAllSessions();
 //        for (Session currSession : listSession) {
 //			addEvent(currSession);
@@ -48,9 +45,8 @@ public class ScheduleController implements Serializable {
         
     }
 	
-	@PostLoad
 	 public void load() throws IllegalAccessException, DaoException {
-		System.out.println("kikou");
+		eventModel = new DefaultScheduleModel();
         List<Session> listSession  = findAllSessions();
         for (Session currSession : listSession) {
 			addEvent(currSession);
@@ -84,7 +80,7 @@ public class ScheduleController implements Serializable {
 	@SuppressWarnings("deprecation")
 	private Date getDateplusDuration(Session currSession)
 	{
-		Date date = currSession.getDate();
+		Date date = new Date(currSession.getDate().getTime());
 		date.setHours(date.getHours()+currSession.getNbHour());
 		return date;
 	}
