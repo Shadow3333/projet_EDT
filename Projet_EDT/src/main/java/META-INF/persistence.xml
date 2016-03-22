@@ -4,34 +4,21 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
  http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
 	version="1.0">
-	<!--<persistence-unit name="Projet_EDT_TEST">
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-
-		<class>business.model.Courses</class>
-		<class>business.model.EU</class>
-		<class>business.model.GroupEU</class>
-		<class>business.model.GroupStudent</class>
-		<class>business.model.Session</class>
-		<class>business.model.users.AbstractUser</class>
-		<class>business.model.users.Admin</class>
-		<class>business.model.users.Student</class>
-		<class>business.model.users.Teacher</class>
-
-		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect" />
-			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" />
-			<property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-			<property name="hibernate.connection.username" value="SYSTEM" />
-			<property name="hibernate.connection.password" value="Pourquoi0" />
-
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.flushMode" value="FLUSH_AUTO" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-		</properties>
-	</persistence-unit> -->
+	<!--<persistence-unit name="Projet_EDT_TEST"> <provider>org.hibernate.ejb.HibernatePersistence</provider> 
+		<class>business.model.Courses</class> <class>business.model.EU</class> <class>business.model.GroupEU</class> 
+		<class>business.model.GroupStudent</class> <class>business.model.Session</class> 
+		<class>business.model.users.AbstractUser</class> <class>business.model.users.Admin</class> 
+		<class>business.model.users.Student</class> <class>business.model.users.Teacher</class> 
+		<properties> <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect" 
+		/> <property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" 
+		/> <property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:xe" 
+		/> <property name="hibernate.connection.username" value="SYSTEM" /> <property 
+		name="hibernate.connection.password" value="Pourquoi0" /> <property name="hibernate.show_sql" 
+		value="true" /> <property name="hibernate.flushMode" value="FLUSH_AUTO" /> 
+		<property name="hibernate.hbm2ddl.auto" value="update" /> </properties> </persistence-unit> -->
 	<persistence-unit name="Projet_EDT">
 		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
-		
+
 		<class>business.model.Courses</class>
 		<class>business.model.EU</class>
 		<class>business.model.GroupEU</class>
@@ -44,10 +31,14 @@
 
 		<properties>
 			<property name="openjpa.ConnectionURL" value="jdbc:oracle:thin:@localhost:1521:xe" />
-			<property name="openjpa.ConnectionDriverName" value="oracle.jdbc.OracleDriver"/>
+			<property name="openjpa.ConnectionDriverName" value="oracle.jdbc.OracleDriver" />
 			<property name="openjpa.ConnectionUserName" value="SYSTEM" />
 			<property name="openjpa.ConnectionPassword" value="Pourquoi0" />
 			<property name="openjpa.Log" value="DefaultLevel=WARN, Tool=INFO" />
+			<property name="openjpa.Multithreaded" value="true" />
+			<property name="openjpa.DynamicEnhancementAgent" value="false" />
+			<property name="openjpa.RuntimeUnenhancedClasses" value="supported" />
+			<!-- <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/> -->
 		</properties>
 	</persistence-unit>
 </persistence>

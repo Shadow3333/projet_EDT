@@ -54,7 +54,7 @@
 					<p:column headerText="#{msg['table.header.delete']}">
 						<h:form>
 							<p:commandButton value="X" id="supprimer"
-								action="#{userController.remove(p)}" update="table"
+								action="#{userController.remove(p)}" update=":table"
 								styleClass="ui-priority-primary" />
 						</h:form>
 					</p:column>
