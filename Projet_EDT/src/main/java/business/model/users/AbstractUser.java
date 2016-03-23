@@ -16,7 +16,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 import javax.validation.constraints.Past;
 
