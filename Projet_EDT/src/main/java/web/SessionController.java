@@ -124,7 +124,10 @@ public class SessionController {
 		if(course == null) {
 			return list;
 		}
-		list.addAll(course.getEUs());
+		list.addAll(course.getObligatories().getEus());
+		for(GroupEU g : course.getOptions()) {
+			list.addAll(g.getEus());
+		}
 		return list;
 	}
 	public List<AbstractUser> getTeachersForEu() throws IllegalAccessException, DaoException {

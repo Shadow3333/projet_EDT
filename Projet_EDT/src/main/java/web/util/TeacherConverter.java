@@ -12,30 +12,25 @@ import business.dao.DaoException;
 import business.manager.Manager;
 import business.model.users.AbstractUser;
 
-@ManagedBean(name="TeacherConverter")
+@ManagedBean(name="teacherConverter")
 @SessionScoped
-@FacesConverter(value = "TeacherConverter")
+@FacesConverter(value = "teacherConverter")
 public class TeacherConverter implements Converter {
-
 	@ManagedProperty(value="#{containerManager.manager}")
 	private Manager manager;
-
-    // Actions ------------------------------------------------------------------------------------
     
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        // Convert the unique String representation of Foo to the actual Foo object.
         try {
 			return manager.managerUsers.find(value);
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
 		} catch (DaoException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		return null;
     }
 
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        // Convert the Foo object to its unique String representation.
         return ((AbstractUser) value).getEmail();
     }
 
@@ -46,5 +41,4 @@ public class TeacherConverter implements Converter {
 	public void setManager(Manager manager) {
 		this.manager = manager;
 	}
-	
 }

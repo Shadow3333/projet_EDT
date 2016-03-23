@@ -179,7 +179,7 @@ public class UserController {
 		theUser = user;
 		return "educationalRegistration";
 	}
-
+	
 	public String loggedUserEducationalRegistration() {
 		theUser = manager.managerUsers.getCurrentUser();
 		if(theUser == null) {
@@ -200,11 +200,16 @@ public class UserController {
 			eb.getObligatories().addUserToCM(theUser);
 			eb.getObligatories().addUserToTD(theUser);
 			eb.getObligatories().addUserToTP(theUser);
+			manager.managergroupEU.save(eb.getObligatories());
 			for (EU eu : optionals) {
 				GroupEU groupEUForOption = null;
 				groupEUForOption = eb.getGroupEUWhoContains(eu);
 				if(groupEUForOption == null) {
 					// Problem with pedagogic registration
+					System.err.println(
+							"EU " + eu.getId() +
+							" not in university course " +
+							eb.getId());
 					throw new PedagogicRegistrationException(
 							"EU " + eu.getId() +
 							" not in university course " +

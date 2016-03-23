@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -11,34 +8,89 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui">
 
+<head>
+	<title>
+		<h:outputText value="#{msg['title.session.add']}" />
+	</title>
+</head>
 
+<f:metadata>
+   		<f:event type="preRenderView" listener="#{loginController.accessDeniedIfNotTeacher()}"/>
+</f:metadata>
 
-	<head>
-	
-		<title><h:outputText value="#{msg['title.session.add']}" /></title>
-	
-	</head>
-	
-	<f:metadata>
-	   		<f:event type="preRenderView" listener="#{loginController.accessDeniedIfNotTeacher()}"/>
-	   		<f:event type="preRenderView" listener="#{sessionController.newSession()}"/>
-	</f:metadata>
-	
-	<body>
-		<ui:composition template="/template/sessionProfile.xhtml">
-		
-			<ui:define name="label">
+<body>
+	<ui:composition template="/template/myLayout.xhtml">
+		<ui:define name="content">
+			<f:view>
 				<h1><h:outputText value="#{msg['title.session.add']}" /></h1>
-			</ui:define>
-			
-			<ui:define name="method">
-				<tr>
-					<td colspan="2">
-						<h:commandButton action="#{sessionController.save()}"
-										 value="#{msg['button.save']}" />
-					</td>
-				</tr>
-			</ui:define>
-		</ui:composition>
-	</body>
+
+				<h:form id="test">
+					<c:set var="currSession" value="#{sessionController.theSession}" />
+
+					<p:panelGrid columns="2">
+						<p:outputLabel for="date" value="Date :" />
+						<p:calendar id="date" value="#{sessionController.dateBegin}" pattern="dd/MM/yyyy HH:mm" />
+						
+						<p:outputLabel for="course" value="#{msg['label.course']}"/>
+						<p:selectOneListbox style="width: 500px"  id="course" filter="true" value="#{sessionController.course}"
+								filterMatchMode="contains" converter="#{courseConverter}">
+							<f:selectItems value="#{sessionController.findAllCourses()}"
+									var="course" itemLabel="#{course.id} : #{course.name}"
+									itemValue="#{course}" converter="#{courseConverter}" />
+							<f:ajax event="change" execute="course" render="UE"/>
+						</p:selectOneListbox>
+						
+						<p:outputLabel for="UE" value="#{msg['label.eu']}" />
+						<p:selectOneListbox style="width: 500px" id="UE" filter="true" value="#{sessionController.eu}"
+							filterMatchMode="contains" converter="#{TUConverter}">
+							<f:selectItems value="#{sessionController.getEusForCourse()}" 
+										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
+										   itemValue="#{eu}" converter="#{TUConverter}"/>
+							<f:ajax event="change" execute="UE" render="group teacher"/>
+						</p:selectOneListbox>
+						
+						<p:outputLabel for="type" value="#{msg['label.type']}" />
+						<p:selectOneListbox style="width: 500px" id="type" value="#{sessionController.type}"
+								converter="#{lessonTypeConverter}">
+							<f:selectItems value="#{sessionController.getTypeLessons()}"
+									var="type" itemLabel="#{msg[type.toString()]}"
+									itemValue="#{type}" converter="#{lessonTypeConverter}" />
+							<f:ajax event="change" execute="type" render="group teacher"/>
+						</p:selectOneListbox>
+						
+						<p:outputLabel for="group" value="#{msg['label.group']}" />
+						<p:selectOneListbox style="width: 500px" id="group" value="#{sessionController.numGroup}">
+							<f:selectItems value="#{sessionController.getGroupsForEU()}"
+									var="num" itemLabel="#{num}" itemValue="#{num}"/>
+						</p:selectOneListbox>
+						
+						<p:outputLabel for="teacher" value="#{msg['label.teacher']}" />
+						<p:selectOneListbox style="width: 500px" id="teacher"
+							value="#{sessionController.teacher}" converter="#{teacherConverter}"
+							filter="true" filterMatchMode="contains">
+							<f:selectItems value="#{sessionController.getTeachersForEu()}" 
+								var="teacher" itemValue="#{teacher}"
+								itemLabel="#{teacher.lastName} #{teacher.firstName}" 
+								converter="#{teacherConverter}"/>
+						</p:selectOneListbox>
+						
+						<h:outputLabel for="room" value="#{msg['label.room']}" />
+						<p:inputText id="room" value="#{sessionController.room}" required="true"
+							requiredMessage="#{msg['error.room.required']}"/>
+
+						<h:outputLabel for="duration" value="#{msg['label.duration']}" />
+						<p:inputText id="duration" value="#{sessionController.duration}" required="true"
+							requiredMessage="#{msg['error.duration.required']}" />
+
+					</p:panelGrid>
+					<tr>
+						<td colspan="2"><h:commandButton
+								action="#{sessionController.saveWithFactory()}" value="#{msg['button.save']}" /></td>
+					</tr>
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</body>
+
 </html>

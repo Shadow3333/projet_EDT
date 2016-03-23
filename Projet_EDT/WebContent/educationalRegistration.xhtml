@@ -30,10 +30,10 @@
 					<p:panelGrid id="main" columns="2">
 
 						<p:outputLabel for="ebs" value="#{msg['label.course']}" />
-				        <p:selectOneMenu id="ebs" value="#{userController.eb}" >
+				        <p:selectOneMenu id="ebs" value="#{userController.eb}" converter="#{courseConverter}" >
 				            <f:selectItems value="#{userController.findAllEBs()}" var="currEB"
 				            			   itemLabel="#{currEB.id} : #{currEB.name}" itemValue="#{currEB}"
-				            			   coverter="#{courseConverter}" />
+				            			   converter="#{courseConverter}" />
 				            <f:ajax render=":test:menu1 :test:menu"/>
 				        </p:selectOneMenu>
 
@@ -41,27 +41,25 @@
 						<p:selectCheckboxMenu id="menu1"
 							value="#{userController.eb.obligatories.eus}" label="UES"
 							filter="true" filterMatchMode="startsWith"
-							panelStyle="width:400px">
+							panelStyle="width:400px" converter="#{TUConverter}" >
 							<f:selectItems value="#{userController.eb.obligatories.eus}" 
 										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
-										   itemValue="#{eu}" itemDisabled="true"/>
-							<f:converter converterId="TUConverter" />
+										   itemValue="#{eu}" itemDisabled="true" converter="#{TUConverter}" />
 						</p:selectCheckboxMenu>
 
 						<h:outputLabel for="menu" value="#{msg['label.eus.optional']}" />
 						<p:selectCheckboxMenu id="menu"
 							value="#{userController.optionals}" label="UES"
-							filter="true" panelStyle="width:400px">
+							filter="true" panelStyle="width:400px" converter="#{TUConverter}" >
 							<f:selectItems value="#{userController.getEBOptionals()}" 
 										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
-										   itemValue="#{eu}"/>
-							<f:converter converterId="TUConverter" />
+										   itemValue="#{eu}" converter="#{TUConverter}" />
 						</p:selectCheckboxMenu>
 
 					</p:panelGrid>
 					<tr>
 						<td colspan="2">
-							<h:commandButton action="#{UserController.saveER()}" value="#{msg['button.save']}" />
+							<h:commandButton action="#{userController.saveER()}" value="#{msg['button.save']}" />
 						</td>
 					</tr>
 				</h:form>

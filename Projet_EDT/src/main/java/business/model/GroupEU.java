@@ -1,6 +1,7 @@
 package business.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -264,6 +265,9 @@ public class GroupEU {
 			throw new IllegalArgumentException(
 					"student must be different than Null !");
 		}
+		if(td == null) {
+			td = new HashMap<Integer, GroupStudent>();
+		}
 		for(Entry<Integer, GroupStudent> e : td.entrySet()) {
 			if(e.getValue() != null
 					&& e.getValue().getStudents() != null
@@ -290,6 +294,9 @@ public class GroupEU {
 		if(student == null) {
 			throw new IllegalArgumentException(
 					"student must be different than Null !");
+		}
+		if(td == null) {
+			td = new HashMap<Integer, GroupStudent>();
 		}
 		Integer firstGroupNotFull = 0;
 		Integer lastGroupFull = 0;
@@ -327,6 +334,9 @@ public class GroupEU {
 			throw new IllegalArgumentException(
 					"student must be different than Null !");
 		}
+		if(td == null) {
+			td = new HashMap<Integer, GroupStudent>();
+		}
 		for(Entry<Integer, GroupStudent> e : td.entrySet()) {
 			if(e.getValue() != null
 					&& e.getValue().getStudents() != null
@@ -356,6 +366,9 @@ public class GroupEU {
 			throw new IllegalArgumentException(
 					"student must be different than Null !");
 		}
+		if(tp == null) {
+			tp = new HashMap<Integer, GroupStudent>();
+		}
 		for(Entry<Integer, GroupStudent> e : tp.entrySet()) {
 			if(e.getValue() != null
 					&& e.getValue().getStudents() != null
@@ -383,6 +396,9 @@ public class GroupEU {
 			throw new IllegalArgumentException(
 					"student must be different than Null !");
 		}
+		if(tp == null) {
+			tp = new HashMap<Integer, GroupStudent>();
+		}
 		Integer firstGroupNotFull = 0;
 		Integer lastGroupFull = 0;
 		for(Entry<Integer, GroupStudent> e : tp.entrySet()) {
@@ -405,7 +421,7 @@ public class GroupEU {
 			tp.put(lastGroupFull + 1, newGroupStudent);
 			firstGroupNotFull = lastGroupFull + 1;
 		}
-		return addUserToTD(firstGroupNotFull, student);
+		return addUserToTP(firstGroupNotFull, student);
 	}
 
 	/**
@@ -418,6 +434,9 @@ public class GroupEU {
 		if(student == null) {
 			throw new IllegalArgumentException(
 					"student must be different than Null !");
+		}
+		if(tp == null) {
+			tp = new HashMap<Integer, GroupStudent>();
 		}
 		for(Entry<Integer, GroupStudent> e : tp.entrySet()) {
 			if(e.getValue() != null

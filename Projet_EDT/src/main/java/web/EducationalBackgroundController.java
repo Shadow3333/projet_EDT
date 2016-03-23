@@ -70,7 +70,7 @@ public class EducationalBackgroundController {
 		
 		manager.managerCourses.save(theEducationalBackground);
 		reset();
-		return "educationalBackgrounds";
+		return "educationalBackgrounds?faces-redirect=true";
 	}
 	
 	public String remove(Courses educationalBackground) throws IllegalAccessException, DaoException {
@@ -81,7 +81,7 @@ public class EducationalBackgroundController {
 	public String update() throws IllegalAccessException
 	{
 		manager.managerCourses.update(theEducationalBackground);
-		return "educationalBackgrounds";
+		return "educationalBackgrounds?faces-redirect=true";
 	}
 	
 	public String show(Courses eb)
@@ -90,7 +90,7 @@ public class EducationalBackgroundController {
 		for (GroupEU gEU : eb.getOptions()) {
 			optionals.addAll(gEU.getEus());
 		}
-		return "editEducationalBackground";
+		return "editEducationalBackground?faces-redirect=true";
 	}
 		
 	public List<EU> findAllEUs() throws IllegalAccessException, DaoException

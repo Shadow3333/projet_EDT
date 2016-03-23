@@ -53,12 +53,12 @@
 
 						<p:outputLabel for="teachers" value="Teacher :" />
 						<p:selectOneListbox style="width: 500px" id="teachers"
-							value="#{currSession.teacher}" converter="#{TeacherConverter}"
+							value="#{currSession.teacher}" converter="#{teacherConverter}"
 							filter="true" filterMatchMode="contains">
 							<f:selectItems value="#{sessionController.findAllTeachers()}" 
 								var="teacher" itemValue="#{teacher}"
 								itemLabel="#{teacher.lastName} : #{teacher.firstName}" 
-								converter="#{TeacherConverter}"/>
+								converter="#{teacherConverter}"/>
 						</p:selectOneListbox>
 						
 						<h:outputText value="#{msg['label.room']}" />

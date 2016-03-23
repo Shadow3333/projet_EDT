@@ -18,65 +18,80 @@ import org.primefaces.model.ScheduleModel;
 import business.dao.DaoException;
 import business.manager.Manager;
 import business.model.Session;
+import business.model.users.Admin;
 
 @ManagedBean(name = "ScheduleController")
 @SessionScoped
 public class ScheduleController implements Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@ManagedProperty(value="#{containerManager.manager}")
 	private Manager manager;
-	
+
 	private ScheduleModel eventModel;
 	ScheduleEvent event;
 
 	@PostConstruct
-    public void init() {
+	public void init() {
 		System.out.println(this + " created");
 		event = new DefaultScheduleEvent();
-//        List<Session> listSession  = findAllSessions();
-//        for (Session currSession : listSession) {
-//			addEvent(currSession);
-//		}
-        
-    }
-	
-	 public void load() throws IllegalAccessException, DaoException {
+		//        List<Session> listSession  = findAllSessions();
+		//        for (Session currSession : listSession) {
+		//			addEvent(currSession);
+		//		}
+
+	}
+
+	public void load() throws IllegalAccessException, DaoException {
 		eventModel = new DefaultScheduleModel();
-        List<Session> listSession  = findAllSessions();
-        for (Session currSession : listSession) {
+		List<Session> listSession  = findAllSessions();
+		for (Session currSession : listSession) {
 			addEvent(currSession);
 		}
-        
-    }
-	
-	
+	}
+
+	public void loadForLoggedUser() throws IllegalAccessException, DaoException {
+		if(manager.managerUsers.getCurrentUser() instanceof Admin) {
+			load();
+			return;
+		}
+		eventModel = new DefaultScheduleModel();
+		List<Session> listSession  = findAllSessions();
+		for (Session currSession : listSession) {
+			if(currSession.getGroupStudent().getStudents().contains(
+					manager.managerUsers.getCurrentUser())) {
+				addEvent(currSession);
+			}
+		}
+	}
+
+
 	@PreDestroy
 	public void close() {
 		System.out.println(this + " destroyed");
 	}
-	
+
 	public List<Session> findAllSessions() throws IllegalAccessException, DaoException{
 		return manager.managerSessions.findAll();
 	}
-	
+
 	public void onEventSelect(SelectEvent selectEvent) {
-        event = (ScheduleEvent) selectEvent.getObject();
-    }
-	
+		event = (ScheduleEvent) selectEvent.getObject();
+	}
+
 	public void addEvent(Session currSession)
 	{
 		String text = "Teaching unit : " + currSession.getEu().getName() + "\n" +
-					  "Teacher : " + currSession.getTeacher().getLastName() + "\n"+
-					  currSession.getType();
+				"Teacher : " + currSession.getTeacher().getLastName() + "\n"+
+				currSession.getType();
 		eventModel.addEvent(new DefaultScheduleEvent(text, currSession.getDate(),
-													 getDateplusDuration(currSession)));
+				getDateplusDuration(currSession)));
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	private Date getDateplusDuration(Session currSession)
 	{

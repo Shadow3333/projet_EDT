@@ -22,13 +22,13 @@ import business.model.Courses;
 public class CourseConverter implements Converter {
 	@ManagedProperty(value="#{containerManager.manager}")
 	private Manager manager;
-
+    
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		try {
 			return manager.managerCourses.find(value);
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
 		} catch (DaoException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		return null;

@@ -14,27 +14,26 @@ import business.model.EU;
 
 @ManagedBean(name="TUConverter")
 @SessionScoped
-@FacesConverter(value = "TUConverter")
+@FacesConverter(value="TUConverter")
 public class TUConverter implements Converter {
 	@ManagedProperty(value="#{containerManager.manager}")
 	private Manager manager;
-    
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        // Convert the unique String representation of Foo to the actual Foo object.
-        try {
-			return manager.managerEus.find(value);
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+
+	public Object getAsObject(FacesContext context, UIComponent component, String value) {
+		try {
+			EU eu = manager.managerEus.find(value);
+			return eu;
 		} catch (DaoException e) {
 			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
 		}
-        return null;
-    }
+		return null;
+	}
 
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
-        // Convert the Foo object to its unique String representation.
-        return ((EU) value).getId();
-    }
+	public String getAsString(FacesContext context, UIComponent component, Object value) {
+		return ((EU) value).getId();
+	}
 
 	public Manager getManager() {
 		return manager;
@@ -43,5 +42,5 @@ public class TUConverter implements Converter {
 	public void setManager(Manager manager) {
 		this.manager = manager;
 	}
-	
+
 }

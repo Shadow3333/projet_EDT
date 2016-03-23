@@ -41,24 +41,26 @@
 
 						<h:outputLabel for="menu1" value="#{msg['label.eus.mandatory']}" />
 						<p:selectCheckboxMenu id="menu1"
-							value="#{eb.obligatories.eus}" label="#{msg['label.eus']}"
+							label="#{msg['label.eus']}"
+							value="#{eb.obligatories.eus}"
 							filter="true" filterMatchMode="startsWith"
 							panelStyle="width:400px" converter="#{TUConverter}">
 							<f:selectItems value="#{eus}" 
-										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
-										   itemValue="#{eu}"
-										   converter="#{TUConverter}"/>
+										   var="eu"
+										   itemLabel="#{eu.id} : #{eu.name}" 
+										   itemValue="#{eu}" />
 						</p:selectCheckboxMenu>
 
 						<h:outputLabel for="menu" value="#{msg['label.eus.optional']}"/>
 						<p:selectCheckboxMenu id="menu"
-							value="#{educationalBackgroundController.optionals}" label="#{msg['label.eus']}"
-							filter="true" converter="#{TUConverter}"
-							panelStyle="width:400px">
+							label="#{msg['label.eus']}"
+							value="#{educationalBackgroundController.optionals}"
+							filter="true"
+							panelStyle="width:400px" converter="#{TUConverter}">
 							<f:selectItems value="#{eus}" 
-										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
-										   itemValue="#{eu}"
-										   converter="#{TUConverter}"/>
+										   var="euopt"
+										   itemLabel="#{euopt.id} : #{euopt.name}" 
+										   itemValue="#{euopt}" />
 						</p:selectCheckboxMenu>
 
 					</p:panelGrid>
