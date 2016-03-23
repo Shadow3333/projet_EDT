@@ -19,11 +19,14 @@
 			<ui:define name="content">
 				<p:growl id="messages" showDetail="true" />
 		
-				<h:panelGrid columnClasses="value">
-			        <h3 style="margin-top: 0">Editable Schedule</h3>
+				<h:panelGrid columnClasses="value" style="width:100%;">
+			        <h3 style="margin-top: 0">#{msg['title.schedule']}</h3>
 			        <p:schedule id="schedule" value="#{ScheduleController.eventModel}" 
 			                    widgetVar="myschedule" timeZone="GMT+1"
-			                    draggable="false" resizable="false">
+			                    draggable="false" resizable="false"
+			                    view="agendaWeek" minTime="7"
+			                    maxTime="20" aspectRatio="0.5"
+			                    slotMinutes="30" showWeekends="false">
 				        <p:ajax event="eventSelect" 
 				        		listener="#{ScheduleController.onEventSelect}"
 				        		update="eventDetails"
