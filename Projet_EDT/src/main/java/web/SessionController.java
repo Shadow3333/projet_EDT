@@ -24,12 +24,12 @@ import business.model.GroupStudent;
 import business.model.Session;
 import business.model.SessionFactory;
 import business.model.users.AbstractUser;
-import business.model.users.AbstractUser;
 import business.model.users.Admin;
 import business.model.users.Teacher;
 
 @ManagedBean(name = "sessionController")
 @SessionScoped
+@SuppressWarnings("restriction")
 public class SessionController {
 	@ManagedProperty(value="#{containerManager.manager}")
 	private Manager manager;

@@ -8,11 +8,10 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-	
 <f:metadata>
-   		<f:event type="preRenderView" listener="#{ScheduleController.loadForLoggedUser()}"/>
+   	<f:event type="preRenderView" listener="#{ScheduleController.loadForLoggedUser()}"/>
 </f:metadata>
-	
+
 <h:body>
 	<h:form>
 		<ui:composition template="/template/userProfile.xhtml">

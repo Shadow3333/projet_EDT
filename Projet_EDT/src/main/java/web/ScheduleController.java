@@ -22,6 +22,7 @@ import business.model.users.Admin;
 
 @ManagedBean(name = "ScheduleController")
 @SessionScoped
+@SuppressWarnings("restriction")
 public class ScheduleController implements Serializable {
 
 	/**

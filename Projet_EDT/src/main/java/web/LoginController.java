@@ -25,6 +25,7 @@ import business.model.users.Teacher;
  */
 @ManagedBean
 @SessionScoped
+@SuppressWarnings("restriction")
 public class LoginController {
 	@ManagedProperty(value="#{containerManager.manager}")
 	private Manager manager;
@@ -127,9 +128,9 @@ public class LoginController {
 	 * @throws IOException
 	 */
 	public void indexIfConnected() throws IOException {
-		if(isConnected()) {
+		if(!isConnected()) {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-            context.redirect("users.xhtml");
+            context.redirect("login.xhtml");
 		}
 	}
 	
