@@ -27,11 +27,11 @@
 	
 	<error-page>
 	  <error-code>500</error-code>
-	  <location>/faces/err.xhtml</location> 
+	  <location>/err.xhtml</location> 
 	</error-page>
 	<error-page>
 	  <error-code>404</error-code>
-	  <location>/faces/err404.xhtml</location> 
+	  <location>/err404.xhtml</location> 
 	</error-page>
 	<error-page>
 		<exception-type>business.exceptions.IllegalAccessException</exception-type>

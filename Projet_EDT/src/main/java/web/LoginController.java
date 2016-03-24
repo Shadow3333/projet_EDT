@@ -144,6 +144,12 @@ public class LoginController {
 		}
 	}
 	
+	
+	public boolean isAdmin()
+	{
+		return manager.managerUsers.getCurrentUser() instanceof Admin;
+	}
+	
 	/**
 	 * Redirect page on connection Page if not connected as Admin
 	 * this method should be used on all pages that require to be connected as Admin.
@@ -153,7 +159,7 @@ public class LoginController {
 		if(!isConnected()) {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             context.redirect("login.xhtml");
-		} else if(!(manager.managerUsers.getCurrentUser() instanceof Admin)) {
+		} else if(!isAdmin()) {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             context.redirect("access-denied.xhtml");
 		}
