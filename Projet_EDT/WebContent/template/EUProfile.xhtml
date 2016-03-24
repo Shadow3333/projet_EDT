@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<head>
+
+<title><h:outputText value="#{msg['title.eu.add']}"/></title>
+
+</head>
+
+<f:metadata>
+   		<f:event type="preRenderView" listener="#{loginController.accessDeniedIfNotTeacher()}"/>
+</f:metadata>
+
+<body>
+	<ui:composition template="/template/myLayout.xhtml">
+		<ui:define name="content">
+			<f:view>
+				<ui:insert name="label"/>
+
+				<h:form id="test">
+					<c:set var="eu" value="#{eusController.theEU}" />
+
+					<p:panelGrid columns="2">
+					
+						<h:outputText value="#{msg['label.id']}"/>
+						<p:inputText id="id" value="#{eu.id}" required="true"
+						             requiredMessage="#{msg['error.id.required']}"/>
+						             
+						<h:outputText value="#{msg['label.name']}" />
+						<p:inputText id="name" value="#{eu.name}" required="true"
+						             requiredMessage="#{msg['error.name.required']}"/>
+						 
+						 <h:outputText value="#{msg['label.description']}" />
+						<p:editor id="description" value="#{eu.description}" validator="descriptionValidator" validatorMessage="#{msg['error.description.script']}" />
+									 
+						<h:outputText value="#{msg['label.credits']}" />
+	            		<p:inputText id="nbCredits" value="#{eu.nbCredits}"/>
+								     
+					</p:panelGrid>
+					<tr>
+						<td colspan="2">
+							<ui:insert name="method"/>
+						</td>
+					</tr>
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</body>
+
+</html>

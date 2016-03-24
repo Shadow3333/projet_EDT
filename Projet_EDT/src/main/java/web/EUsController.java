@@ -11,6 +11,7 @@ import javax.faces.bean.SessionScoped;
 import business.dao.DaoException;
 import business.manager.Manager;
 import business.model.EU;
+import business.model.GroupEU;
 
 
 /**
@@ -51,8 +52,25 @@ public class EUsController {
 
 	public String save() throws IllegalAccessException {
 		manager.managerEus.save(theEU);
-			theEU = new EU();
-			return "eus";
+		theEU = new EU();
+		return "eus";
+	}
+	
+	public String show(EU eu)
+	{
+		theEU = eu;
+		return "editEU?faces-redirect=true";
+	}
+	
+	public void newEU()
+	{
+		theEU = new EU();
+	}
+	
+	public String update() throws IllegalAccessException
+	{
+		manager.managerEus.update(theEU);
+		return "eus";
 	}
 	
 	public String remove(EU ue) throws IllegalAccessException, DaoException {

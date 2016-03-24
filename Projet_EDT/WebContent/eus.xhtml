@@ -30,6 +30,15 @@
 					<p:column headerText="#{msg['table.header.credits']}">
 						<h:outputText value="#{eu.nbCredits}" />
 					</p:column>
+					
+					<p:column headerText="#{msg['table.header.edit']}">
+						<h:form>
+							<p:commandButton value="X" id="edit"
+								action="#{eusController.show(eu)}"
+								styleClass="ui-priority-primary" />
+						</h:form>
+					</p:column>
+					
 					<p:column headerText="#{msg['table.header.delete']}">
 						<h:form>
 							<p:commandButton value="X" id="supprimer"
