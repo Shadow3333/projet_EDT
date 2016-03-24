@@ -28,10 +28,12 @@ public class EducationalBackgroundController {
 
 	Courses theEducationalBackground;
 	List<EU> optionals;
+	GroupEU mandatories;
 
 	@PostConstruct
 	public void init() {
 		reset();
+		System.out.println(this + " created");
 	}
 	
 	@PreDestroy
@@ -43,14 +45,15 @@ public class EducationalBackgroundController {
 		return manager;
 	}
 	
-	public void reset()
-	{
+	public void reset() {
 		theEducationalBackground = new Courses();
-		GroupEU gEU = new GroupEU();
-		gEU.setEus(new ArrayList<EU>());
-		theEducationalBackground.setObligatories(gEU);
+		if(theEducationalBackground.getObligatories() == null) {
+			GroupEU groupEUObligatories = new GroupEU();
+			groupEUObligatories.setOptionnal(false);
+			groupEUObligatories.setEus(new ArrayList<EU>());
+			theEducationalBackground.setObligatories(groupEUObligatories);
+		}
 		optionals = new ArrayList<EU>();
-		System.out.println(this + " created");
 	}
 	
 	public void setManager(Manager manager) {
@@ -58,11 +61,14 @@ public class EducationalBackgroundController {
 	}
 
 	public String save() throws IllegalAccessException {
-		GroupEU tempo;
+		manager.managergroupEU.save(mandatories);
+		theEducationalBackground.setObligatories(mandatories);
 		for (EU eu : optionals) {
-			tempo = new GroupEU();
-			tempo.addEU(eu);
-			theEducationalBackground.addOptions(tempo);
+			GroupEU groupEUOptionnal;
+			groupEUOptionnal = new GroupEU();
+			groupEUOptionnal.setOptionnal(true);
+			groupEUOptionnal.addEU(eu);
+			theEducationalBackground.addOptions(groupEUOptionnal);
 		}
 		
 		manager.managerCourses.save(theEducationalBackground);
@@ -87,6 +93,7 @@ public class EducationalBackgroundController {
 		for (GroupEU gEU : eb.getOptions()) {
 			optionals.addAll(gEU.getEus());
 		}
+		mandatories = eb.getObligatories();
 		return "editEducationalBackground?faces-redirect=true";
 	}
 		
@@ -114,5 +121,16 @@ public class EducationalBackgroundController {
 
 	public void setOptionals(List<EU> optionals) {
 		this.optionals = optionals;
+	}
+
+	public GroupEU getMandatories() {
+		if(mandatories == null) {
+			mandatories = new GroupEU();
+		}
+		return mandatories;
+	}
+
+	public void setMandatories(GroupEU mandatories) {
+		this.mandatories = mandatories;
 	}
 }

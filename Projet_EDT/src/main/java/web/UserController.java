@@ -170,15 +170,28 @@ public class UserController {
  		return list;
  	}
 	
-	public List<EU> getEBOptionals()
-    {
-    	return eb.getEUs();
+	public List<EU> getEBMandatories() {
+		if(eb == null) {
+			return new ArrayList<EU>();
+		}
+		return eb.getObligatories().getEus();
+	}
+	public List<EU> getEBOptionals(){
+		if(eb == null) {
+			return new ArrayList<EU>();
+		}
+    	return eb.getEUs(true);
     }
 	
-	public String doER(AbstractUser user)
-	{
+	public String doER(AbstractUser user) {
 		theUser = user;
-		return "educationalRegistration";
+		optionals = new ArrayList<EU>();
+		for(GroupEU g : ((Student) user).getGroups()) {
+			if(g.getOptionnal()) {
+				optionals.addAll(g.getEus());
+			}
+		}
+		return "educationalRegistration?faces-redirect=true";
 	}
 	
 	public String loggedUserEducationalRegistration() {

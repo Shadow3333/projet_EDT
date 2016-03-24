@@ -42,7 +42,7 @@
 						<h:outputLabel for="menu1" value="#{msg['label.eus.mandatory']}" />
 						<p:selectCheckboxMenu id="menu1"
 							label="#{msg['label.eus']}"
-							value="#{eb.obligatories.eus}"
+							value="#{educationalBackgroundController.mandatories.eus}"
 							filter="true" filterMatchMode="startsWith"
 							panelStyle="width:400px" converter="#{TUConverter}">
 							<f:selectItems value="#{eus}" 

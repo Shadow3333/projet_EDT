@@ -42,7 +42,7 @@
 							value="#{userController.eb.obligatories.eus}" label="UES"
 							filter="true" filterMatchMode="startsWith"
 							panelStyle="width:400px" converter="#{TUConverter}" >
-							<f:selectItems value="#{userController.eb.obligatories.eus}" 
+							<f:selectItems value="#{userController.getEBMandatories()}" 
 										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
 										   itemValue="#{eu}" itemDisabled="true" converter="#{TUConverter}" />
 						</p:selectCheckboxMenu>

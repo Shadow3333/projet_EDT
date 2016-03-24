@@ -97,6 +97,7 @@ public class Courses {
 	 * @param obligatories the obligatories to set
 	 */
 	public void setObligatories(GroupEU obligatories) {
+		obligatories.setOptionnal(false);
 		this.obligatories = obligatories;
 	}
 

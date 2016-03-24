@@ -1,7 +1,6 @@
 package web;
 
 import java.io.IOException;
-import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -93,13 +92,12 @@ public class LoginController {
 			// TODO add message if DaoException ?
 			e.printStackTrace();
 		}
-		ResourceBundle bundle = ResourceBundle.getBundle("messages");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null,
 				new FacesMessage(
 						FacesMessage.SEVERITY_INFO, 	// This message is info
-						bundle.getString("error.emailOrPassword.valid"),							// No ID to this message
-						bundle.getString("error.emailOrPassword.valid")));	// Detail of this message
+						null,							// No ID to this message
+						"Email or password is wrong"));	// Detail of this message
 		return "";
 	}
 	
@@ -150,14 +148,14 @@ public class LoginController {
 	 * Redirect page on connection Page if not connected as Admin
 	 * this method should be used on all pages that require to be connected as Admin.
 	 * @throws IOException
-	 * @throws business.exceptions.IllegalAccessException 
 	 */
-	public void accessDeniedIfNotAdmin() throws IOException, IllegalAccessException {
+	public void accessDeniedIfNotAdmin() throws IOException {
 		if(!isConnected()) {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             context.redirect("login.xhtml");
 		} else if(!(manager.managerUsers.getCurrentUser() instanceof Admin)) {
-			throw new IllegalAccessException();
+			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect("access-denied.xhtml");
 		}
 	}
 
@@ -165,14 +163,14 @@ public class LoginController {
 	 * Redirect page on connection Page if not connected as Teacher
 	 * this method should be used on all pages that require to be connected as Teacher.
 	 * @throws IOException
-	 * @throws IllegalAccessException 
 	 */
-	public void accessDeniedIfNotTeacher() throws IOException, IllegalAccessException {
+	public void accessDeniedIfNotTeacher() throws IOException {
 		if(!isConnected()) {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             context.redirect("login.xhtml");
 		} else if(!(manager.managerUsers.getCurrentUser() instanceof Teacher)) {
-			throw new IllegalAccessException();
+			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect("access-denied.xhtml");
 		}
 	}
 }

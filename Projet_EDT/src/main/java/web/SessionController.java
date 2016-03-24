@@ -200,7 +200,20 @@ public class SessionController {
 			// TODO Feedback for user
 			return "";
 		}
+		reset();
 		return "sessions?faces-redirect=true";
+	}
+	
+	public void reset() {
+		factory = manager.managerSessions.createFactory();
+		course = null;
+		dateBegin = null;
+		eu = null;
+		duration = null;
+		teacher = null;
+		type = null;
+		numGroup = null;
+		room = null;
 	}
 	// END SESSION FACTORY USING
 
@@ -211,7 +224,6 @@ public class SessionController {
 	}
 	
 	public String remove(Session session) throws IllegalAccessException, DaoException {
-		System.out.println("session effac�");
 		manager.managerSessions.remove(session);
 		return "sessions";
 	}

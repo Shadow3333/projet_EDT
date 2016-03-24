@@ -35,6 +35,6 @@
 	</error-page>
 	<error-page>
 		<exception-type>business.exceptions.IllegalAccessException</exception-type>
-		<location>/faces/access-denied.xhtml</location>
+		<location>/access-denied.xhtml</location>
 	</error-page>
 </web-app>
