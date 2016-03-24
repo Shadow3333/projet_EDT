@@ -69,7 +69,8 @@ public class EUsController {
 	
 	public String update() throws IllegalAccessException
 	{
-		manager.managerEus.update(theEU);
+		manager.managerEus.remove(theEU.getId());
+		manager.managerEus.save(theEU);
 		return "eus";
 	}
 	
