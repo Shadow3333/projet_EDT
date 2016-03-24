@@ -13,6 +13,7 @@ import business.model.users.Teacher;
 
 @ManagedBean(name = "teacherController")
 @SessionScoped
+@SuppressWarnings("restriction")
 public class TeacherController {
 	@ManagedProperty(value="#{containerManager.manager}")
 	private Manager manager;

@@ -9,8 +9,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import business.dao.DaoException;
-import business.dao.IDao;
-import business.dao.jpa.JpaDao;
 import business.manager.Manager;
 import business.model.EU;
 
@@ -22,6 +20,7 @@ import business.model.EU;
  */
 @ManagedBean(name = "eusController")
 @SessionScoped
+@SuppressWarnings("restriction")
 public class EUsController {
 	@ManagedProperty(value="#{containerManager.manager}")
 	private Manager manager;

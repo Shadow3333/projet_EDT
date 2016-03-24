@@ -10,11 +10,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import business.dao.DaoException;
-import business.dao.IDao;
-import business.dao.jpa.JpaDao;
 import business.manager.Manager;
-import business.manager.ManagerCourses;
-import business.manager.ManagerEUs;
 import business.model.Courses;
 import business.model.EU;
 import business.model.GroupEU;
@@ -25,6 +21,7 @@ import business.model.GroupEU;
  */
 @ManagedBean(name = "educationalBackgroundController")
 @SessionScoped
+@SuppressWarnings("restriction")
 public class EducationalBackgroundController {
 	@ManagedProperty(value="#{containerManager.manager}")
 	private Manager manager;

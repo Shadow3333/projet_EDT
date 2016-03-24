@@ -20,7 +20,7 @@
 			<ui:insert name="header" style="width: 100%">
 				<h:form>
 					<span>
-						<h:outputText value="#{msg['title.timetable']}" />
+						<h:outputText style="font-size:2em;" value="#{msg['title.timetable']}" />
 						<p:spacer width="70%" height="0" />
 						<c:if test="#{not loginController.isConnected()}">
 							<h:commandButton action="login?faces-redirect=true" value="#{msg['button.login']}" />
@@ -47,7 +47,7 @@
 
 		<div id="footer">
 			<ui:insert name="footer">
-				<span>(c) 2016</span>
+				<span>Projet EDT© 2016</span>
 			</ui:insert>
 		</div>
 		</div>

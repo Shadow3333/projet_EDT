@@ -17,6 +17,10 @@
 
 <title>Add a teaching unit</title>
 
+<f:metadata>
+   		<f:event type="preRenderView" listener="#{loginController.accessDeniedIfNotTeacher()}"/>
+</f:metadata>
+
 </head>
 
 <body>

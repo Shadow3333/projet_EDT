@@ -3,7 +3,6 @@ package web;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import business.dao.IDao;
@@ -16,6 +15,7 @@ import business.manager.Manager;
  */
 @ManagedBean
 @SessionScoped
+@SuppressWarnings("restriction")
 public class ContainerManager {
 	
 	private Manager manager;

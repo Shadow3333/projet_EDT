@@ -25,6 +25,7 @@ import web.util.Role;
 
 @ManagedBean(name = "userController")
 @SessionScoped
+@SuppressWarnings("restriction")
 public class UserController {
 	@ManagedProperty(value="#{containerManager.manager}")
 	private Manager manager;
