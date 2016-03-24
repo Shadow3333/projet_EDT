@@ -36,8 +36,6 @@
 			<property name="openjpa.ConnectionPassword" value="Pourquoi0" />
 			<property name="openjpa.Log" value="DefaultLevel=WARN, Tool=INFO" />
 			<property name="openjpa.Multithreaded" value="true" />
-			<property name="openjpa.DynamicEnhancementAgent" value="false" />
-			<property name="openjpa.RuntimeUnenhancedClasses" value="supported" />
 			<property name="openjpa.DataCache" value="false"/>
 			<!-- <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/> -->
 		</properties>
