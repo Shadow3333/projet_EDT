@@ -1,6 +1,7 @@
 package web;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -91,12 +92,13 @@ public class LoginController {
 			// TODO add message if DaoException ?
 			e.printStackTrace();
 		}
+		ResourceBundle bundle = ResourceBundle.getBundle("messages");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null,
 				new FacesMessage(
 						FacesMessage.SEVERITY_INFO, 	// This message is info
-						null,							// No ID to this message
-						"Email or password is wrong"));	// Detail of this message
+						bundle.getString("error.emailOrPassword.valid"),							// No ID to this message
+						bundle.getString("error.emailOrPassword.valid")));	// Detail of this message
 		return "";
 	}
 	

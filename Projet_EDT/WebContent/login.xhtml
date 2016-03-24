@@ -22,23 +22,25 @@
 
 						<p:outputLabel for="email" value="#{msg['label.email']}" />
 						<p:inputText id="email" value="#{loginController.email}" required="true"
-							requiredMessage="#{msg['error.email.required']}">
+							requiredMessage="#{msg['error.email.required']}"
+							validatorMessage="#{msg['error.email.valid']}">
 							<f:validateLength minimum="5" />
 						</p:inputText>
-						<p:message for="email" id="msgMail" display="icon" />
+						<p:message for="email" id="msgMail" />
 
 						<p:outputLabel for="password" value="#{msg['label.password']}" />
 						<p:password id="password" value="#{loginController.password}"
 							required="true"
 							requiredMessage="#{msg['error.password.required']}"
+							validatorMessage="#{msg['error.password.valid']}"
 							label="Password">
 							<f:validateLength minimum="6" />
-							<p:ajax update="msgPassword" event="keyup" />
 						</p:password>
-						<p:message for="password" id="msgPassword" display="icon" />
+						<p:message for="password" id="msgPassword" autoUpdate="true" />
 						
 					</p:panelGrid>
-					<p:commandButton value="Se connecter" id="connection" action="#{loginController.login}" styleClass="ui-priority-primary"/>
+					<p:growl id="messages" showDetail="false"/>
+					<p:commandButton value="Se connecter" id="connection" action="#{loginController.login}" styleClass="ui-priority-primary" update=":test"/>
 				</h:form>
 			</f:view>
 		</ui:define>
