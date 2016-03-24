@@ -126,9 +126,9 @@ public class LoginController {
 	 * @throws IOException
 	 */
 	public void indexIfConnected() throws IOException {
-		if(!isConnected()) {
+		if(isConnected()) {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-            context.redirect("login.xhtml");
+            context.redirect("schedule.xhtml");
 		}
 	}
 	
@@ -148,14 +148,14 @@ public class LoginController {
 	 * Redirect page on connection Page if not connected as Admin
 	 * this method should be used on all pages that require to be connected as Admin.
 	 * @throws IOException
+	 * @throws business.exceptions.IllegalAccessException 
 	 */
-	public void accessDeniedIfNotAdmin() throws IOException {
+	public void accessDeniedIfNotAdmin() throws IOException, IllegalAccessException {
 		if(!isConnected()) {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             context.redirect("login.xhtml");
 		} else if(!(manager.managerUsers.getCurrentUser() instanceof Admin)) {
-			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-            context.redirect("access-denied.xhtml");
+			throw new IllegalAccessException();
 		}
 	}
 
@@ -163,14 +163,14 @@ public class LoginController {
 	 * Redirect page on connection Page if not connected as Teacher
 	 * this method should be used on all pages that require to be connected as Teacher.
 	 * @throws IOException
+	 * @throws IllegalAccessException 
 	 */
-	public void accessDeniedIfNotTeacher() throws IOException {
+	public void accessDeniedIfNotTeacher() throws IOException, IllegalAccessException {
 		if(!isConnected()) {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             context.redirect("login.xhtml");
 		} else if(!(manager.managerUsers.getCurrentUser() instanceof Teacher)) {
-			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-            context.redirect("access-denied.xhtml");
+			throw new IllegalAccessException();
 		}
 	}
 }

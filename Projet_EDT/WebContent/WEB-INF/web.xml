@@ -34,7 +34,7 @@
 	  <location>/faces/err404.xhtml</location> 
 	</error-page>
 	<error-page>
-		<exception-type>java.lang.Exception</exception-type>
-	    <location>/faces/err.xhtml</location>
+		<exception-type>business.exceptions.IllegalAccessException</exception-type>
+		<location>/faces/access-denied.xhtml</location>
 	</error-page>
 </web-app>
