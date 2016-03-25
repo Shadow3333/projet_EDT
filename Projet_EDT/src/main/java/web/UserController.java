@@ -158,6 +158,7 @@ public class UserController {
     	return myList;
     }
 	
+	// TODO delete
 	public List<Courses> findAllEBs() throws PedagogicRegistrationException, IllegalAccessException, DaoException
   	{
  		if (theUser == null) {
@@ -170,6 +171,7 @@ public class UserController {
  		return list;
  	}
 	
+	// TODO delete
 	public List<EU> getEBMandatories() {
 		if(eb == null) {
 			return new ArrayList<EU>();
@@ -183,6 +185,7 @@ public class UserController {
     	return eb.getEUs(true);
     }
 	
+	// TODO delete
 	public String doER(AbstractUser user) {
 		theUser = user;
 		optionals = new ArrayList<EU>();
@@ -214,7 +217,7 @@ public class UserController {
 			eb.getObligatories().addUserToCM(theUser);
 			eb.getObligatories().addUserToTD(theUser);
 			eb.getObligatories().addUserToTP(theUser);
-			manager.managergroupEU.save(eb.getObligatories());
+			manager.managergroupEU.update(eb.getObligatories());
 			for (EU eu : optionals) {
 				GroupEU groupEUForOption = null;
 				groupEUForOption = eb.getGroupEUWhoContains(eu);
@@ -235,7 +238,7 @@ public class UserController {
 				groupEUForOption.addUserToCM(theUser);
 				groupEUForOption.addUserToTD(theUser);
 				groupEUForOption.addUserToTP(theUser);
-				manager.managergroupEU.save(groupEUForOption);
+				manager.managergroupEU.update(groupEUForOption);
 			}
 			((Student)theUser).setGroups(listGrEU);
 			((Student)theUser).setIdCourses(eb.getId());

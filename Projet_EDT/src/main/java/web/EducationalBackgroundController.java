@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 
 import business.dao.DaoException;
 import business.manager.Manager;
@@ -20,7 +20,7 @@ import business.model.GroupEU;
  *
  */
 @ManagedBean(name = "educationalBackgroundController")
-@SessionScoped
+@RequestScoped
 @SuppressWarnings("restriction")
 public class EducationalBackgroundController {
 	@ManagedProperty(value="#{containerManager.manager}")

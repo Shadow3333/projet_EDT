@@ -43,7 +43,7 @@
 						</h:form>
 						<h:form rendered="#{userController.getRole(p) eq 'Student'}" >
 							<p:commandButton value="X" id="educationalRegistration"
-								action="#{userController.doER(p)}"
+								action="#{studentController.redirectRegistration(p)}"
 								styleClass="ui-priority-primary" />
 						</h:form>
 					</p:column>

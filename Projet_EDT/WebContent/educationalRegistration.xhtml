@@ -14,52 +14,67 @@
 
 
 <head>
-
-<title><h:outputText value="#{msg['title.student.registration']}" /></title>
-
+<title><h:outputText
+		value="#{msg['title.student.registration']}" /></title>
 </head>
 
 <body>
 	<ui:composition template="/template/myLayout.xhtml">
 		<ui:define name="content">
 			<f:view>
-				<h3><h:outputText value="#{msg['title.student.registration']}" /> : <h:outputText value="#{userController.theUser.email}" /></h3>
+				<h3>
+					<h:outputText value="#{msg['title.student.registration']}" /> : <h:outputText value="#{studentController.email}" />
+				</h3>
 
-				<h:form id="test">
-
+				<h:form id="form">
+					<h:inputHidden value="#{studentController.email}" />
 					<p:panelGrid id="main" columns="2">
+						<p:outputLabel for="course" value="#{msg['label.course']}" />
+						<p:selectOneMenu
+								id="course"
+								name="course"
+								value="#{studentController.course}"
+								converter="#{courseConverter}">
+							<f:selectItems
+									value="#{studentController.findAllCourses()}"
+									var="currentCourse"
+									itemLabel="#{currentCourse.id} : #{currentCourse.name}"
+									itemValue="#{currentCourse}"
+									converter="#{courseConverter}" />
+							<f:ajax render=":form:listMandatories :form:listOptionals" />
+						</p:selectOneMenu>
 
-						<p:outputLabel for="ebs" value="#{msg['label.course']}" />
-				        <p:selectOneMenu id="ebs" value="#{userController.eb}" converter="#{courseConverter}" >
-				            <f:selectItems value="#{userController.findAllEBs()}" var="currEB"
-				            			   itemLabel="#{currEB.id} : #{currEB.name}" itemValue="#{currEB}"
-				            			   converter="#{courseConverter}" />
-				            <f:ajax render=":test:menu1 :test:menu"/>
-				        </p:selectOneMenu>
-
-						<h:outputLabel for="menu1" value="#{msg['label.eus.mandatory']}" />
-						<p:selectCheckboxMenu id="menu1"
-							value="#{userController.eb.obligatories.eus}" label="UES"
-							filter="true" filterMatchMode="startsWith"
-							panelStyle="width:400px" converter="#{TUConverter}" >
-							<f:selectItems value="#{userController.getEBMandatories()}" 
-										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
-										   itemValue="#{eu}" itemDisabled="true" converter="#{TUConverter}" />
+						<h:outputLabel for="listOptionals" value="#{msg['label.eus.optional']}" />
+						<p:selectCheckboxMenu
+								id="listOptionals"
+								value="#{studentController.optionals}"
+								label="UES"
+								filter="true"
+								filterMatchMode="startsWith"
+								panelStyle="width:400px"
+								converter="#{groupEUConverter}" >
+							<f:selectItems
+									value="#{studentController.course.options}"
+									var="groupEU"
+									itemLabel="#{groupEU.eus.get(0).id} : #{groupEU.eus.get(0).name}"
+									itemValue="#{groupEU}"
+									converter="#{groupEUConverter}" />
 						</p:selectCheckboxMenu>
 
-						<h:outputLabel for="menu" value="#{msg['label.eus.optional']}" />
-						<p:selectCheckboxMenu id="menu"
-							value="#{userController.optionals}" label="UES"
-							filter="true" panelStyle="width:400px" converter="#{TUConverter}" >
-							<f:selectItems value="#{userController.getEBOptionals()}" 
-										   var="eu" itemLabel="#{eu.id} : #{eu.name}" 
-										   itemValue="#{eu}" converter="#{TUConverter}" />
-						</p:selectCheckboxMenu>
-
+						<h:outputLabel value="#{msg['label.eus.mandatory']}" style="border:none;"/>
+						<p:panelGrid columns="1" id="listMandatories">
+							<ui:repeat value="#{studentController.course.obligatories.eus}" var="eu">
+								<h:outputText value="#{eu.id} : #{eu.name}" /><br />
+							</ui:repeat>
+						</p:panelGrid>
+						
 					</p:panelGrid>
 					<tr>
 						<td colspan="2">
-							<h:commandButton action="#{userController.saveER()}" value="#{msg['button.save']}" />
+							<h:commandButton
+									type="submit"
+									action="#{studentController.register()}"
+									value="#{msg['button.save']}" />
 						</td>
 					</tr>
 				</h:form>
