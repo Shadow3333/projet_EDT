@@ -21,16 +21,16 @@
 				<h:form>
 					<span>
 						<h:outputText style="font-size:2em;" value="#{msg['title.timetable']}" />
-						<p:spacer width="70%" height="0" />
+					</span>
+					<div style="float:right;">
 						<c:if test="#{not loginController.isConnected()}">
 							<h:commandButton action="login?faces-redirect=true" value="#{msg['button.login']}" />
 						</c:if>
 						<c:if test="#{loginController.isConnected()}">
 							<h:outputText value="#{loginController.email}"/>
-							<p:spacer width="680" height="0" />
-							<h:commandButton action="#{loginController.logout}" value="#{msg['button.logout']}"/>
+							<br /><h:commandButton action="#{loginController.logout}" value="#{msg['button.logout']}"/>
 						</c:if>
-					</span>
+					</div>
 				</h:form>
 			</ui:insert>
 		</div>

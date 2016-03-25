@@ -2,6 +2,7 @@ package web;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,6 @@ import business.exceptions.PedagogicRegistrationException;
 import business.manager.Manager;
 import business.model.Courses;
 import business.model.EU;
-import business.model.GroupEU;
 import business.model.users.AbstractUser;
 import business.model.users.Admin;
 import business.model.users.Student;
@@ -60,30 +60,6 @@ public class UserController {
 	
 	public AbstractUser getLoggedUser() {
 		return manager.managerUsers.getCurrentUser();
-	}
-	
-	public boolean loggedIsStudent() {
-		AbstractUser current = manager.managerUsers.getCurrentUser();
-		if(current == null) {
-			return false;
-		}
-		return current instanceof Student;
-	}
-	
-	public boolean loggedIsTeacher() {
-		AbstractUser current = manager.managerUsers.getCurrentUser();
-		if(current == null) {
-			return false;
-		}
-		return current instanceof Teacher;
-	}
-	
-	public boolean loggedIsAdmin() {
-		AbstractUser current = manager.managerUsers.getCurrentUser();
-		if(current == null) {
-			return false;
-		}
-		return current instanceof Admin;
 	}
 	
 	public String save() throws IllegalAccessException {
@@ -171,88 +147,19 @@ public class UserController {
  		return list;
  	}
 	
-	// TODO delete
-	public List<EU> getEBMandatories() {
-		if(eb == null) {
-			return new ArrayList<EU>();
-		}
-		return eb.getObligatories().getEus();
-	}
-	public List<EU> getEBOptionals(){
-		if(eb == null) {
-			return new ArrayList<EU>();
-		}
-    	return eb.getEUs(true);
-    }
-	
-	// TODO delete
-	public String doER(AbstractUser user) {
-		theUser = user;
-		optionals = new ArrayList<EU>();
-		for(GroupEU g : ((Student) user).getGroups()) {
-			if(g.getOptionnal()) {
-				optionals.addAll(g.getEus());
+	public List<AbstractUser> findAll() throws IllegalAccessException, DaoException {
+		List<AbstractUser> list = new ArrayList<AbstractUser>();
+		list.addAll(manager.managerUsers.findAll());
+		list.sort(new Comparator<AbstractUser>() {
+			public int compare(AbstractUser o1, AbstractUser o2) {
+				return (o2.getClass().getSimpleName().compareTo(o1.getClass().getSimpleName()) != 0)
+						? o1.getClass().getSimpleName().compareTo(o2.getClass().getSimpleName())
+						: ((o1.getLastName().compareTo(o2.getLastName()) != 0)
+						? o1.getLastName().compareTo(o2.getLastName())
+						: o1.getFirstName().compareTo(o2.getFirstName()));
 			}
-		}
-		return "educationalRegistration?faces-redirect=true";
-	}
-	
-	public String loggedUserEducationalRegistration() {
-		theUser = manager.managerUsers.getCurrentUser();
-		if(theUser == null) {
-			return "";
-		}
-		return "educationalRegistration?faces-redirect=true";
-	}
-	
-	public String saveER() throws PedagogicRegistrationException, IllegalAccessException {
-		if (theUser == null) {
-			optionals = new ArrayList<EU>();
-			return "users";
-		}
-		if (theUser instanceof Student) {
-			List<GroupEU> listGrEU = new ArrayList<GroupEU>();
-			listGrEU.add(eb.getObligatories());
-			// add the current student to CM, TD and TP for mandatories EU
-			eb.getObligatories().addUserToCM(theUser);
-			eb.getObligatories().addUserToTD(theUser);
-			eb.getObligatories().addUserToTP(theUser);
-			manager.managergroupEU.update(eb.getObligatories());
-			for (EU eu : optionals) {
-				GroupEU groupEUForOption = null;
-				groupEUForOption = eb.getGroupEUWhoContains(eu);
-				if(groupEUForOption == null) {
-					// Problem with pedagogic registration
-					System.err.println(
-							"EU " + eu.getId() +
-							" not in university course " +
-							eb.getId());
-					throw new PedagogicRegistrationException(
-							"EU " + eu.getId() +
-							" not in university course " +
-							eb.getId());
-				}
-				listGrEU.add(groupEUForOption);
-				
-				// adding the current student to CM, TD and TP for this optional EU
-				groupEUForOption.addUserToCM(theUser);
-				groupEUForOption.addUserToTD(theUser);
-				groupEUForOption.addUserToTP(theUser);
-				manager.managergroupEU.update(groupEUForOption);
-			}
-			((Student)theUser).setGroups(listGrEU);
-			((Student)theUser).setIdCourses(eb.getId());
-			optionals = new ArrayList<EU>();
-			return "users";
-		}
-		optionals = new ArrayList<EU>();
-		return "errUser";
-		
-	}
-	
-	public List<AbstractUser> findAll() throws IllegalAccessException, DaoException
-	{
-		return manager.managerUsers.findAll();
+		});
+		return list;
 	}
 	
 	public Role getUserType()

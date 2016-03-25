@@ -16,16 +16,16 @@
 		<p:menuitem value="#{msg['menu.schedule']}" outcome="schedule" icon="ui-icon-star" rendered="#{loginController.isConnected()}"/>
 		<p:menuitem value="#{msg['menu.courses.list']}" outcome="educationalBackgrounds" icon="ui-icon-person" />
 		<p:menuitem value="#{msg['menu.eu.list']}" outcome="eus" icon="ui-icon-star" />
-		<p:menuitem value="#{msg['menu.user.list']}" outcome="users" icon="ui-icon-person" rendered="#{userController.loggedIsAdmin()}" />
-		<p:menuitem value="#{msg['menu.session.list']}" outcome="sessions" icon="ui-icon-person" rendered="#{userController.loggedIsTeacher()}" />
-		<p:submenu label="#{msg['menu.add']}" icon="ui-icon-search" rendered="#{userController.loggedIsTeacher()}">
+		<p:menuitem value="#{msg['menu.user.list']}" outcome="users" icon="ui-icon-person" rendered="#{loginController.loggedIsAdmin()}" />
+		<p:menuitem value="#{msg['menu.session.list']}" outcome="sessions" icon="ui-icon-person" rendered="#{loginController.loggedIsTeacher()}" />
+		<p:submenu label="#{msg['menu.add']}" icon="ui-icon-search" rendered="#{loginController.loggedIsTeacher()}">
 			<p:menuitem value="#{msg['menu.eu.add']}" outcome="newEU" />
-			<p:menuitem value="#{msg['menu.user.add']}" outcome="newUser" rendered="#{userController.loggedIsAdmin()}" />
-			<p:menuitem value="#{msg['menu.courses.add']}" outcome="newEducationalBackground" rendered="#{userController.loggedIsAdmin()}" />
+			<p:menuitem value="#{msg['menu.user.add']}" outcome="newUser" rendered="#{loginController.loggedIsAdmin()}" />
+			<p:menuitem value="#{msg['menu.courses.add']}" outcome="newEducationalBackground" rendered="#{loginController.loggedIsAdmin()}" />
 			<p:menuitem value="#{msg['menu.session.add']}" outcome="newSession" />
 		</p:submenu>
 		<p:menuitem value="#{msg['menu.ip']}" outcome="educationalRegistration"
-				action="#{userController.loggedUserEducationalRegistration()}" rendered="#{userController.loggedIsStudent()}" />
+				action="#{studentController.redirectRegistration()}" rendered="#{loginController.loggedIsStudent()}" />
 	</p:menubar>
 </ui:composition>
 </html>

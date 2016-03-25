@@ -52,6 +52,10 @@ public class StudentController {
  		return manager.managerCourses.findAll();
  	}
 	
+	public String redirectRegistration() throws IllegalAccessException, DaoException {
+		return redirectRegistration(manager.managerUsers.getCurrentUser());
+	}
+	
 	public String redirectRegistration(AbstractUser user) throws IllegalAccessException, DaoException {
 		email = user.getEmail();
 		if(!(user instanceof Student)) {

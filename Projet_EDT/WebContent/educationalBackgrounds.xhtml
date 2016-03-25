@@ -25,13 +25,13 @@
 					
 					<p:column headerText="#{msg['table.header.edit']}">
 						<h:form>
-							<p:commandButton value="E" id="edit" rendered="#{loginController.isAdmin()}"
+							<p:commandButton value="E" id="edit" rendered="#{loginController.loggedIsAdmin()}"
 								action="#{educationalBackgroundController.show(eb)}"
 								styleClass="ui-priority-primary" />
 						</h:form>
 					</p:column>
 
-					<p:column headerText="#{msg['table.header.delete']}" rendered="#{loginController.isAdmin()}">
+					<p:column headerText="#{msg['table.header.delete']}" rendered="#{loginController.loggedIsAdmin()}">
 						<h:form>
 							<p:commandButton value="X" id="supprimer"
 								action="#{educationalBackgroundController.remove(eb)}" update=":table"

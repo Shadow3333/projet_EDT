@@ -13,7 +13,9 @@ import javax.faces.context.FacesContext;
 
 import business.dao.DaoException;
 import business.manager.Manager;
+import business.model.users.AbstractUser;
 import business.model.users.Admin;
+import business.model.users.Student;
 import business.model.users.Teacher;
 
 /**
@@ -178,5 +180,29 @@ public class LoginController {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             context.redirect("access-denied.xhtml");
 		}
+	}
+	
+	public boolean loggedIsStudent() {
+		AbstractUser current = manager.managerUsers.getCurrentUser();
+		if(current == null) {
+			return false;
+		}
+		return current instanceof Student;
+	}
+	
+	public boolean loggedIsTeacher() {
+		AbstractUser current = manager.managerUsers.getCurrentUser();
+		if(current == null) {
+			return false;
+		}
+		return current instanceof Teacher;
+	}
+	
+	public boolean loggedIsAdmin() {
+		AbstractUser current = manager.managerUsers.getCurrentUser();
+		if(current == null) {
+			return false;
+		}
+		return current instanceof Admin;
 	}
 }

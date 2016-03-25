@@ -56,7 +56,7 @@
 						</h:form>
 					</p:column>
 					
-					<p:column headerText="#{msg['table.header.delete']}" rendered="#{userController.loggedIsAdmin()}">
+					<p:column headerText="#{msg['table.header.delete']}" rendered="#{loginController.loggedIsAdmin()}">
 						<h:form>
 							<p:commandButton value="X" id="supprimer"
 								action="#{userController.remove(p)}" update=":table"

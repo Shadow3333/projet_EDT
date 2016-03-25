@@ -1,5 +1,7 @@
 package web;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -81,7 +83,14 @@ public class EUsController {
 		
 	
 	public List<EU> findAll() throws IllegalAccessException, DaoException{
-		return manager.managerEus.findAll();
+		List<EU> list = new ArrayList<EU>();
+		list.addAll(manager.managerEus.findAll());
+		list.sort(new Comparator<EU>() {
+			public int compare(EU o1, EU o2) {
+				return o1.getId().compareTo(o2.getId());
+			}
+		});
+		return list;
 	}
 	
 	public EU getTheEU() {
