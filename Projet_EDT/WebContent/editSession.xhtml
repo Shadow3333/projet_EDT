@@ -15,12 +15,12 @@
 
 <head>
 
-<title><h:outputText value="#{msg['title.user.add']}" /></title>
+<title><h:outputText value="#{msg['title.session.edit']}" /></title>
 
 </head>
 
 <f:metadata>
-   		<f:event type="preRenderView" listener="#{loginController.accessDeniedIfNotAdmin()}"/>
+   		<f:event type="preRenderView" listener="#{loginController.accessDeniedIfNotTeacher()}"/>
 </f:metadata>
 
 <body>
