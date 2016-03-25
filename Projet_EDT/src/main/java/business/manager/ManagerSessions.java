@@ -4,6 +4,7 @@ import business.dao.IDao;
 import business.model.Session;
 import business.model.SessionFactory;
 import business.model.users.Admin;
+import business.model.users.Teacher;
 
 /**
  * @author LELIEVRE Romain
@@ -18,7 +19,8 @@ public class ManagerSessions extends AbstractManager<Session> {
 	@Override
 	public boolean canSave() {
 		if(manager.managerUsers.getCurrentUser() != null
-				&& manager.managerUsers.getCurrentUser() instanceof Admin) {
+				&& (manager.managerUsers.getCurrentUser() instanceof Admin
+				|| manager.managerUsers.getCurrentUser() instanceof Teacher)) {
 			return true;
 		}
 		return false;
@@ -27,7 +29,8 @@ public class ManagerSessions extends AbstractManager<Session> {
 	@Override
 	public boolean canRemove() {
 		if(manager.managerUsers.getCurrentUser() != null
-				&& manager.managerUsers.getCurrentUser() instanceof Admin) {
+				&& (manager.managerUsers.getCurrentUser() instanceof Admin
+				|| manager.managerUsers.getCurrentUser() instanceof Teacher)) {
 			return true;
 		}
 		return false;

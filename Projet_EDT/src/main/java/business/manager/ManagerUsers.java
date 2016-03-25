@@ -36,15 +36,6 @@ public class ManagerUsers extends AbstractManager<AbstractUser> {
 	}
 
 	@Override
-	public boolean canSave() {
-		if(manager.managerUsers.getCurrentUser() != null
-				&& manager.managerUsers.getCurrentUser() instanceof Admin) {
-			return true;
-		}
-		return false;
-	}
-
-	@Override
 	public boolean canRemove() {
 		if(manager.managerUsers.getCurrentUser() != null
 				&& manager.managerUsers.getCurrentUser() instanceof Admin) {
