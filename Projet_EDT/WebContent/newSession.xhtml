@@ -16,6 +16,7 @@
 
 <f:metadata>
    		<f:event type="preRenderView" listener="#{loginController.accessDeniedIfNotTeacher()}"/>
+	   	<f:event type="preRenderView" listener="#{sessionController.newSession()}"/>
 </f:metadata>
 
 <body>

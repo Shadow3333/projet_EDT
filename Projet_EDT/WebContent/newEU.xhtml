@@ -21,41 +21,21 @@
 
 <f:metadata>
    		<f:event type="preRenderView" listener="#{loginController.accessDeniedIfNotTeacher()}"/>
+   		<f:event type="preRenderView" listener="#{eusController.newEU()}"/>
 </f:metadata>
 
 <body>
-	<ui:composition template="/template/myLayout.xhtml">
-		<ui:define name="content">
-			<f:view>
-				<h1><h:outputText value="#{msg['title.eu.add']}"/></h1>
-
-				<h:form id="test">
-					<c:set var="eu" value="#{eusController.theEU}" />
-
-					<p:panelGrid columns="2">
-					
-						<h:outputText value="#{msg['label.id']}"/>
-						<p:inputText id="id" value="#{eu.id}" required="true"
-						             requiredMessage="#{msg['error.id.required']}"/>
-						             
-						<h:outputText value="#{msg['label.name']}" />
-						<p:inputText id="name" value="#{eu.name}" required="true"
-						             requiredMessage="#{msg['error.name.required']}"/>
-						 
-						 <h:outputText value="#{msg['label.description']}" />
-						<p:editor id="description" value="#{eu.description}" validator="descriptionValidator" validatorMessage="#{msg['error.description.script']}" />
-									 
-						<h:outputText value="#{msg['label.credits']}" />
-	            		<p:inputText id="nbCredits" value="#{eu.nbCredits}"/>
-								     
-					</p:panelGrid>
-					<tr>
-						<td colspan="2">
-							<h:commandButton action="#{eusController.save()}" value="#{msg['button.save']}" />
-						</td>
-					</tr>
-				</h:form>
-			</f:view>
+	<ui:composition template="/template/EUProfile.xhtml">
+		<ui:define name="label">
+			<h1><h:outputText value="#{msg['title.eu.add']}"/></h1>
+		</ui:define>
+		
+		<ui:define name="method">
+			<tr>
+				<td colspan="2">
+					<h:commandButton action="#{eusController.save()}" value="#{msg['button.save']}" />
+				</td>
+			</tr>
 		</ui:define>
 	</ui:composition>
 </body>

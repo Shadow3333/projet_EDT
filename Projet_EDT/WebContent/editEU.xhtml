@@ -15,7 +15,7 @@
 
 <head>
 
-<title><h:outputText value="#{msg['title.session.edit']}" /></title>
+<title><h:outputText value="#{msg['title.eu.edit']}"/></title>
 
 </head>
 
@@ -24,16 +24,15 @@
 </f:metadata>
 
 <body>
-	<ui:composition template="/template/sessionProfile.xhtml">
-	
+	<ui:composition template="/template/EUProfile.xhtml">
 		<ui:define name="label">
-			<h1><h:outputText value="#{msg['title.session.edit']}" /></h1>
+			<h1><h:outputText value="#{msg['title.eu.edit']}"/></h1>
 		</ui:define>
 		
 		<ui:define name="method">
 			<tr>
 				<td colspan="2">
-					<h:commandButton action="#{sessionController.update()}" value="#{msg['button.save']}" />
+					<h:commandButton action="#{eusController.update()}" value="#{msg['button.save']}" />
 				</td>
 			</tr>
 		</ui:define>
