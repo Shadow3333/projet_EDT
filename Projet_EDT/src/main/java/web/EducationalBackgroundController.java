@@ -97,9 +97,26 @@ public class EducationalBackgroundController {
 		return "editEducationalBackground?faces-redirect=true";
 	}
 		
-	public List<EU> findAllEUs() throws IllegalAccessException, DaoException
-	{
-		return manager.managerEus.findAll();
+	public List<EU> findAllEUs() throws IllegalAccessException, DaoException {
+		List<EU> list = new ArrayList<EU>();
+		list.addAll(manager.managerEus.findAll());
+		if(optionals != null) {
+			for(EU eu : optionals) {
+				list.remove(eu);
+			}
+		}
+		return list;
+	}
+
+	public List<EU> findAllOtherEUs() throws IllegalAccessException, DaoException {
+		List<EU> list = new ArrayList<EU>();
+		list.addAll(manager.managerEus.findAll());
+		if(mandatories != null && mandatories.getEus() != null) {
+			for(EU eu : mandatories.getEus()) {
+				list.remove(eu);
+			}
+		}
+		return list;
 	}
 
 	public List<Courses> findAll() throws IllegalAccessException, DaoException
