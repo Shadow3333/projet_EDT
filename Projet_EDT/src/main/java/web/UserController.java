@@ -66,7 +66,7 @@ public class UserController {
  		AbstractUser user = roleToObject();
  		manager.managerUsers.save(user);
  		theUser = new Admin();
- 		return "users";
+ 		return "users?faces-redirect=true";
  	}
 	
 	public AbstractUser roleToObject()
@@ -107,7 +107,7 @@ public class UserController {
  		// TODO check role to role
 		manager.managerUsers.save(user);
  		theUser = new Admin();
-  		return "users";
+  		return "users?faces-redirect=true";
 	}
 	
 	public String show(AbstractUser user)

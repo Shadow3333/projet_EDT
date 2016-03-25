@@ -13,7 +13,6 @@ import javax.faces.bean.SessionScoped;
 import business.dao.DaoException;
 import business.manager.Manager;
 import business.model.EU;
-import business.model.GroupEU;
 
 
 /**
@@ -73,12 +72,12 @@ public class EUsController {
 	{
 		manager.managerEus.remove(theEU.getId());
 		manager.managerEus.save(theEU);
-		return "eus";
+		return "eus?faces-redirect=true";
 	}
 	
 	public String remove(EU ue) throws IllegalAccessException, DaoException {
 		manager.managerEus.remove(ue);
-		return "eus";
+		return "eus?faces-redirect=true";
 	}
 		
 	

@@ -225,13 +225,13 @@ public class SessionController {
 	
 	public String remove(Session session) throws IllegalAccessException, DaoException {
 		manager.managerSessions.remove(session);
-		return "sessions";
+		return "sessions?faces-redirect=true";
 	}
 	
 	public String update() throws IllegalAccessException{
 		manager.managerSessions.update(theSession);
  		theSession = new Session();
-  		return "sessions";
+  		return "sessions?faces-redirect=true";
 	}
 	
 	public LessonType[] getLessonType()
